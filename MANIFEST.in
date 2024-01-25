@@ -1,0 +1,2 @@
+include versioneer.py
+include appname/_version.py
