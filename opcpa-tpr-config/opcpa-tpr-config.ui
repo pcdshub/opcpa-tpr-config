@@ -1,0 +1,1209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>905</width>
+    <height>617</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="PyDMNTTable" name="PyDMNTTable">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>80</y>
+     <width>451</width>
+     <height>531</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="alarmSensitiveContent" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="alarmSensitiveBorder" stdset="0">
+    <bool>true</bool>
+   </property>
+   <property name="PyDMToolTip" stdset="0">
+    <string/>
+   </property>
+   <property name="monitorDisp" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="channel" stdset="0">
+    <string>pva://DAQ:NEH:XPM:0:SEQCODES</string>
+   </property>
+   <property name="readOnly" stdset="0">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>60</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>DAQ:NEH:XPM:0:SEQCODES</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Bay 2 TPR Configuration</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>391</width>
+     <height>194</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="6" column="0">
+     <widget class="PyDMShellCommand" name="PyDMShellCommand">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>1.3 kHz</string>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string>1.3 kHz</string>
+      </property>
+      <property name="channel" stdset="0">
+       <string/>
+      </property>
+      <property name="showConfirmDialog" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="confirmMessage" stdset="0">
+       <string>Are you sure you want to proceed?</string>
+      </property>
+      <property name="environmentVariables" stdset="0">
+       <string/>
+      </property>
+      <property name="showIcon" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="redirectCommandOutput" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="allowMultipleExecutions" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="titles" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="commands" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="passwordProtected" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="password" stdset="0">
+       <string/>
+      </property>
+      <property name="protectedPassword" stdset="0">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_8">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Event Code</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Configurations</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_11">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Amphos</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_7">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH01_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_13">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pulse Picker</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_5">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_3">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH00_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_12">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Carbide</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_14">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Triggers</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="PyDMShellCommand" name="PyDMShellCommand_2">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>33 kHz</string>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string>33 kHz</string>
+      </property>
+      <property name="channel" stdset="0">
+       <string/>
+      </property>
+      <property name="showConfirmDialog" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="confirmMessage" stdset="0">
+       <string>Are you sure you want to proceed?</string>
+      </property>
+      <property name="environmentVariables" stdset="0">
+       <string/>
+      </property>
+      <property name="showIcon" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="redirectCommandOutput" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="allowMultipleExecutions" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="titles" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="commands" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="passwordProtected" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="password" stdset="0">
+       <string/>
+      </property>
+      <property name="protectedPassword" stdset="0">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_8">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH02_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_6">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_3">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Rep Rate</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_20">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Rate Mode</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_17">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH00_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_16">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH01_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_18">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:02:CH02_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>350</y>
+     <width>241</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Bay 3 TPR Configuration</string>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingLine" name="PyDMDrawingLine">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>50</y>
+     <width>21</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="rotation" stdset="0">
+    <double>90.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingLine" name="PyDMDrawingLine_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>881</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_10">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>361</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+     <underline>false</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>NEH Laser Hall OPCPA Rep Rate Configuration</string>
+   </property>
+  </widget>
+  <widget class="PyDMDrawingLine" name="PyDMDrawingLine_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>320</y>
+     <width>391</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>380</y>
+     <width>391</width>
+     <height>194</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_16">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pulse Picker</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_10">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH05_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_18">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Triggers</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="PyDMShellCommand" name="PyDMShellCommand_3">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>1.3 kHz</string>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string>1.3 kHz</string>
+      </property>
+      <property name="channel" stdset="0">
+       <string/>
+      </property>
+      <property name="showConfirmDialog" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="confirmMessage" stdset="0">
+       <string>Are you sure you want to proceed?</string>
+      </property>
+      <property name="environmentVariables" stdset="0">
+       <string/>
+      </property>
+      <property name="showIcon" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="redirectCommandOutput" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="allowMultipleExecutions" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="titles" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="commands" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="passwordProtected" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="password" stdset="0">
+       <string/>
+      </property>
+      <property name="protectedPassword" stdset="0">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_17">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Carbide</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="PyDMShellCommand" name="PyDMShellCommand_4">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string>33 kHz</string>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string>33 kHz</string>
+      </property>
+      <property name="channel" stdset="0">
+       <string/>
+      </property>
+      <property name="showConfirmDialog" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="confirmMessage" stdset="0">
+       <string>Are you sure you want to proceed?</string>
+      </property>
+      <property name="environmentVariables" stdset="0">
+       <string/>
+      </property>
+      <property name="showIcon" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="redirectCommandOutput" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="allowMultipleExecutions" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="titles" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="commands" stdset="0">
+       <stringlist/>
+      </property>
+      <property name="passwordProtected" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="password" stdset="0">
+       <string/>
+      </property>
+      <property name="protectedPassword" stdset="0">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_4">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH03_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QLabel" name="label_9">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Event Code</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_9">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH03_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLabel" name="label_6">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Rep Rate</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_11">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH04_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_15">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Amphos</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="PyDMLabel" name="PyDMLabel_2">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>1</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH04_RATE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="PyDMLabel" name="PyDMLabel_12">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH05_SEQCODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Configurations</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QLabel" name="label_19">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Rate Mode</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_13">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH03_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_14">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH04_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="PyDMLabel" name="PyDMLabel_15">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="precision" stdset="0">
+       <number>0</number>
+      </property>
+      <property name="showUnits" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="precisionFromPV" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="alarmSensitiveContent" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="alarmSensitiveBorder" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="PyDMToolTip" stdset="0">
+       <string/>
+      </property>
+      <property name="channel" stdset="0">
+       <string>ca://LAS:LHN:TPR:01:CH05_RATEMODE</string>
+      </property>
+      <property name="enableRichText" stdset="0">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PyDMNTTable</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.nt_table</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMLabel</class>
+   <extends>QLabel</extends>
+   <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMDrawingLine</class>
+   <extends>QWidget</extends>
+   <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMShellCommand</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.shell_command</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

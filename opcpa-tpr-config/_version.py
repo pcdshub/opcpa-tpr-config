@@ -44,7 +44,7 @@ def get_config():
     cfg.style = "pep440"
     cfg.tag_prefix = "v"
     cfg.parentdir_prefix = "None"
-    cfg.versionfile_source = "appname/_version.py"
+    cfg.versionfile_source = "opcpa-tpr-config/_version.py"
     cfg.verbose = False
     return cfg
 
