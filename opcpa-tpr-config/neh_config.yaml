@@ -1,0 +1,45 @@
+# Configuration file for NEH OPCPA lasers
+
+lasers:
+    laser1: "bay_2"
+
+bay_2:
+  tpr_prefix: "LAS:LHN:TPR:02"
+  ch1_DESC: "Carbide"
+  ch1_ch: "CH03"
+  ch2_DESC: "Amphos"
+  ch2_ch: "CH04"
+  ch3_DESC: "Pulse Picker"
+  ch3_ch: "CH05"
+  ch4_DESC: "Goose Trigger"
+  ch4_ch: "NA"
+
+# TODO: add inclusivity PV
+configs:
+  cfg_1300:
+    ch1_ratemode: "Fixed"
+    ch1_ec: 0
+    ch1_fixedrate: "1MHz"
+    ch1_enable: "Enabled"
+    ch2_ratemode: "Seq"
+    ch2_ec: 272
+    ch2_rate: "1Hz" # dummy value, using seq
+    ch2_enable: "Enabled"
+    ch3_ratemode: "Seq"
+    ch3_ec: 273
+    ch3_rate: "1Hz" # dummy value, using seq
+    ch3_enable: "Enabled"
+
+  cfg_33000:
+    ch1_ratemode: "Fixed"
+    ch1_ec: 0
+    ch1_fixedrate: "1MHz"
+    ch1_enable: "Enabled"
+    ch2_ratemode: "Seq"
+    ch2_ec: 272
+    ch2_fixedrate: "1Hz" # dummy value, using seq
+    ch2_enable: "Enabled"
+    ch3_ratemode: "Seq"
+    ch3_ec: 273
+    ch3_rate: "1Hz" # dummy value, using seq
+    ch3_enable: "Enabled"

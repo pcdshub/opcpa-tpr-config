@@ -64,7 +64,7 @@
     <string>DAQ:NEH:XPM:0:SEQCODES</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="laser1_desc">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -151,12 +151,12 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="PyDMLabel" name="PyDMLabel">
+     <widget class="PyDMLabel" name="laser1_ch2_RATE">
       <property name="toolTip">
        <string/>
       </property>
       <property name="precision" stdset="0">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="showUnits" stdset="0">
        <bool>false</bool>
@@ -174,7 +174,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -208,21 +208,8 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="label_11">
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Amphos</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="3">
-     <widget class="PyDMLabel" name="PyDMLabel_7">
+     <widget class="PyDMLabel" name="laser1_ch2_SEQCODE">
       <property name="toolTip">
        <string/>
       </property>
@@ -245,33 +232,20 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH01_SEQCODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_13">
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Pulse Picker</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1">
-     <widget class="PyDMLabel" name="PyDMLabel_5">
+     <widget class="PyDMLabel" name="laser1_ch1_RATE">
       <property name="toolTip">
        <string/>
       </property>
       <property name="precision" stdset="0">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="showUnits" stdset="0">
        <bool>false</bool>
@@ -289,7 +263,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -297,12 +271,12 @@
      </widget>
     </item>
     <item row="1" column="3">
-     <widget class="PyDMLabel" name="PyDMLabel_3">
+     <widget class="PyDMLabel" name="laser1_ch1_SEQCODE">
       <property name="toolTip">
        <string/>
       </property>
       <property name="precision" stdset="0">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="showUnits" stdset="0">
        <bool>false</bool>
@@ -320,23 +294,10 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH00_SEQCODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0">
-     <widget class="QLabel" name="label_12">
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Carbide</string>
       </property>
      </widget>
     </item>
@@ -409,7 +370,7 @@
      </widget>
     </item>
     <item row="3" column="3">
-     <widget class="PyDMLabel" name="PyDMLabel_8">
+     <widget class="PyDMLabel" name="laser1_ch3_SEQCODE">
       <property name="toolTip">
        <string/>
       </property>
@@ -432,7 +393,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH02_SEQCODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -440,12 +401,12 @@
      </widget>
     </item>
     <item row="3" column="1">
-     <widget class="PyDMLabel" name="PyDMLabel_6">
+     <widget class="PyDMLabel" name="laser1_ch3_RATE">
       <property name="toolTip">
        <string/>
       </property>
       <property name="precision" stdset="0">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="showUnits" stdset="0">
        <bool>false</bool>
@@ -463,7 +424,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH01_RATE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -497,7 +458,7 @@
      </widget>
     </item>
     <item row="1" column="2">
-     <widget class="PyDMLabel" name="PyDMLabel_17">
+     <widget class="PyDMLabel" name="laser1_ch1_RATEMODE">
       <property name="toolTip">
        <string/>
       </property>
@@ -520,7 +481,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH00_RATEMODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -528,7 +489,7 @@
      </widget>
     </item>
     <item row="2" column="2">
-     <widget class="PyDMLabel" name="PyDMLabel_16">
+     <widget class="PyDMLabel" name="laser1_ch2_RATEMODE">
       <property name="toolTip">
        <string/>
       </property>
@@ -551,7 +512,7 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH01_RATEMODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
@@ -559,7 +520,7 @@
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="PyDMLabel" name="PyDMLabel_18">
+     <widget class="PyDMLabel" name="laser1_ch3_RATEMODE">
       <property name="toolTip">
        <string/>
       </property>
@@ -582,10 +543,40 @@
        <string/>
       </property>
       <property name="channel" stdset="0">
-       <string>ca://LAS:LHN:TPR:02:CH02_RATEMODE</string>
+       <string/>
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="PyDMLabel" name="laser1_ch1_DESC">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="PyDMLabel" name="laser1_ch2_DESC">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="PyDMLabel" name="laser1_ch3_DESC">
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>
