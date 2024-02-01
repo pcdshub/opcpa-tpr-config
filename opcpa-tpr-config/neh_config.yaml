@@ -4,6 +4,7 @@ lasers:
     laser1: "bay_2"
 
 bay_2:
+  laser_desc: "Bay 2 TPR Configuration"
   tpr_prefix: "LAS:LHN:TPR:02"
   ch1_DESC: "Carbide"
   ch1_ch: "CH03"
@@ -11,35 +12,80 @@ bay_2:
   ch2_ch: "CH04"
   ch3_DESC: "Pulse Picker"
   ch3_ch: "CH05"
-  ch4_DESC: "Goose Trigger"
-  ch4_ch: "NA"
+  ch4_DESC: "TIC Trigger"
+  ch4_ch: "CH06"
+  ch5_DESC: "Goose Trigger"
+  ch5_ch: "NA"
 
 # TODO: add inclusivity PV
+
+# Reprate to event code mapping
+rep_rates:
+    130: 256
+    260: 257
+    500: 258
+    1300: 259
+    2500: 260
+    6500: 261
+    8125: 262
+    16250: 263
+    32500: 264
+    910000: 265
+
+# Operating rate configurations
 configs:
   cfg_1300:
     ch1_ratemode: "Fixed"
-    ch1_ec: 0
-    ch1_fixedrate: "1MHz"
+    ch1_rate: "1MHz" 
     ch1_enable: "Enabled"
     ch2_ratemode: "Seq"
-    ch2_ec: 272
-    ch2_rate: "1Hz" # dummy value, using seq
+    ch2_rate: 1300 
     ch2_enable: "Enabled"
     ch3_ratemode: "Seq"
-    ch3_ec: 273
-    ch3_rate: "1Hz" # dummy value, using seq
+    ch3_rate: 1300
     ch3_enable: "Enabled"
 
   cfg_33000:
     ch1_ratemode: "Fixed"
-    ch1_ec: 0
-    ch1_fixedrate: "1MHz"
+    ch1_rate: "1MHz"
     ch1_enable: "Enabled"
     ch2_ratemode: "Seq"
-    ch2_ec: 272
-    ch2_fixedrate: "1Hz" # dummy value, using seq
+    ch2_rate: 32500
     ch2_enable: "Enabled"
     ch3_ratemode: "Seq"
-    ch3_ec: 273
-    ch3_rate: "1Hz" # dummy value, using seq
+    ch3_rate: 32500
     ch3_enable: "Enabled"
+
+  cfg_130:
+    ch1_ratemode: "Fixed"
+    ch1_rate: "1MHz" 
+    ch1_enable: "Enabled"
+    ch2_ratemode: "Seq"
+    ch2_rate: 130 
+    ch2_enable: "Enabled"
+    ch3_ratemode: "Seq"
+    ch3_rate: 130
+    ch3_enable: "Enabled"
+
+  cfg_260:
+    ch1_ratemode: "Fixed"
+    ch1_rate: "1MHz" 
+    ch1_enable: "Enabled"
+    ch2_ratemode: "Seq"
+    ch2_rate: 260 
+    ch2_enable: "Enabled"
+    ch3_ratemode: "Seq"
+    ch3_rate: 260
+    ch3_enable: "Enabled"
+
+  cfg_500:
+    ch1_ratemode: "Fixed"
+    ch1_rate: "1MHz" 
+    ch1_enable: "Enabled"
+    ch2_ratemode: "Seq"
+    ch2_rate: 500 
+    ch2_enable: "Enabled"
+    ch3_ratemode: "Seq"
+    ch3_rate: 500
+    ch3_enable: "Enabled"
+

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>905</width>
-    <height>617</height>
+    <height>841</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="PyDMNTTable" name="PyDMNTTable">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>80</y>
-     <width>451</width>
+     <x>430</x>
+     <y>70</y>
+     <width>461</width>
      <height>531</height>
     </rect>
    </property>
@@ -48,7 +48,7 @@
    <property name="geometry">
     <rect>
      <x>450</x>
-     <y>60</y>
+     <y>50</y>
      <width>241</width>
      <height>16</height>
     </rect>
@@ -64,92 +64,16 @@
     <string>DAQ:NEH:XPM:0:SEQCODES</string>
    </property>
   </widget>
-  <widget class="QLabel" name="laser1_desc">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>241</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
-     <underline>true</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>Bay 2 TPR Configuration</string>
-   </property>
-  </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>80</y>
      <width>391</width>
-     <height>194</height>
+     <height>121</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="6" column="0">
-     <widget class="PyDMShellCommand" name="PyDMShellCommand">
-      <property name="toolTip">
-       <string/>
-      </property>
-      <property name="text">
-       <string>1.3 kHz</string>
-      </property>
-      <property name="alarmSensitiveContent" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="alarmSensitiveBorder" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="PyDMToolTip" stdset="0">
-       <string>1.3 kHz</string>
-      </property>
-      <property name="channel" stdset="0">
-       <string/>
-      </property>
-      <property name="showConfirmDialog" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="confirmMessage" stdset="0">
-       <string>Are you sure you want to proceed?</string>
-      </property>
-      <property name="environmentVariables" stdset="0">
-       <string/>
-      </property>
-      <property name="showIcon" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="redirectCommandOutput" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="allowMultipleExecutions" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="titles" stdset="0">
-       <stringlist/>
-      </property>
-      <property name="commands" stdset="0">
-       <stringlist/>
-      </property>
-      <property name="passwordProtected" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="password" stdset="0">
-       <string/>
-      </property>
-      <property name="protectedPassword" stdset="0">
-       <string/>
-      </property>
-     </widget>
-    </item>
+   <layout class="QGridLayout" name="laser1_trig_layout">
     <item row="2" column="1">
      <widget class="PyDMLabel" name="laser1_ch2_RATE">
       <property name="toolTip">
@@ -191,20 +115,6 @@
       </property>
       <property name="text">
        <string>Event Code</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="0">
-     <widget class="QLabel" name="label_4">
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-        <underline>false</underline>
-       </font>
-      </property>
-      <property name="text">
-       <string>Configurations</string>
       </property>
      </widget>
     </item>
@@ -311,61 +221,6 @@
       </property>
       <property name="text">
        <string>Triggers</string>
-      </property>
-     </widget>
-    </item>
-    <item row="7" column="0">
-     <widget class="PyDMShellCommand" name="PyDMShellCommand_2">
-      <property name="toolTip">
-       <string/>
-      </property>
-      <property name="text">
-       <string>33 kHz</string>
-      </property>
-      <property name="alarmSensitiveContent" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="alarmSensitiveBorder" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="PyDMToolTip" stdset="0">
-       <string>33 kHz</string>
-      </property>
-      <property name="channel" stdset="0">
-       <string/>
-      </property>
-      <property name="showConfirmDialog" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="confirmMessage" stdset="0">
-       <string>Are you sure you want to proceed?</string>
-      </property>
-      <property name="environmentVariables" stdset="0">
-       <string/>
-      </property>
-      <property name="showIcon" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="redirectCommandOutput" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="allowMultipleExecutions" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="titles" stdset="0">
-       <stringlist/>
-      </property>
-      <property name="commands" stdset="0">
-       <stringlist/>
-      </property>
-      <property name="passwordProtected" stdset="0">
-       <bool>false</bool>
-      </property>
-      <property name="password" stdset="0">
-       <string/>
-      </property>
-      <property name="protectedPassword" stdset="0">
-       <string/>
       </property>
      </widget>
     </item>
@@ -586,7 +441,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>350</y>
+     <y>460</y>
      <width>241</width>
      <height>16</height>
     </rect>
@@ -609,7 +464,7 @@
      <x>410</x>
      <y>50</y>
      <width>21</width>
-     <height>551</height>
+     <height>641</height>
     </rect>
    </property>
    <property name="toolTip">
@@ -670,7 +525,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>380</y>
+     <y>490</y>
      <width>391</width>
      <height>194</height>
     </rect>
@@ -1167,6 +1022,53 @@
       </property>
       <property name="enableRichText" stdset="0">
        <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="PyDMLabel" name="laser1_desc">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>391</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="text">
+    <string>#####</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>240</y>
+     <width>391</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="laser1_config_layout">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>Configurations</string>
       </property>
      </widget>
     </item>

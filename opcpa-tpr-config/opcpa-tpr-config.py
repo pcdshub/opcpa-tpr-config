@@ -1,7 +1,9 @@
 import yaml
 
+from qtpy.QtWidgets import QGridLayout
+
 from pydm import Display
-from pydm.widgets import PyDMLabel
+from pydm.widgets import PyDMLabel, PyDMShellCommand, PyDMPushButton
 
 class App(Display):
 
@@ -28,17 +30,31 @@ class App(Display):
 
         for laser in self.config['lasers']:
             self.setup_laser(laser)
+            self.setup_configs(laser)
 
         print('End of __init__ for template launcher')
 
     def ui_filename(self):
         return 'opcpa-tpr-config.ui'
-   
+  
+    def setup_configs(self, laser):
+        grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
+        if grid is not None:
+            for ncfg, cfg in enumerate(self.config['configs']):
+                button = PyDMPushButton(f'{laser}_{cfg}')
+                rate = self.config['configs'][cfg]['ch2_rate']
+                button.setText(f'{rate} Hz')
+                row, col = divmod(ncfg, 4)
+                row += 1 # Leave first row for title
+                grid.addWidget(button, row, col)
+            
     def setup_laser(self, laser):
-        #confd = self.config.get(laser)[0]
         las = self.config['lasers'][laser]
         if las is not None:
             las_conf = self.config[las]
+            child = self.findChild(PyDMLabel, "{}_desc".format(laser))
+            if child is not None:
+                child.setText(las_conf['laser_desc'])
             channels = range(1, 4)
             tpr_prefix = las_conf['tpr_prefix']
             labels = ['DESC', 'RATE', 'RATEMODE', 'SEQCODE']
