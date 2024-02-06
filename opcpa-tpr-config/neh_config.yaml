@@ -3,24 +3,110 @@
 lasers:
     laser1: "bay_2"
 
-bay_2:
-  laser_desc: "Bay 2 TPR Configuration"
-  tpr_prefix: "LAS:LHN:TPR:02"
-  ch1_DESC: "Carbide"
-  ch1_ch: "CH03"
-  ch2_DESC: "Amphos"
-  ch2_ch: "CH04"
-  ch3_DESC: "Pulse Picker"
-  ch3_ch: "CH05"
-  ch4_DESC: "TIC Trigger"
-  ch4_ch: "CH06"
-  ch5_DESC: "Goose Trigger"
-  ch5_ch: "NA"
-
 # TODO: add inclusivity PV
+bay_2:
 
-# Reprate to event code mapping
-rep_rates:
+  laser_desc: "Bay 2 TPR Configuration"
+
+  tpr_prefix: "LAS:LHN:TPR:02"
+
+  # TPR Channels
+  channels:
+    ch1:
+      desc: "Carbide"
+      ch: "CH03"
+    ch2:
+      desc: "Amphos"
+      ch: "CH04"
+    ch3:
+      desc: "Pulse Picker"
+      ch: "CH05"
+    ch4:
+      desc: "TIC Trigger"
+      ch: "CH06"
+    ch5:
+      desc: "Goose Trigger"
+      ch: "NA"
+
+  # Allowed rep-rate configs for the given laser
+  configs:
+    cfg_1300:
+      rate: "1300 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 1300 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 1300
+        enable: "Enabled"
+  
+    cfg_32500:
+      rate: "32500 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 32500 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 32500
+        enable: "Enabled"
+  
+    cfg_130:
+      rate: "130 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 130 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 130
+        enable: "Enabled"
+  
+    cfg_260:
+      rate: "260 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 260 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 260 
+        enable: "Enabled"
+  
+    cfg_500: 
+      rate: "500 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 500 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 500 
+        enable: "Enabled"
+
+  # Reprate to event code mapping for the system
+  rep_rates:
     130: 256
     260: 257
     500: 258
@@ -32,60 +118,5 @@ rep_rates:
     32500: 264
     910000: 265
 
-# Operating rate configurations
-configs:
-  cfg_1300:
-    ch1_ratemode: "Fixed"
-    ch1_rate: "1MHz" 
-    ch1_enable: "Enabled"
-    ch2_ratemode: "Seq"
-    ch2_rate: 1300 
-    ch2_enable: "Enabled"
-    ch3_ratemode: "Seq"
-    ch3_rate: 1300
-    ch3_enable: "Enabled"
 
-  cfg_33000:
-    ch1_ratemode: "Fixed"
-    ch1_rate: "1MHz"
-    ch1_enable: "Enabled"
-    ch2_ratemode: "Seq"
-    ch2_rate: 32500
-    ch2_enable: "Enabled"
-    ch3_ratemode: "Seq"
-    ch3_rate: 32500
-    ch3_enable: "Enabled"
-
-  cfg_130:
-    ch1_ratemode: "Fixed"
-    ch1_rate: "1MHz" 
-    ch1_enable: "Enabled"
-    ch2_ratemode: "Seq"
-    ch2_rate: 130 
-    ch2_enable: "Enabled"
-    ch3_ratemode: "Seq"
-    ch3_rate: 130
-    ch3_enable: "Enabled"
-
-  cfg_260:
-    ch1_ratemode: "Fixed"
-    ch1_rate: "1MHz" 
-    ch1_enable: "Enabled"
-    ch2_ratemode: "Seq"
-    ch2_rate: 260 
-    ch2_enable: "Enabled"
-    ch3_ratemode: "Seq"
-    ch3_rate: 260
-    ch3_enable: "Enabled"
-
-  cfg_500:
-    ch1_ratemode: "Fixed"
-    ch1_rate: "1MHz" 
-    ch1_enable: "Enabled"
-    ch2_ratemode: "Seq"
-    ch2_rate: 500 
-    ch2_enable: "Enabled"
-    ch3_ratemode: "Seq"
-    ch3_rate: 500
-    ch3_enable: "Enabled"
 

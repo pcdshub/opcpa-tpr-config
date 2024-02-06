@@ -2,6 +2,8 @@ import yaml
 
 from qtpy.QtWidgets import QGridLayout
 
+from ophyd import EpicsSignal, EpicsSignalRO
+
 from pydm import Display
 from pydm.widgets import PyDMLabel, PyDMShellCommand, PyDMPushButton
 
@@ -40,33 +42,38 @@ class App(Display):
     def setup_configs(self, laser):
         grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
         if grid is not None:
-            for ncfg, cfg in enumerate(self.config['configs']):
+            las = self.config['lasers'][laser]
+            for ncfg, cfg in enumerate(self.config[las]['configs']):
                 button = PyDMPushButton(f'{laser}_{cfg}')
-                rate = self.config['configs'][cfg]['ch2_rate']
-                button.setText(f'{rate} Hz')
+                rate = self.config[las]['configs'][cfg]['rate']
+                button.setText(f'{rate}')
                 row, col = divmod(ncfg, 4)
                 row += 1 # Leave first row for title
                 grid.addWidget(button, row, col)
-            
+
+    def configure_laser(self, laser, cfg):
+        las_conf = self.config[laser]
+        trig_conf = self.config[laser]['configs'][cfg]
+        
+
     def setup_laser(self, laser):
         las = self.config['lasers'][laser]
         if las is not None:
             las_conf = self.config[las]
-            child = self.findChild(PyDMLabel, "{}_desc".format(laser))
+            child = self.findChild(PyDMLabel, '{laser}_desc')
             if child is not None:
                 child.setText(las_conf['laser_desc'])
-            channels = range(1, 4)
             tpr_prefix = las_conf['tpr_prefix']
             labels = ['DESC', 'RATE', 'RATEMODE', 'SEQCODE']
-            for channel in channels:
+            for channel in las_conf['channels']:
                 for label in labels:
-                    child = self.findChild(PyDMLabel, "{}_ch{}_{}".format(laser, channel, label))
+                    child = self.findChild(PyDMLabel, f'{laser}_{channel}_{label}')
                     if child is not None:
                         if label == 'DESC':
-                            val = las_conf[f'ch{channel}_{label}']
+                            val = las_conf['channels'][f'{channel}']['desc']
                             child.setText(val)
                         else:
-                            tpr_ch = las_conf[f'ch{channel}_ch'] 
+                            tpr_ch = las_conf['channels'][f'{channel}']['ch']
                             child.set_channel(f'ca://{tpr_prefix}:{tpr_ch}_{label}')
         else:
             print("Laser {} not found!".format(laser))
