@@ -535,21 +535,20 @@
       <item>
        <layout class="QVBoxLayout" name="xpm_vlayout">
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="PyDMLabel" name="xpm_label">
           <property name="font">
            <font>
-            <pointsize>10</pointsize>
             <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
-          <property name="text">
-           <string>DAQ:NEH:XPM:0:SEQCODES</string>
+          <property name="toolTip">
+           <string/>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="PyDMNTTable" name="PyDMNTTable">
+         <widget class="PyDMNTTable" name="xpm">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
             <horstretch>0</horstretch>
@@ -578,7 +577,7 @@
            <bool>false</bool>
           </property>
           <property name="channel" stdset="0">
-           <string>pva://DAQ:NEH:XPM:0:SEQCODES</string>
+           <string/>
           </property>
           <property name="readOnly" stdset="0">
            <bool>true</bool>
@@ -607,33 +606,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>1149</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>10</pointsize>
-     <weight>75</weight>
-     <bold>true</bold>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>NEH Laser Hall OPCPA Rep Rate Configuration</string>
-   </property>
-  </widget>
   <widget class="PyDMDrawingLine" name="PyDMDrawingLine_2">
    <property name="geometry">
     <rect>
@@ -648,6 +620,25 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+  </widget>
+  <widget class="PyDMLabel" name="screen_title">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>1151</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
    </property>
    <property name="toolTip">
     <string/>

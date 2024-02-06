@@ -1,5 +1,9 @@
 # Configuration file for NEH OPCPA lasers
 
+main:
+    xpm_pv: "DAQ:NEH:XPM:0:SEQCODES"
+    title: "NEH Laser Hall OPCPA Rep. Rate Configuration"
+
 lasers:
     laser1: "bay_2"
 

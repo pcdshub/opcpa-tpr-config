@@ -5,7 +5,8 @@ from qtpy.QtWidgets import QGridLayout
 from ophyd import EpicsSignal, EpicsSignalRO
 
 from pydm import Display
-from pydm.widgets import PyDMLabel, PyDMShellCommand, PyDMPushButton
+from pydm.widgets import (PyDMLabel, PyDMShellCommand, PyDMPushButton,
+                          PyDMNTTable)
 
 class App(Display):
 
@@ -30,6 +31,10 @@ class App(Display):
         # Now it is safe to refer to self.ui and access your widget objects
         # It is too late to do any macros processing
 
+        # Setup main areas of GUI
+        self.setup_main()
+
+        # Setup laser specific portions of GUI
         for laser in self.config['lasers']:
             self.setup_laser(laser)
             self.setup_configs(laser)
@@ -38,7 +43,20 @@ class App(Display):
 
     def ui_filename(self):
         return 'opcpa-tpr-config.ui'
-  
+ 
+    def setup_main(self):
+        title = self.findChild(PyDMLabel, 'screen_title')
+        if title is not None:
+            title.setText(self.config['main']['title'])
+        xpm_label = self.findChild(PyDMLabel, 'xpm_label')
+        xpm_pv = self.config['main']['xpm_pv']
+        if xpm_label is not None:
+            xpm_label.setText(xpm_pv)
+        xpm = self.findChild(PyDMNTTable, 'xpm')
+        if xpm is not None:
+            xpm.set_channel(f'pva://{xpm_pv}')
+
+         
     def setup_configs(self, laser):
         grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
         if grid is not None:
