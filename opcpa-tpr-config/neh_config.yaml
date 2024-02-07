@@ -30,7 +30,7 @@ bay_2:
       ch: "CH06"
     ch5:
       desc: "Goose Trigger"
-      ch: "NA"
+      ch: "CH07"
 
   # Allowed rep-rate configs for the given laser
   configs:

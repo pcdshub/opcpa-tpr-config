@@ -36,7 +36,8 @@ class App(Display):
 
         # Setup laser specific portions of GUI
         for laser in self.config['lasers']:
-            self.setup_laser(laser)
+            self.setup_channels(laser)
+            #self.setup_laser(laser)
             self.setup_configs(laser)
 
         print('End of __init__ for template launcher')
@@ -55,6 +56,45 @@ class App(Display):
         xpm = self.findChild(PyDMNTTable, 'xpm')
         if xpm is not None:
             xpm.set_channel(f'pva://{xpm_pv}')
+
+    def setup_channels(self, laser):
+        grid = self.ui.findChild(QGridLayout, f'{laser}_trig_layout')
+        if grid is not None:
+            # Setup column headers
+            desc = PyDMLabel()
+            desc.setText('Trigger')
+            grid.addWidget(desc, 0, 0)
+            reprate = PyDMLabel()
+            reprate.setText('Rep. Rate')
+            grid.addWidget(reprate, 0, 1)
+            ratemode = PyDMLabel()
+            ratemode.setText('Rate Mode')
+            grid.addWidget(ratemode, 0, 2)
+            eventcode = PyDMLabel()
+            eventcode.setText('Event Code')
+            grid.addWidget(eventcode, 0, 3)
+            
+            # Setup PV RBVs
+            las = self.config['lasers'][laser]
+            las_conf = self.config[las]
+            child = self.findChild(PyDMLabel, f'{laser}_desc')
+            if child is not None:
+                print("Found laser desc")
+                child.setText(las_conf['laser_desc'])
+            tpr_prefix = las_conf['tpr_prefix']
+            labels = ['DESC', 'RATE', 'RATEMODE', 'SEQCODE']
+            for nchannel, channel in enumerate(las_conf['channels'], start=1):
+                for nlabel, label in enumerate(labels):
+                    child = PyDMLabel()
+                    if label == 'DESC':
+                        val = las_conf['channels'][f'{channel}']['desc']
+                        child.setText(val)
+                    else:
+                        tpr_ch = las_conf['channels'][f'{channel}']['ch']
+                        child.set_channel(f'ca://{tpr_prefix}:{tpr_ch}_{label}')
+                    grid.addWidget(child, nchannel, nlabel)
+        else:
+            print("Laser {} not found!".format(laser))
 
          
     def setup_configs(self, laser):
