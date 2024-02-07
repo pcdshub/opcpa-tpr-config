@@ -25,7 +25,7 @@ class App(Display):
         self.config = config
 
         print(f'Loaded config {cfg_file}:')
-        print(config)
+        #print(config)
 
         # Call super after handling args/macros but before doing pyqt stuff
         super().__init__(parent=parent, args=args, macros=macros)
@@ -38,7 +38,7 @@ class App(Display):
 
         # Setup laser specific portions of GUI
         for laser in self.config['lasers']:
-            self.setup_channels(laser)
+            self.setup_rbvs(laser)
             self.setup_configs(laser)
 
         print('End of __init__ for template launcher')
@@ -47,6 +47,9 @@ class App(Display):
         return 'opcpa-tpr-config.ui'
  
     def setup_main(self):
+        """
+        Setup the central widgets for the screen.
+        """
         title = self.findChild(PyDMLabel, 'screen_title')
         if title is not None:
             title.setText(self.config['main']['title'])
@@ -58,7 +61,14 @@ class App(Display):
         if xpm is not None:
             xpm.set_channel(f'pva://{xpm_pv}')
 
-    def setup_channels(self, laser):
+    def setup_rbvs(self, laser):
+        """
+        Setup the RBV widgets for the given laser system.
+
+        Arguments
+        ---------
+        laser: The name of the laser configuration to be used.
+        """
         grid = self.ui.findChild(QGridLayout, f'{laser}_trig_layout')
         if grid is not None:
             # Setup column headers
@@ -98,6 +108,13 @@ class App(Display):
 
          
     def setup_configs(self, laser):
+        """
+        Setup the configuration buttons for the given laser system.
+
+        Arguments
+        ---------
+        laser: The name of the laser configuration to be used.
+        """
         grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
         if grid is not None:
             las = self.config['lasers'][laser]
@@ -112,7 +129,16 @@ class App(Display):
                 button.clicked.connect(partial(self.set_configuration, las, cfg))
 
     def set_configuration(self, laser, config):
-        """Apply the given configuration to the TPR"""
+        """
+        Apply the given configuration to the TPR.
+
+        Arguments
+        ---------
+        laser: The name of the laser configuration to be used.
+
+        config: The rep rate configuration to be applied when calling this
+                function.
+        """
         cfg = self.config[laser]['rate_configs'][config]
         tpr_base = self.config[laser]['tpr_base']
         for channel in self.config[laser]['channels']:
