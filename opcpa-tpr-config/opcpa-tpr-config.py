@@ -100,14 +100,10 @@ class App(Display):
         grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
         if grid is not None:
             las = self.config['lasers'][laser]
-            for ncfg, cfg in enumerate(self.config[las]['configs']):
+            for ncfg, cfg in enumerate(self.config[las]['rate_configs']):
                 button = PyDMPushButton(f'{laser}_{cfg}')
-                rate = self.config[las]['configs'][cfg]['rate']
+                rate = self.config[las]['rate_configs'][cfg]['rate']
                 button.setText(f'{rate}')
                 row, col = divmod(ncfg, 4)
                 row += 1 # Leave first row for title
                 grid.addWidget(button, row, col)
-
-    def configure_laser(self, laser, cfg):
-        las_conf = self.config[laser]
-        trig_conf = self.config[laser]['configs'][cfg]

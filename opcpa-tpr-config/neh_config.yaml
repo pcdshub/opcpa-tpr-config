@@ -33,7 +33,7 @@ bay_2:
       ch: "CH07"
 
   # Allowed rep-rate configs for the given laser
-  configs:
+  rate_configs:
     cfg_1300:
       rate: "1300 Hz"
       ch1:
