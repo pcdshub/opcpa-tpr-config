@@ -105,6 +105,7 @@ class App(Display):
                 button = PyDMPushButton(f'{laser}_{cfg}')
                 rate = self.config[las]['rate_configs'][cfg]['rate']
                 button.setText(f'{rate}')
+                button.showConfirmDialog = True
                 row, col = divmod(ncfg, 4)
                 row += 1 # Leave first row for title
                 grid.addWidget(button, row, col)
