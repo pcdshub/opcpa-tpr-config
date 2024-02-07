@@ -37,7 +37,6 @@ class App(Display):
         # Setup laser specific portions of GUI
         for laser in self.config['lasers']:
             self.setup_channels(laser)
-            #self.setup_laser(laser)
             self.setup_configs(laser)
 
         print('End of __init__ for template launcher')
@@ -112,26 +111,3 @@ class App(Display):
     def configure_laser(self, laser, cfg):
         las_conf = self.config[laser]
         trig_conf = self.config[laser]['configs'][cfg]
-        
-
-    def setup_laser(self, laser):
-        las = self.config['lasers'][laser]
-        if las is not None:
-            las_conf = self.config[las]
-            child = self.findChild(PyDMLabel, '{laser}_desc')
-            if child is not None:
-                child.setText(las_conf['laser_desc'])
-            tpr_prefix = las_conf['tpr_prefix']
-            labels = ['DESC', 'RATE', 'RATEMODE', 'SEQCODE']
-            for channel in las_conf['channels']:
-                for label in labels:
-                    child = self.findChild(PyDMLabel, f'{laser}_{channel}_{label}')
-                    if child is not None:
-                        if label == 'DESC':
-                            val = las_conf['channels'][f'{channel}']['desc']
-                            child.setText(val)
-                        else:
-                            tpr_ch = las_conf['channels'][f'{channel}']['ch']
-                            child.set_channel(f'ca://{tpr_prefix}:{tpr_ch}_{label}')
-        else:
-            print("Laser {} not found!".format(laser))
