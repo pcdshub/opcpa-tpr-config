@@ -7,25 +7,25 @@ from qtpy.QtWidgets import QGridLayout
 from ophyd import EpicsSignal
 
 from pydm import Display
-from pydm.widgets import (PyDMLabel, PyDMShellCommand, PyDMPushButton,
-                          PyDMNTTable)
+from pydm.widgets import (PyDMLabel, PyDMPushButton, PyDMNTTable)
+
 
 class App(Display):
 
     def __init__(self, parent=None, args=None, macros=None):
-        print('Start of __init__ for template launcher')
-        print(f'args={args}, macros={macros}')
+        # print(f'args={args}, macros={macros}')
 
         # Read in config file
-        cfg_file = "opcpa-tpr-config/neh_config.yaml" #TODO add argparse, make this an arg
+        # TODO add argparse, make this an arg
+        cfg_file = "opcpa-tpr-config/neh_config.yaml"
 
         config = {}
         with open(cfg_file, 'r') as f:
             config = yaml.safe_load(f)
         self.config = config
 
-        print(f'Loaded config {cfg_file}:')
-        #print(config)
+        print(f'Loaded config {cfg_file}')
+        # print(config)
 
         # Call super after handling args/macros but before doing pyqt stuff
         super().__init__(parent=parent, args=args, macros=macros)
@@ -41,11 +41,9 @@ class App(Display):
             self.setup_rbvs(laser)
             self.setup_configs(laser)
 
-        print('End of __init__ for template launcher')
-
     def ui_filename(self):
         return 'opcpa-tpr-config.ui'
- 
+
     def setup_main(self):
         """
         Setup the central widgets for the screen.
@@ -67,7 +65,7 @@ class App(Display):
 
         Arguments
         ---------
-        laser: The name of the laser configuration to be used.
+        laser: The key name of the laser to be used.
         """
         grid = self.ui.findChild(QGridLayout, f'{laser}_trig_layout')
         if grid is not None:
@@ -84,7 +82,7 @@ class App(Display):
             eventcode = PyDMLabel()
             eventcode.setText('Event Code')
             grid.addWidget(eventcode, 0, 3)
-            
+
             # Setup PV RBVs
             las = self.config['lasers'][laser]
             las_conf = self.config[las]
@@ -101,12 +99,12 @@ class App(Display):
                         child.setText(val)
                     else:
                         tpr_ch = las_conf['channels'][f'{channel}']['ch']
-                        child.set_channel(f'ca://{tpr_base}:CH{tpr_ch}_{label}')
+                        pv = f'ca://{tpr_base}:CH{tpr_ch}_{label}'
+                        child.set_channel(pv)
                     grid.addWidget(child, nchannel, nlabel)
         else:
             print("Laser {} not found!".format(laser))
 
-         
     def setup_configs(self, laser):
         """
         Setup the configuration buttons for the given laser system.
@@ -115,7 +113,7 @@ class App(Display):
         ---------
         laser: The name of the laser configuration to be used.
         """
-        grid = self.findChild(QGridLayout, f"{laser}_config_layout") 
+        grid = self.findChild(QGridLayout, f"{laser}_config_layout")
         if grid is not None:
             las = self.config['lasers'][laser]
             for ncfg, cfg in enumerate(self.config[las]['rate_configs']):
@@ -124,9 +122,11 @@ class App(Display):
                 button.setText(f'{rate}')
                 button.showConfirmDialog = True
                 row, col = divmod(ncfg, 4)
-                row += 1 # Leave first row for title
+                row += 1  # Leave first row for title
                 grid.addWidget(button, row, col)
-                button.clicked.connect(partial(self.set_configuration, las, cfg))
+                button.clicked.connect(
+                    partial(self.set_configuration, las, cfg)
+                )
 
     def set_configuration(self, laser, config):
         """
@@ -139,17 +139,17 @@ class App(Display):
         config: The rep rate configuration to be applied when calling this
                 function.
         """
-        cfg = self.config[laser]['rate_configs'][config]
         tpr_base = self.config[laser]['tpr_base']
+        rate_conf = self.config[laser]['rate_configs'][config]
         for channel in self.config[laser]['channels']:
             if channel in self.config[laser]['rate_configs'][config]:
                 tpr_ch = self.config[laser]['channels'][f'{channel}']['ch']
                 # Set rate mode
-                ratemode_val = self.config[laser]['rate_configs'][config][channel]['ratemode']
+                ratemode_val = rate_conf[channel]['ratemode']
                 ratemode_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_RATEMODE')
                 ratemode_sig.put(ratemode_val)
                 # Set rate
-                rate_val = self.config[laser]['rate_configs'][config][channel]['rate']
+                rate_val = rate_conf[channel]['rate']
                 if ratemode_val == 'Fixed':
                     rate_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_FIXEDRATE')
                     rate_sig.put(rate_val)
@@ -160,7 +160,7 @@ class App(Display):
                 else:
                     raise ValueError(f"Unknown ratemode {ratemode_val}")
                 # Enable/Disable the trigger
-                enable_val = self.config[laser]['rate_configs'][config][channel]['enable']
+                enable_val = rate_conf[channel]['enable']
                 trg_sig = EpicsSignal(f'{tpr_base}:TRG{tpr_ch}_SYS2_TCTL')
                 trg_sig.put(enable_val)
                 ch_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_SYS2_TCTL')
