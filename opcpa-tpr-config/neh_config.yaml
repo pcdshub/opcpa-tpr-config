@@ -12,27 +12,40 @@ bay_2:
 
   laser_desc: "Bay 2 TPR Configuration"
 
-  tpr_prefix: "LAS:LHN:TPR:02"
+  tpr_base: "LAS:LHN:TPR:02"
 
   # TPR Channels
   channels:
     ch1:
       desc: "Carbide"
-      ch: "CH03"
+      ch: "03"
     ch2:
       desc: "Amphos"
-      ch: "CH04"
+      ch: "04"
     ch3:
       desc: "Pulse Picker"
-      ch: "CH05"
+      ch: "05"
     ch4:
       desc: "TIC Trigger"
-      ch: "CH06"
+      ch: "06"
     ch5:
       desc: "Goose Trigger"
-      ch: "CH07"
+      ch: "07"
 
-  # Allowed rep-rate configs for the given laser
+  # Reprate (in TPG seconds) to event code mapping for the system
+  rep_rates:
+    130: 256
+    260: 257
+    500: 258
+    1300: 259
+    2500: 260
+    6500: 261
+    8125: 262
+    16250: 263
+    32500: 264
+    910000: 265
+
+  # Allowed rep-rate configs (in TPG seconds) for the given laser
   rate_configs:
     cfg_1300:
       rate: "1300 Hz"
@@ -108,19 +121,6 @@ bay_2:
         ratemode: "Seq"
         rate: 500 
         enable: "Enabled"
-
-  # Reprate to event code mapping for the system
-  rep_rates:
-    130: 256
-    260: 257
-    500: 258
-    1300: 259
-    2500: 260
-    6500: 261
-    8125: 262
-    16250: 263
-    32500: 264
-    910000: 265
 
 
 

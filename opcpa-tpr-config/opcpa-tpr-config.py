@@ -1,5 +1,7 @@
 import yaml
 
+from functools import partial
+
 from qtpy.QtWidgets import QGridLayout
 
 from ophyd import EpicsSignal, EpicsSignalRO
@@ -78,9 +80,8 @@ class App(Display):
             las_conf = self.config[las]
             child = self.findChild(PyDMLabel, f'{laser}_desc')
             if child is not None:
-                print("Found laser desc")
                 child.setText(las_conf['laser_desc'])
-            tpr_prefix = las_conf['tpr_prefix']
+            tpr_base = las_conf['tpr_base']
             labels = ['DESC', 'RATE', 'RATEMODE', 'SEQCODE']
             for nchannel, channel in enumerate(las_conf['channels'], start=1):
                 for nlabel, label in enumerate(labels):
@@ -90,7 +91,7 @@ class App(Display):
                         child.setText(val)
                     else:
                         tpr_ch = las_conf['channels'][f'{channel}']['ch']
-                        child.set_channel(f'ca://{tpr_prefix}:{tpr_ch}_{label}')
+                        child.set_channel(f'ca://{tpr_base}:CH{tpr_ch}_{label}')
                     grid.addWidget(child, nchannel, nlabel)
         else:
             print("Laser {} not found!".format(laser))
@@ -107,3 +108,24 @@ class App(Display):
                 row, col = divmod(ncfg, 4)
                 row += 1 # Leave first row for title
                 grid.addWidget(button, row, col)
+                button.clicked.connect(partial(self.set_configuration, las, cfg))
+
+    def set_configuration(self, laser, config):
+        """Apply the given configuration to the TPR"""
+        cfg = self.config[laser]['rate_configs'][config]
+        tpr_base = self.config[laser]['tpr_base']
+        for channel in self.config[laser]['channels']:
+            if channel in self.config[laser]['rate_configs'][config]:
+                #ratemode = EpicsSignal(f'{tpr_base}:{tpr_ch}_RATEMODE')
+                tpr_ch = self.config[laser]['channels'][f'{channel}']['ch']
+                ratemode_val = self.config[laser]['rate_configs'][config][channel]['ratemode']
+                print(f'{tpr_base}:CH{tpr_ch}_RATEMODE: {ratemode_val}') 
+                rate_val = self.config[laser]['rate_configs'][config][channel]['rate']
+                if ratemode_val == 'Fixed':
+                    print(f'{tpr_base}:CH{tpr_ch}_FIXEDRATE: {rate_val}')
+                elif ratemode_val == 'Seq':
+                    event_code = self.config[laser]['rep_rates'][rate_val]
+                    print(f'{tpr_base}:CH{tpr_ch}_SEQCODE: {event_code}')
+                enable_val = self.config[laser]['rate_configs'][config][channel]['enable']
+                print(f'{tpr_base}:TRG{tpr_ch}_SYS2_TCTL: {enable_val}') 
+                print(f'{tpr_base}:CH{tpr_ch}_SYS2_TCTL: {enable_val}') 
