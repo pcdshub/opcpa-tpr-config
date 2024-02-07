@@ -4,7 +4,7 @@ from functools import partial
 
 from qtpy.QtWidgets import QGridLayout
 
-from ophyd import EpicsSignal, EpicsSignalRO
+from ophyd import EpicsSignal
 
 from pydm import Display
 from pydm.widgets import (PyDMLabel, PyDMShellCommand, PyDMPushButton,
@@ -116,16 +116,25 @@ class App(Display):
         tpr_base = self.config[laser]['tpr_base']
         for channel in self.config[laser]['channels']:
             if channel in self.config[laser]['rate_configs'][config]:
-                #ratemode = EpicsSignal(f'{tpr_base}:{tpr_ch}_RATEMODE')
                 tpr_ch = self.config[laser]['channels'][f'{channel}']['ch']
+                # Set rate mode
                 ratemode_val = self.config[laser]['rate_configs'][config][channel]['ratemode']
-                print(f'{tpr_base}:CH{tpr_ch}_RATEMODE: {ratemode_val}') 
+                ratemode_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_RATEMODE')
+                ratemode_sig.put(ratemode_val)
+                # Set rate
                 rate_val = self.config[laser]['rate_configs'][config][channel]['rate']
                 if ratemode_val == 'Fixed':
-                    print(f'{tpr_base}:CH{tpr_ch}_FIXEDRATE: {rate_val}')
+                    rate_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_FIXEDRATE')
+                    rate_sig.put(rate_val)
                 elif ratemode_val == 'Seq':
+                    rate_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_SEQCODE')
                     event_code = self.config[laser]['rep_rates'][rate_val]
-                    print(f'{tpr_base}:CH{tpr_ch}_SEQCODE: {event_code}')
+                    rate_sig.put(event_code)
+                else:
+                    raise ValueError(f"Unknown ratemode {ratemode_val}")
+                # Enable/Disable the trigger
                 enable_val = self.config[laser]['rate_configs'][config][channel]['enable']
-                print(f'{tpr_base}:TRG{tpr_ch}_SYS2_TCTL: {enable_val}') 
-                print(f'{tpr_base}:CH{tpr_ch}_SYS2_TCTL: {enable_val}') 
+                trg_sig = EpicsSignal(f'{tpr_base}:TRG{tpr_ch}_SYS2_TCTL')
+                trg_sig.put(enable_val)
+                ch_sig = EpicsSignal(f'{tpr_base}:CH{tpr_ch}_SYS2_TCTL')
+                ch_sig.put(enable_val)
