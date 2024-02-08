@@ -2,7 +2,7 @@
 
 This application is for trigger configuration of the OPCPA laser systmes in
 the NEH laser hall. The application is intended to provide information about
-the current state of these systems, as well as provide controls for easy 
+the current state of these systems, as well as provide controls for easy
 changes to repetition rate and "goose" triggering configuration.
 
 There are two main ways to launch this pydm application:

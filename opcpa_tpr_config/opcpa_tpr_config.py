@@ -1,13 +1,10 @@
-import yaml
-
 from functools import partial
 
-from qtpy.QtWidgets import QGridLayout
-
+import yaml
 from ophyd import EpicsSignal
-
 from pydm import Display
-from pydm.widgets import PyDMLabel, PyDMPushButton, PyDMNTTable
+from pydm.widgets import PyDMLabel, PyDMPushButton
+from qtpy.QtWidgets import QGridLayout
 
 
 class App(Display):
@@ -117,7 +114,9 @@ class App(Display):
                 row, col = divmod(ncfg, 4)
                 row += 1  # Leave first row for title
                 grid.addWidget(button, row, col)
-                button.clicked.connect(partial(self.set_configuration, las, cfg))
+                button.clicked.connect(
+                    partial(self.set_configuration, las, cfg)
+                )
 
     def set_configuration(self, laser, config):
         """

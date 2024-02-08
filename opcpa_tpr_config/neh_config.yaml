@@ -51,70 +51,70 @@ bay_2:
       rate: "130 Hz"
       ch1:
         ratemode: "Fixed"
-        rate: "1MHz" 
+        rate: "1MHz"
         enable: "Enabled"
       ch2:
         ratemode: "Seq"
-        rate: 130 
+        rate: 130
         enable: "Enabled"
       ch3:
         ratemode: "Seq"
         rate: 130
         enable: "Enabled"
-  
+
     cfg_260:
       rate: "260 Hz"
       ch1:
         ratemode: "Fixed"
-        rate: "1MHz" 
+        rate: "1MHz"
         enable: "Enabled"
       ch2:
         ratemode: "Seq"
-        rate: 260 
+        rate: 260
         enable: "Enabled"
       ch3:
         ratemode: "Seq"
-        rate: 260 
+        rate: 260
         enable: "Enabled"
-  
-    cfg_500: 
+
+    cfg_500:
       rate: "500 Hz"
       ch1:
         ratemode: "Fixed"
-        rate: "1MHz" 
+        rate: "1MHz"
         enable: "Enabled"
       ch2:
         ratemode: "Seq"
-        rate: 500 
+        rate: 500
         enable: "Enabled"
       ch3:
         ratemode: "Seq"
-        rate: 500 
+        rate: 500
         enable: "Enabled"
     cfg_1300:
       rate: "1300 Hz"
       ch1:
         ratemode: "Fixed"
-        rate: "1MHz" 
+        rate: "1MHz"
         enable: "Enabled"
       ch2:
         ratemode: "Seq"
-        rate: 1300 
+        rate: 1300
         enable: "Enabled"
       ch3:
         ratemode: "Seq"
         rate: 1300
         enable: "Enabled"
-  
+
     cfg_32500:
       rate: "32500 Hz"
       ch1:
         ratemode: "Fixed"
-        rate: "1MHz" 
+        rate: "1MHz"
         enable: "Enabled"
       ch2:
         ratemode: "Seq"
-        rate: 32500 
+        rate: 32500
         enable: "Enabled"
       ch3:
         ratemode: "Seq"
