@@ -47,16 +47,10 @@ class App(Display):
         """
         Setup the central widgets for the screen.
         """
-        title = self.findChild(PyDMLabel, "screen_title")
-        if title is not None:
-            title.setText(self.config["main"]["title"])
-        xpm_label = self.findChild(PyDMLabel, "xpm_label")
+        self.ui.screen_title.setText(self.config["main"]["title"])
         xpm_pv = self.config["main"]["xpm_pv"]
-        if xpm_label is not None:
-            xpm_label.setText(xpm_pv)
-        xpm = self.findChild(PyDMNTTable, "xpm")
-        if xpm is not None:
-            xpm.set_channel(f"pva://{xpm_pv}")
+        self.ui.xpm_label.setText(xpm_pv)
+        self.ui.xpm.set_channel(f"pva://{xpm_pv}")
 
     def setup_rbvs(self, laser):
         """
