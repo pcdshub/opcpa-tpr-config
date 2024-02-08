@@ -10,7 +10,7 @@ def main():
     setup_renderer()
 
     app = pydm.PyDMApplication(
-        ui_file=str(Path(__file__).parent / 'appname.py'),
+        ui_file=str(Path(__file__).parent / 'opcpa_tpr_config.py'),
         command_line_args=[],
         display_args=[],
         perfmon=False,

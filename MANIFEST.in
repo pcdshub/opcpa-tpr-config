@@ -1,2 +1,2 @@
 include versioneer.py
-include appname/_version.py
+include opcpa_tpr_config/_version.py

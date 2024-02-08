@@ -6,6 +6,6 @@ source /cds/group/pcds/pyps/conda/pcds_conda
 
 launcher="$(realpath $0)"
 launcher_dir="$(dirname ${launcher})"
-app="${launcher_dir}/appname/appname.py"
+app="${launcher_dir}/opcpa_tpr_config/opcpa_tpr_config.py"
 
 pydm ${app} $@ # Can add pydm args here
