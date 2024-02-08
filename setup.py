@@ -9,7 +9,7 @@ with open("requirements.txt", "rt") as fp:
     ]
 
 setup(
-    name="opcpa-tpr-config",
+    name="opcpa_tpr_config",
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     license="BSD",
@@ -20,7 +20,7 @@ setup(
     install_requires=install_requires,
     entry_points={
         'gui_scripts': [
-            'opcpa-tpr-config=opcpa-tpr-config.__main__:main'
+            'opcpa_tpr_config=opcpa_tpr_config.__main__:main'
         ]
     },
 )

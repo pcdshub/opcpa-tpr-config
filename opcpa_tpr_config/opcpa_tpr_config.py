@@ -16,7 +16,7 @@ class App(Display):
 
         # Read in config file
         # TODO add argparse, make this an arg
-        cfg_file = "opcpa-tpr-config/neh_config.yaml"
+        cfg_file = "opcpa_tpr_config/neh_config.yaml"
 
         config = {}
         with open(cfg_file, "r") as f:
@@ -41,7 +41,7 @@ class App(Display):
             self.setup_configs(laser)
 
     def ui_filename(self):
-        return "opcpa-tpr-config.ui"
+        return "opcpa_tpr_config.ui"
 
     def setup_main(self):
         """

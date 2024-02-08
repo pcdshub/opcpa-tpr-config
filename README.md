@@ -10,5 +10,5 @@ There are two main ways to launch this pydm application:
    and invokes the pydm command.
 2. Via the `__main__.py` script, which can be bundled with the application
    for use in an installed python environment. You can execute this script
-   by calling `opcpa-tpr-config`with the package installed, or by calling
-   `python -m opcpa-tpr-config` from the root directory.
+   by calling `opcpa_tpr_config`with the package installed, or by calling
+   `python -m opcpa_tpr_config` from the root directory.
