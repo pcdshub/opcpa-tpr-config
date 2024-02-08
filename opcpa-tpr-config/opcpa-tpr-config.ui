@@ -72,7 +72,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Rep. Rate Configurations</string>
+             <string>Set Rep. Rate Configuration</string>
             </property>
            </widget>
           </item>
