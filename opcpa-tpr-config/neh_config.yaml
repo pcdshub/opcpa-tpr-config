@@ -47,36 +47,6 @@ bay_2:
 
   # Allowed rep-rate configs (in TPG seconds) for the given laser
   rate_configs:
-    cfg_1300:
-      rate: "1300 Hz"
-      ch1:
-        ratemode: "Fixed"
-        rate: "1MHz" 
-        enable: "Enabled"
-      ch2:
-        ratemode: "Seq"
-        rate: 1300 
-        enable: "Enabled"
-      ch3:
-        ratemode: "Seq"
-        rate: 1300
-        enable: "Enabled"
-  
-    cfg_32500:
-      rate: "32500 Hz"
-      ch1:
-        ratemode: "Fixed"
-        rate: "1MHz" 
-        enable: "Enabled"
-      ch2:
-        ratemode: "Seq"
-        rate: 32500 
-        enable: "Enabled"
-      ch3:
-        ratemode: "Seq"
-        rate: 32500
-        enable: "Enabled"
-  
     cfg_130:
       rate: "130 Hz"
       ch1:
@@ -121,6 +91,32 @@ bay_2:
         ratemode: "Seq"
         rate: 500 
         enable: "Enabled"
-
-
-
+    cfg_1300:
+      rate: "1300 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 1300 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 1300
+        enable: "Enabled"
+  
+    cfg_32500:
+      rate: "32500 Hz"
+      ch1:
+        ratemode: "Fixed"
+        rate: "1MHz" 
+        enable: "Enabled"
+      ch2:
+        ratemode: "Seq"
+        rate: 32500 
+        enable: "Enabled"
+      ch3:
+        ratemode: "Seq"
+        rate: 32500
+        enable: "Enabled"
