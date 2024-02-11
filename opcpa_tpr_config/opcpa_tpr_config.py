@@ -3,8 +3,9 @@ from functools import partial
 import yaml
 from ophyd import EpicsSignal
 from pydm import Display
-from pydm.widgets import PyDMLabel, PyDMPushButton
-from qtpy.QtWidgets import QGridLayout
+from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
+from qtpy.QtGui import QFont
+from qtpy.QtWidgets import QGridLayout, QSizePolicy, QSpacerItem
 
 
 class App(Display):
@@ -57,43 +58,51 @@ class App(Display):
         ---------
         laser: The key name of the laser to be used.
         """
-        grid = self.ui.findChild(QGridLayout, f"{laser}_trig_layout")
-        if grid is not None:
-            # Setup column headers
-            desc = PyDMLabel()
-            desc.setText("Trigger")
-            grid.addWidget(desc, 0, 0)
-            reprate = PyDMLabel()
-            reprate.setText("Rep. Rate")
-            grid.addWidget(reprate, 0, 1)
-            ratemode = PyDMLabel()
-            ratemode.setText("Rate Mode")
-            grid.addWidget(ratemode, 0, 2)
-            eventcode = PyDMLabel()
-            eventcode.setText("Event Code")
-            grid.addWidget(eventcode, 0, 3)
+        vlayout = self.ui.lasers_vlayout
+        grid = QGridLayout()
 
-            # Setup PV RBVs
-            las = self.config["lasers"][laser]
-            las_conf = self.config[las]
-            child = self.findChild(PyDMLabel, f"{laser}_desc")
-            if child is not None:
-                child.setText(las_conf["laser_desc"])
-            tpr_base = las_conf["tpr_base"]
-            labels = ["DESC", "RATE", "RATEMODE", "SEQCODE"]
-            for nchannel, channel in enumerate(las_conf["channels"], start=1):
-                for nlabel, label in enumerate(labels):
-                    child = PyDMLabel()
-                    if label == "DESC":
-                        val = las_conf["channels"][f"{channel}"]["desc"]
-                        child.setText(val)
-                    else:
-                        tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-                        pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
-                        child.set_channel(pv)
-                    grid.addWidget(child, nchannel, nlabel)
-        else:
-            print("Laser {} not found!".format(laser))
+        las = self.config["lasers"][laser]
+        las_conf = self.config[las]
+
+        # Add description widgets
+        desc_font = QFont()
+        desc_font.setBold(True)
+        desc_font.setUnderline(True)
+        laser_desc = PyDMLabel()
+        laser_desc.setText(las_conf["laser_desc"])
+        laser_desc.setFont(desc_font)
+        vlayout.addWidget(laser_desc)
+
+        # Setup column headers
+        desc = PyDMLabel()
+        desc.setText("Trigger")
+        grid.addWidget(desc, 0, 0)
+        reprate = PyDMLabel()
+        reprate.setText("Rep. Rate")
+        grid.addWidget(reprate, 0, 1)
+        ratemode = PyDMLabel()
+        ratemode.setText("Rate Mode")
+        grid.addWidget(ratemode, 0, 2)
+        eventcode = PyDMLabel()
+        eventcode.setText("Event Code")
+        grid.addWidget(eventcode, 0, 3)
+
+        # Setup PV RBVs
+        tpr_base = las_conf["tpr_base"]
+        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE"]
+        for nchannel, channel in enumerate(las_conf["channels"], start=1):
+            for nlabel, label in enumerate(labels):
+                child = PyDMLabel()
+                if label == "DESC":
+                    val = las_conf["channels"][f"{channel}"]["desc"]
+                    child.setText(val)
+                else:
+                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+                    pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
+                    child.set_channel(pv)
+                grid.addWidget(child, nchannel, nlabel)
+        # Add to GUI
+        vlayout.addLayout(grid)
 
     def setup_configs(self, laser):
         """
@@ -103,20 +112,36 @@ class App(Display):
         ---------
         laser: The name of the laser configuration to be used.
         """
-        grid = self.findChild(QGridLayout, f"{laser}_config_layout")
-        if grid is not None:
-            las = self.config["lasers"][laser]
-            for ncfg, cfg in enumerate(self.config[las]["rate_configs"]):
-                button = PyDMPushButton(f"{laser}_{cfg}")
-                rate = self.config[las]["rate_configs"][cfg]["rate"]
-                button.setText(f"{rate}")
-                button.showConfirmDialog = True
-                row, col = divmod(ncfg, 4)
-                row += 1  # Leave first row for title
-                grid.addWidget(button, row, col)
-                button.clicked.connect(
-                    partial(self.set_configuration, las, cfg)
-                )
+        vlayout = self.ui.lasers_vlayout
+        grid = QGridLayout()
+
+        config_desc = PyDMLabel()
+        config_font = QFont()
+        config_font.setUnderline(True)
+        config_desc.setText("Set Rep. Rate Configuration")
+        config_desc.setFont(config_font)
+        vlayout.addWidget(config_desc)
+
+        las = self.config["lasers"][laser]
+        for ncfg, cfg in enumerate(self.config[las]["rate_configs"]):
+            button = PyDMPushButton(f"{laser}_{cfg}")
+            rate = self.config[las]["rate_configs"][cfg]["rate"]
+            button.setText(f"{rate}")
+            button.showConfirmDialog = True
+            row, col = divmod(ncfg, 4)
+            row += 1  # Leave first row for title
+            grid.addWidget(button, row, col)
+            button.clicked.connect(
+                partial(self.set_configuration, las, cfg)
+            )
+        vlayout.addLayout(grid)
+
+        # Finish the section
+        line = PyDMDrawingLine()
+        vlayout.addWidget(line)
+
+        space = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        vlayout.addItem(space)
 
     def set_configuration(self, laser, config):
         """
