@@ -62,7 +62,6 @@ class App(Display):
         grid = QGridLayout()
 
         las_conf = self.config["lasers"][laser]
-#        las_conf = self.config[las]
 
         # Add description widgets
         desc_font = QFont()
