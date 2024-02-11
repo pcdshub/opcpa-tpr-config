@@ -61,8 +61,8 @@ class App(Display):
         vlayout = self.ui.lasers_vlayout
         grid = QGridLayout()
 
-        las = self.config["lasers"][laser]
-        las_conf = self.config[las]
+        las_conf = self.config["lasers"][laser]
+#        las_conf = self.config[las]
 
         # Add description widgets
         desc_font = QFont()
@@ -123,9 +123,9 @@ class App(Display):
         vlayout.addWidget(config_desc)
 
         las = self.config["lasers"][laser]
-        for ncfg, cfg in enumerate(self.config[las]["rate_configs"]):
+        for ncfg, cfg in enumerate(las["rate_configs"]):
             button = PyDMPushButton(f"{laser}_{cfg}")
-            rate = self.config[las]["rate_configs"][cfg]["rate"]
+            rate = las["rate_configs"][cfg]["rate"]
             button.setText(f"{rate}")
             button.showConfirmDialog = True
             row, col = divmod(ncfg, 4)
@@ -154,11 +154,11 @@ class App(Display):
         config: The rep rate configuration to be applied when calling this
                 function.
         """
-        tpr_base = self.config[laser]["tpr_base"]
-        rate_conf = self.config[laser]["rate_configs"][config]
-        for channel in self.config[laser]["channels"]:
-            if channel in self.config[laser]["rate_configs"][config]:
-                tpr_ch = self.config[laser]["channels"][f"{channel}"]["ch"]
+        tpr_base = laser["tpr_base"]
+        rate_conf = laser["rate_configs"][config]
+        for channel in laser["channels"]:
+            if channel in laser["rate_configs"][config]:
+                tpr_ch = laser["channels"][f"{channel}"]["ch"]
                 # Set rate mode
                 ratemode_val = rate_conf[channel]["ratemode"]
                 ratemode_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_RATEMODE")
@@ -170,7 +170,7 @@ class App(Display):
                     rate_sig.put(rate_val)
                 elif ratemode_val == "Seq":
                     rate_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SEQCODE")
-                    event_code = self.config[laser]["rep_rates"][rate_val]
+                    event_code = laser["rep_rates"][rate_val]
                     rate_sig.put(event_code)
                 else:
                     raise ValueError(f"Unknown ratemode {ratemode_val}")
