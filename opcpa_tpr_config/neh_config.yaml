@@ -123,7 +123,7 @@ lasers:
 
     laser_desc: "Bay 3 TPR Configuration"
 
-    tpr_base: "LAS:LHN:TPR:02"
+    tpr_base: "LAS:LHN:TPR:01"
 
     # TPR Channels
     channels:
@@ -139,9 +139,6 @@ lasers:
       ch4:
         desc: "TIC Trigger"
         ch: "06"
-      ch5:
-        desc: "Goose Trigger"
-        ch: "07"
 
     # Reprate (in TPG seconds) to event code mapping for the system
     rep_rates:
@@ -161,73 +158,94 @@ lasers:
       cfg_130:
         rate: "130 Hz"
         ch1:
-          ratemode: "Fixed"
-          rate: "1MHz"
-          enable: "Enabled"
-        ch2:
           ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
-        ch3:
-          ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
-
-      cfg_260:
-        rate: "260 Hz"
-        ch1:
-          ratemode: "Fixed"
-          rate: "1MHz"
-          enable: "Enabled"
-        ch2:
-          ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
-        ch3:
-          ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
-
-      cfg_500:
-        rate: "500 Hz"
-        ch1:
-          ratemode: "Fixed"
-          rate: "1MHz"
-          enable: "Enabled"
-        ch2:
-          ratemode: "Seq"
-          rate: 500
-          enable: "Enabled"
-        ch3:
-          ratemode: "Seq"
-          rate: 500
-          enable: "Enabled"
-      cfg_1300:
-        rate: "1300 Hz"
-        ch1:
-          ratemode: "Fixed"
-          rate: "1MHz"
-          enable: "Enabled"
-        ch2:
-          ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
-        ch3:
-          ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
-
-      cfg_32500:
-        rate: "32500 Hz"
-        ch1:
-          ratemode: "Fixed"
-          rate: "1MHz"
+          rate: 910000
           enable: "Enabled"
         ch2:
           ratemode: "Seq"
           rate: 32500
           enable: "Enabled"
         ch3:
+          ratemode: "Seq"
+          rate: 130
+          enable: "Enabled"
+        ch4:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+
+      cfg_260:
+        rate: "260 Hz"
+        ch1:
+          ratemode: "Seq"
+          rate: 910000
+          enable: "Enabled"
+        ch2:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+        ch3:
+          ratemode: "Seq"
+          rate: 260
+          enable: "Enabled"
+        ch4:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+
+      cfg_500:
+        rate: "500 Hz"
+        ch1:
+          ratemode: "Seq"
+          rate: 910000
+          enable: "Enabled"
+        ch2:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+        ch3:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
+        ch4:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+
+      cfg_1300:
+        rate: "1300 Hz"
+        ch1:
+          ratemode: "Seq"
+          rate: 910000
+          enable: "Enabled"
+        ch2:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+        ch3:
+          ratemode: "Seq"
+          rate: 1300
+          enable: "Enabled"
+        ch4:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+
+      cfg_32500:
+        rate: "32500 Hz"
+        ch1:
+          ratemode: "Seq"
+          rate: 910000
+          enable: "Enabled"
+        ch2:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+        ch3:
+          ratemode: "Seq"
+          rate: 32500
+          enable: "Enabled"
+        ch4:
           ratemode: "Seq"
           rate: 32500
           enable: "Enabled"
