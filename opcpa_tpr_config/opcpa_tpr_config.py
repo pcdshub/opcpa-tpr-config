@@ -85,16 +85,28 @@ class App(Display):
         eventcode = PyDMLabel()
         eventcode.setText("Event Code")
         grid.addWidget(eventcode, 0, 3)
+        width = PyDMLabel()
+        width.setText("Width (ns)")
+        grid.addWidget(width, 0, 4)
+        delay = PyDMLabel()
+        delay.setText("Delay (ns)")
+        grid.addWidget(delay, 0, 5)
 
         # Setup PV RBVs
         tpr_base = las_conf["tpr_base"]
-        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE"]
+        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE", "SYS2_TWID",
+                  "SYS2_TDES"]
         for nchannel, channel in enumerate(las_conf["channels"], start=1):
             for nlabel, label in enumerate(labels):
                 child = PyDMLabel()
                 if label == "DESC":
                     val = las_conf["channels"][f"{channel}"]["desc"]
                     child.setText(val)
+                elif label in ["SYS2_TWID", "SYS2_TDES"]:
+                    # These need TRG instead of CH
+                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+                    pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
+                    child.set_channel(pv)
                 else:
                     tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
                     pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
