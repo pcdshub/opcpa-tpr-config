@@ -5,7 +5,6 @@ main:
     title: "NEH Laser Hall OPCPA Rep. Rate Configuration"
 
 lasers:
-  # TODO: add inclusivity PV
   bay_2:
 
     laser_desc: "Bay 2 TPR Configuration"
@@ -42,12 +41,16 @@ lasers:
       260: 257
       650: 258
       1300: 259
+
       2500: 260
-      6500: 261
-      8125: 262
-      16250: 263
-      32500: 264
-      910000: 265
+      8125: 261
+      32500: 262
+      910000: 263
+
+      1: 264
+      2: 265
+      4: 266
+      5: 267
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
@@ -93,6 +96,28 @@ lasers:
         ch5:
           ratemode: "Seq"
           rate: 1300
+          enable: "Enabled"
+
+      cfg_2500:
+        rate: "2500 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 2500
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 2500
+          enable: "Enabled"
+
+      cfg_8125:
+        rate: "8125 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 8125
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 8125
           enable: "Enabled"
 
       cfg_32500:
