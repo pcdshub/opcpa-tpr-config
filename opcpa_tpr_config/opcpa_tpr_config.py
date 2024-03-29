@@ -10,11 +10,9 @@ from qtpy.QtWidgets import QGridLayout, QSizePolicy, QSpacerItem
 
 class App(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        # print(f'args={args}, macros={macros}')
+        print(f'args={args}, macros={macros}')
 
-        # Read in config file
-        # TODO add argparse, make this an arg
-        cfg_file = "opcpa_tpr_config/neh_config.yaml"
+        cfg_file = args[0]
 
         config = {}
         with open(cfg_file, "r") as f:
@@ -22,7 +20,6 @@ class App(Display):
         self.config = config
 
         print(f"Loaded config {cfg_file}")
-        # print(config)
 
         # Call super after handling args/macros but before doing pyqt stuff
         super().__init__(parent=parent, args=args, macros=macros)
