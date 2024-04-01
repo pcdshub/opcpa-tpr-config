@@ -4,8 +4,17 @@
 # export PCDS_CONDA_VER=5.1.1
 source /cds/group/pcds/pyps/conda/pcds_conda
 
+if [[ $# -ne 1 ]]; then
+    echo
+    echo "Usage: launcher.sh <cfg file path>"
+    echo
+    exit 1
+fi
+
 launcher="$(realpath $0)"
 launcher_dir="$(dirname ${launcher})"
 app="${launcher_dir}/opcpa_tpr_config/opcpa_tpr_config.py"
 
-pydm ${app} $@ # Can add pydm args here
+cfg="$(realpath $1)"
+
+pydm ${app} ${cfg}

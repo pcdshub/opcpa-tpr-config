@@ -10,11 +10,9 @@ from qtpy.QtWidgets import QGridLayout, QSizePolicy, QSpacerItem
 
 class App(Display):
     def __init__(self, parent=None, args=None, macros=None):
-        # print(f'args={args}, macros={macros}')
+        print(f'args={args}, macros={macros}')
 
-        # Read in config file
-        # TODO add argparse, make this an arg
-        cfg_file = "opcpa_tpr_config/neh_config.yaml"
+        cfg_file = args[0]
 
         config = {}
         with open(cfg_file, "r") as f:
@@ -22,7 +20,6 @@ class App(Display):
         self.config = config
 
         print(f"Loaded config {cfg_file}")
-        # print(config)
 
         # Call super after handling args/macros but before doing pyqt stuff
         super().__init__(parent=parent, args=args, macros=macros)
@@ -85,16 +82,28 @@ class App(Display):
         eventcode = PyDMLabel()
         eventcode.setText("Event Code")
         grid.addWidget(eventcode, 0, 3)
+        width = PyDMLabel()
+        width.setText("Width (ns)")
+        grid.addWidget(width, 0, 4)
+        delay = PyDMLabel()
+        delay.setText("Delay (ns)")
+        grid.addWidget(delay, 0, 5)
 
         # Setup PV RBVs
         tpr_base = las_conf["tpr_base"]
-        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE"]
+        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE", "SYS2_TWID",
+                  "SYS2_TDES"]
         for nchannel, channel in enumerate(las_conf["channels"], start=1):
             for nlabel, label in enumerate(labels):
                 child = PyDMLabel()
                 if label == "DESC":
                     val = las_conf["channels"][f"{channel}"]["desc"]
                     child.setText(val)
+                elif label in ["SYS2_TWID", "SYS2_TDES"]:
+                    # These need TRG instead of CH
+                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+                    pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
+                    child.set_channel(pv)
                 else:
                     tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
                     pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
