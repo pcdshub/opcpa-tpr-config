@@ -38,7 +38,7 @@ lasers:
     # Reprate (in TPG seconds) to event code mapping for the system
     rep_rates:
       130: 256
-      260: 257
+      500: 257
       650: 258
       1300: 259
 
@@ -50,10 +50,24 @@ lasers:
       1: 264
       2: 265
       4: 266
-      5: 267
+      10: 267
+
+      100: 268
+      260: 269
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
+      cfg_100:
+        rate: "100 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -74,6 +88,17 @@ lasers:
         ch5:
           ratemode: "Seq"
           rate: 260
+          enable: "Enabled"
+
+      cfg_500:
+        rate: "500 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 500
           enable: "Enabled"
 
       cfg_650:
@@ -164,7 +189,7 @@ lasers:
     # Reprate (in TPG seconds) to event code mapping for the system
     rep_rates:
       130: 256
-      260: 257
+      500: 257
       650: 258
       1300: 259
 
@@ -176,10 +201,24 @@ lasers:
       1: 264
       2: 265
       4: 266
-      5: 267
+      10: 267
+
+      100: 268
+      260: 269
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
+      cfg_100:
+        rate: "100 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -200,6 +239,17 @@ lasers:
         ch5:
           ratemode: "Seq"
           rate: 260
+          enable: "Enabled"
+
+      cfg_500:
+        rate: "500 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 500
           enable: "Enabled"
 
       cfg_650:
