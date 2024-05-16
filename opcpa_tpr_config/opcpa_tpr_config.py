@@ -187,23 +187,38 @@ class App(Display):
             if channel in laser["rate_configs"][config]:
                 tpr_ch = laser["channels"][f"{channel}"]["ch"]
                 # Set rate mode
-                ratemode_val = rate_conf[channel]["ratemode"]
-                ratemode_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_RATEMODE")
-                ratemode_sig.put(ratemode_val)
+                if "ratemode" in rate_conf[channel]:
+                    ratemode_val = rate_conf[channel]["ratemode"]
+                    ratemode_sig = EpicsSignal(
+                        f"{tpr_base}:CH{tpr_ch}_RATEMODE"
+                    )
+                    ratemode_sig.put(ratemode_val)
                 # Set rate
-                rate_val = rate_conf[channel]["rate"]
-                if ratemode_val == "Fixed":
-                    rate_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_FIXEDRATE")
-                    rate_sig.put(rate_val)
-                elif ratemode_val == "Seq":
-                    rate_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SEQCODE")
-                    event_code = laser["rep_rates"][rate_val]
-                    rate_sig.put(event_code)
-                else:
-                    raise ValueError(f"Unknown ratemode {ratemode_val}")
+                if "rate" in rate_conf[channel]:
+                    rate_val = rate_conf[channel]["rate"]
+                    ratemode_val = rate_conf[channel]["ratemode"]
+                    if ratemode_val == "Fixed":
+                        rate_sig = EpicsSignal(
+                            f"{tpr_base}:CH{tpr_ch}_FIXEDRATE"
+                        )
+                        rate_sig.put(rate_val)
+                    elif ratemode_val == "Seq":
+                        rate_sig = EpicsSignal(
+                            f"{tpr_base}:CH{tpr_ch}_SEQCODE"
+                        )
+                        event_code = laser["rep_rates"][rate_val]
+                        rate_sig.put(event_code)
+                    else:
+                        raise ValueError(f"Unknown ratemode {ratemode_val}")
                 # Enable/Disable the trigger
-                enable_val = rate_conf[channel]["enable"]
-                trg_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_SYS2_TCTL")
-                trg_sig.put(enable_val)
-                ch_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SYS2_TCTL")
-                ch_sig.put(enable_val)
+                if "enable" in rate_conf[channel]:
+                    enable_val = rate_conf[channel]["enable"]
+                    trg_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_SYS2_TCTL")
+                    trg_sig.put(enable_val)
+                    ch_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SYS2_TCTL")
+                    ch_sig.put(enable_val)
+                # Setup trigger operation
+                if "op" in rate_conf[channel]:
+                    op_val = rate_conf[channel]["op"]
+                    op_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_SYS2_TCMPL")
+                    op_sig.put(op_val)
