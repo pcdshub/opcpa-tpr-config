@@ -224,5 +224,5 @@ class App(Display):
                 # Setup trigger operation
                 if "op" in rate_conf[channel]:
                     op_val = rate_conf[channel]["op"]
-                    op_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_SYS2_TCMPL")
+                    op_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_TCMPL")
                     op_sig.put(op_val)
