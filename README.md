@@ -18,29 +18,28 @@ There are two main ways to launch this pydm application:
 
 ## Configuration File Structure
 
-The configuration file takes the following <required> and [optional] configuration keys:
+The configuration file takes the following \<required> and [optional] configuration keys:
 
-- <main> : configuration values for overall system/screen
-  - <xpm_pv> : PV of the XPM to be displayed and programmed
-  - <title> : The title of the main screen
-- <lasers> : The laser system(s) to be supported
-  - <laser_name> : Laser system name
-    - <laser_desc> : Description of the laser system
-    - <tpr_base> : Base PV of the TPR for this laser system
-    - <channels> : TPR channels to be supported
-      - <ch name> : Name of TPR channel
-        - <desc> : Channel description
-        - <ch> : Channel number
-        - <show> : Boolean flag to display the trigger on the screen
-    - <rep_rates> : Mapping of rates to TPR Event codes
-      - <rate> : <code>
-    - <rate_configs> : Mapping of configuration buttons to channel config(s)
-      - <cfg_name> : Configuration name
-        - <rate> : Configuration description
-        - <ch> : Channel to configure. Maps to channel in <lasers>/<channels>
+- \<main> : configuration values for overall system/screen
+  - \<xpm_pv> : PV of the XPM to be displayed and programmed
+  - \<title> : The title of the main screen
+- \<lasers> : The laser system(s) to be supported
+  - \<laser_name> : Laser system name
+    - \<laser_desc> : Description of the laser system
+    - \<tpr_base> : Base PV of the TPR for this laser system
+    - \<channels> : TPR channels to be supported
+      - \<ch name> : Name of TPR channel
+        - \<desc> : Channel description
+        - \<ch> : Channel number
+        - \<show> : Boolean flag to display the trigger on the screen
+    - \<rep_rates> : Mapping of rates to TPR Event codes
+      - \<rate> : <event code> or <fixed rate code>
+    - \<rate_configs> : Mapping of configuration buttons to channel config(s)
+      - \<cfg_name> : Configuration name
+        - \<rate> : Configuration description
+        - \<ch> : Channel to configure. Maps to channel in \<lasers>/\<channels>
           - [ratemode] : Ratemode to configure. Accepts "Seq" or "Fixed".
-          - [rate] : Rate to configure. Uses the <code> mapped by <rate> in
-                     <rep_rates>.
+          - [rate] : Rate to configure. Uses the <code> mapped by <rate> in \<rep_rates>.
           - [enable] : Enables/disables the channel. Accepts "Enabled" or
                        "Disabled".
           - [op] : Sets the trigger complementary logic. Accepts "NOOP",
@@ -48,7 +47,7 @@ The configuration file takes the following <required> and [optional] configurati
 
 Example configuration:
 
-
+```
 main:
     xpm_pv: "DAQ:TST:XPM:0:SEQCODES"
     title: "Example Rep. Rate Configuration"
@@ -111,3 +110,4 @@ lasers:
            enable: "Disabled"
          ch1:
            enable: "Disabled"
+```
