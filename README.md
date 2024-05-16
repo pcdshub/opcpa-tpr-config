@@ -33,13 +33,13 @@ The configuration file takes the following \<required> and [optional] configurat
         - \<ch> : Channel number
         - \<show> : Boolean flag to display the trigger on the screen
     - \<rep_rates> : Mapping of rates to TPR Event codes
-      - \<rate> : <event code> or <fixed rate code>
+      - \<rate> : \<event code> or \<fixed rate code>
     - \<rate_configs> : Mapping of configuration buttons to channel config(s)
       - \<cfg_name> : Configuration name
         - \<rate> : Configuration description
         - \<ch> : Channel to configure. Maps to channel in \<lasers>/\<channels>
           - [ratemode] : Ratemode to configure. Accepts "Seq" or "Fixed".
-          - [rate] : Rate to configure. Uses the <code> mapped by <rate> in \<rep_rates>.
+          - [rate] : Rate to configure. Uses the \<code> mapped by \<rate> in \<rep_rates>.
           - [enable] : Enables/disables the channel. Accepts "Enabled" or
                        "Disabled".
           - [op] : Sets the trigger complementary logic. Accepts "NOOP",
