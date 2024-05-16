@@ -138,8 +138,6 @@ lasers:
           rate: 32500
           enable: "Enabled"
 
-    # Allowed goose trigger configs for the given laser
-    goose_configs:
       cfg_goose_1:
         rate: "1Hz Goose"
         ch0:
@@ -161,10 +159,13 @@ lasers:
         rate: "Goose off"
         ch0:
           op: "NOOP"
+          enable: "Disabled"
         ch2:
           op: "NOOP"
+          enable: "Disabled"
         ch4:
           op: "NOOP"
+          enable: "Disabled"
 
 
   bay_3:
