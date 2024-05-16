@@ -179,24 +179,31 @@ lasers:
       ch0:
         desc: "Carbide Goose"
         ch: "00"
+        show: True
       ch1:
         desc: "Carbide"
         ch: "01"
+        show: True
       ch2:
         desc: "Amphos Goose"
         ch: "02"
+        show: True
       ch3:
         desc: "Amphos Base"
         ch: "03"
+        show: True
       ch4:
         desc: "Carbide PP Goose"
         ch: "04"
+        show: True
       ch5:
         desc: "Carbide PP"
         ch: "05"
+        show: True
       ch6:
         desc: "TIC Stop Trigger"
         ch: "06"
+        show: True
 
     # Reprate (in TPG seconds) to event code mapping for the system
     rep_rates:

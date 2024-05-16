@@ -108,10 +108,11 @@ class App(Display):
 
         nchannel = 1
         for channel in las_conf["channels"]:
-            for nlabel, label in enumerate(labels):
-                child = self.configure_ch_rbv_widget(laser, label, channel)
-                grid.addWidget(child, nchannel, nlabel)
-            nchannel += 1
+            if las_conf["channels"][channel]["show"]:
+                for nlabel, label in enumerate(labels):
+                    child = self.configure_ch_rbv_widget(laser, label, channel)
+                    grid.addWidget(child, nchannel, nlabel)
+                nchannel += 1
         # Add to GUI
         vlayout.addLayout(grid)
 
