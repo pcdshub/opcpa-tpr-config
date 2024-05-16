@@ -73,44 +73,63 @@ class App(Display):
         desc = PyDMLabel()
         desc.setText("Trigger")
         grid.addWidget(desc, 0, 0)
+
         reprate = PyDMLabel()
         reprate.setText("Rep. Rate")
         grid.addWidget(reprate, 0, 1)
+
         ratemode = PyDMLabel()
         ratemode.setText("Rate Mode")
         grid.addWidget(ratemode, 0, 2)
+
         eventcode = PyDMLabel()
         eventcode.setText("Event Code")
         grid.addWidget(eventcode, 0, 3)
+
         width = PyDMLabel()
         width.setText("Width (ns)")
         grid.addWidget(width, 0, 4)
+
         delay = PyDMLabel()
         delay.setText("Delay (ns)")
         grid.addWidget(delay, 0, 5)
 
         # Setup PV RBVs
-        tpr_base = las_conf["tpr_base"]
         labels = ["DESC", "RATE", "RATEMODE", "SEQCODE", "SYS2_TWID",
                   "SYS2_TDES"]
-        for nchannel, channel in enumerate(las_conf["channels"], start=1):
+
+        nchannel = 1
+        for channel in las_conf["channels"]:
             for nlabel, label in enumerate(labels):
-                child = PyDMLabel()
-                if label == "DESC":
-                    val = las_conf["channels"][f"{channel}"]["desc"]
-                    child.setText(val)
-                elif label in ["SYS2_TWID", "SYS2_TDES"]:
-                    # These need TRG instead of CH
-                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-                    pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
-                    child.set_channel(pv)
-                else:
-                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-                    pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
-                    child.set_channel(pv)
+                child = self.configure_ch_rbv_widget(laser, label, channel)
                 grid.addWidget(child, nchannel, nlabel)
+            nchannel += 1
         # Add to GUI
         vlayout.addLayout(grid)
+
+    def configure_ch_rbv_widget(self, laser, label, channel):
+        """
+        Setup a channel RBV widget.
+
+        returns:
+            PyDMLabel
+        """
+        las_conf = self.config["lasers"][laser]
+        tpr_base = self.config["lasers"][laser]["tpr_base"]
+        child = PyDMLabel()
+        if label == "DESC":
+            val = las_conf["channels"][f"{channel}"]["desc"]
+            child.setText(val)
+        elif label in ["SYS2_TWID", "SYS2_TDES"]:
+            # These need TRG instead of CH
+            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+            pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
+            child.set_channel(pv)
+        else:
+            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+            pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
+            child.set_channel(pv)
+        return child
 
     def setup_configs(self, laser):
         """
