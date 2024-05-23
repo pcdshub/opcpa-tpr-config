@@ -65,238 +65,258 @@ lasers:
         rate: "130 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
+          seqcode: 256
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
+          seqcode: 256
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_260:
         rate: "260 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
+          seqcode: 257
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
+          seqcode: 257
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_650:
         rate: "650 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 650
-          enable: "Enabled"
+          seqcode: 258
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 650
-          enable: "Enabled"
+          seqcode: 258
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_1300:
         rate: "1300 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
+          seqcode: 259
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
+          seqcode: 259
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_2500:
         rate: "2500 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 2500
-          enable: "Enabled"
+          seqcode: 260
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 2500
-          enable: "Enabled"
+          seqcode: 260
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_8125:
         rate: "8125 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 8125
-          enable: "Enabled"
+          seqcode: 261
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 8125
-          enable: "Enabled"
+          seqcode: 261
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_32500:
         rate: "32500 Hz"
         ch4:
           ratemode: "Seq"
-          rate: 32500
-          enable: "Enabled"
+          seqcode: 262
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         ch5:
           ratemode: "Seq"
-          rate: 32500
-          enable: "Enabled"
+          seqcode: 262
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_1:
         rate: "1Hz Goose"
         ch0:
           ratemode: "Seq"
-          rate: 1
-          enable: "Enabled"
-          op: "AND"
+          seqcode: 264
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+          operation: "AND"
         ch2:
           ratemode: "Seq"
-          rate: 1
-          enable: "Enabled"
-          op: "AND"
+          seqcode: 264
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+          operation: "AND"
         ch4:
           ratemode: "Seq"
-          rate: 1
-          enable: "Enabled"
-          op: "AND"
+          seqcode: 264
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+          operation: "AND"
       cfg_goose_off:
         rate: "Goose off"
         ch0:
-          op: "NOOP"
-          enable: "Disabled"
+          enable_trg_cmd: "Disabled"
+          enable_ch_cmd: "Disabled"
+          operation: "NOOP"
         ch2:
-          op: "NOOP"
-          enable: "Disabled"
+          enable_trg_cmd: "Disabled"
+          enable_ch_cmd: "Disabled"
+          operation: "NOOP"
         ch4:
-          op: "NOOP"
-          enable: "Disabled"
+          enable_trg_cmd: "Disabled"
+          enable_ch_cmd: "Disabled"
+          operation: "NOOP"
 
 
-  bay_3:
-
-    laser_desc: "Bay 3 TPR Configuration"
-
-    tpr_base: "LAS:LHN:TPR:01"
-
-    # TPR Channels
-    channels:
-      ch0:
-        desc: "Carbide Goose"
-        ch: "00"
-        show: True
-      ch1:
-        desc: "Carbide"
-        ch: "01"
-        show: True
-      ch2:
-        desc: "Amphos Goose"
-        ch: "02"
-        show: True
-      ch3:
-        desc: "Amphos Base"
-        ch: "03"
-        show: True
-      ch4:
-        desc: "Carbide PP Goose"
-        ch: "04"
-        show: True
-      ch5:
-        desc: "Carbide PP"
-        ch: "05"
-        show: True
-      ch6:
-        desc: "TIC Stop Trigger"
-        ch: "06"
-        show: True
-
-    # Reprate (in TPG seconds) to event code mapping for the system
-    rep_rates:
-      130: 256
-      260: 257
-      650: 258
-      1300: 259
-
-      2500: 260
-      8125: 261
-      32500: 262
-      910000: 263
-
-      1: 264
-      2: 265
-      4: 266
-      5: 267
-
-    # Allowed rep-rate configs (in TPG seconds) for the given laser
-    rate_configs:
-      cfg_130:
-        rate: "130 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 130
-          enable: "Enabled"
-
-      cfg_260:
-        rate: "260 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 260
-          enable: "Enabled"
-
-      cfg_650:
-        rate: "650 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 650
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 650
-          enable: "Enabled"
-
-      cfg_1300:
-        rate: "1300 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 1300
-          enable: "Enabled"
-
-      cfg_2500:
-        rate: "2500 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 2500
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 2500
-          enable: "Enabled"
-
-      cfg_8125:
-        rate: "8125 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 8125
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 8125
-          enable: "Enabled"
-
-      cfg_32500:
-        rate: "32500 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 32500
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 32500
-          enable: "Enabled"
+#  bay_3:
+#
+#    laser_desc: "Bay 3 TPR Configuration"
+#
+#    tpr_base: "LAS:LHN:TPR:01"
+#
+#    # TPR Channels
+#    channels:
+#      ch0:
+#        desc: "Carbide Goose"
+#        ch: "00"
+#        show: True
+#      ch1:
+#        desc: "Carbide"
+#        ch: "01"
+#        show: True
+#      ch2:
+#        desc: "Amphos Goose"
+#        ch: "02"
+#        show: True
+#      ch3:
+#        desc: "Amphos Base"
+#        ch: "03"
+#        show: True
+#      ch4:
+#        desc: "Carbide PP Goose"
+#        ch: "04"
+#        show: True
+#      ch5:
+#        desc: "Carbide PP"
+#        ch: "05"
+#        show: True
+#      ch6:
+#        desc: "TIC Stop Trigger"
+#        ch: "06"
+#        show: True
+#
+#    # Reprate (in TPG seconds) to event code mapping for the system
+#    rep_rates:
+#      130: 256
+#      260: 257
+#      650: 258
+#      1300: 259
+#
+#      2500: 260
+#      8125: 261
+#      32500: 262
+#      910000: 263
+#
+#      1: 264
+#      2: 265
+#      4: 266
+#      5: 267
+#
+#    # Allowed rep-rate configs (in TPG seconds) for the given laser
+#    rate_configs:
+#      cfg_130:
+#        rate: "130 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 130
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 130
+#          enable: "Enabled"
+#
+#      cfg_260:
+#        rate: "260 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 260
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 260
+#          enable: "Enabled"
+#
+#      cfg_650:
+#        rate: "650 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 650
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 650
+#          enable: "Enabled"
+#
+#      cfg_1300:
+#        rate: "1300 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 1300
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 1300
+#          enable: "Enabled"
+#
+#      cfg_2500:
+#        rate: "2500 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 2500
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 2500
+#          enable: "Enabled"
+#
+#      cfg_8125:
+#        rate: "8125 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 8125
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 8125
+#          enable: "Enabled"
+#
+#      cfg_32500:
+#        rate: "32500 Hz"
+#        ch4:
+#          ratemode: "Seq"
+#          rate: 32500
+#          enable: "Enabled"
+#        ch5:
+#          ratemode: "Seq"
+#          rate: 32500
+#          enable: "Enabled"
