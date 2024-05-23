@@ -1,8 +1,12 @@
 #!/bin/bash
 
 # Uncomment and set to the latest version to freeze dependency
-# export PCDS_CONDA_VER=5.1.1
+#export PCDS_CONDA_VER=5.8.0
+#export PCDS_CONDA_VER=dev
+
 source /cds/group/pcds/pyps/conda/pcds_conda
+#source /cds/group/pcds/pyps/conda/dev_conda
+export PYTHONPATH=/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
 
 if [[ $# -ne 1 ]]; then
     echo
