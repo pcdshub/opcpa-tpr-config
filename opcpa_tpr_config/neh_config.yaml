@@ -44,6 +44,17 @@ lasers:
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
+      cfg_100:
+        rate: "100 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -69,6 +80,17 @@ lasers:
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+
+      cfg_500:
+        rate: "500 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
 
       cfg_650:
         rate: "650 Hz"
@@ -289,6 +311,17 @@ lasers:
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
+      cfg_100:
+        rate: "100 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 100
+          enable: "Enabled"
+
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -314,6 +347,17 @@ lasers:
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+
+      cfg_500:
+        rate: "500 Hz"
+        ch4:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
+        ch5:
+          ratemode: "Seq"
+          rate: 500
+          enable: "Enabled"
 
       cfg_650:
         rate: "650 Hz"
