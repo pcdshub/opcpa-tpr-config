@@ -42,23 +42,6 @@ lasers:
         ch: "06"
         show: True
 
-    # Reprate (in TPG seconds) to event code mapping for the system
-    rep_rates:
-      130: 256
-      260: 257
-      650: 258
-      1300: 259
-
-      2500: 260
-      8125: 261
-      32500: 262
-      910000: 263
-
-      1: 264
-      2: 265
-      4: 266
-      5: 267
-
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
       cfg_130:
