@@ -32,18 +32,11 @@ The configuration file takes the following \<required> and [optional] configurat
         - \<desc> : Channel description
         - \<ch> : Channel number
         - \<show> : Boolean flag to display the trigger on the screen
-    - \<rep_rates> : Mapping of rates to TPR Event codes
-      - \<rate> : \<event code> or \<fixed rate code>
     - \<rate_configs> : Mapping of configuration buttons to channel config(s)
       - \<cfg_name> : Configuration name
         - \<rate> : Configuration description
         - \<ch> : Channel to configure. Maps to channel in \<lasers>/\<channels>
-          - [ratemode] : Ratemode to configure. Accepts "Seq" or "Fixed".
-          - [rate] : Rate to configure. Uses the \<code> mapped by \<rate> in \<rep_rates>.
-          - [enable] : Enables/disables the channel. Accepts "Enabled" or
-                       "Disabled".
-          - [op] : Sets the trigger complementary logic. Accepts "NOOP",
-                   "AND", and "OR".
+            [config attr} : The configuration will accept any configuration attribute of the pcdsdevices.tpr.TprTrigger class, such as `seqcode`, `operation`, etc.
 
 Example configuration:
 
@@ -67,47 +60,41 @@ lasers:
         ch: "01"
         show: True
 
-    rep_rates:
-      130: 256
-      260: 257
-      650: 258
-      1300: 259
-
     rate_configs:
        cfg_130:
          rate: "130 Hz"
          ch0:
            ratemode: "Seq"
-           rate: 130
-           enable: "Enabled"
+           seqcode: 250
+           enable_trg_cmd: "Enabled"
          ch1:
            ratemode: "Seq"
-           rate: 130
-           enable: "Enabled"
+           seqcode: 250
+           enable_trg_cmd: "Enabled"
 
        cfg_260:
          rate: "260 Hz"
          ch0:
            ratemode: "Seq"
-           rate: 260
-           enable: "Enabled"
+           seqcode: 251
+           enable_trg_cmd: "Enabled"
          ch1:
            ratemode: "Seq"
-           rate: 260
-           enable: "Enabled"
+           seqcode: 251
+           enable_trg_cmd: "Enabled"
 
        cfg_CH0_AND:
          rate: "260 Hz CH0 AND"
          ch0:
            ratemode: "Seq"
-           rate: 260
-           enable: "Enabled"
-           op: "AND"
+           seqcode: 251
+           enable_trg_cmd: "Enabled"
+           operation: "AND"
 
        cfg_disable:
          rate: "CH0/1 Disable"
          ch0:
-           enable: "Disabled"
+           enable_trg_cmd: "Disabled"
          ch1:
-           enable: "Disabled"
+           enable_trg_cmd: "Disabled"
 ```
