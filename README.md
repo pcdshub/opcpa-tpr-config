@@ -36,7 +36,7 @@ The configuration file takes the following \<required> and [optional] configurat
       - \<cfg_name> : Configuration name
         - \<rate> : Configuration description
         - \<ch> : Channel to configure. Maps to channel in \<lasers>/\<channels>
-            [config attr} : The configuration will accept any configuration attribute of the pcdsdevices.tpr.TprTrigger class, such as `seqcode`, `operation`, etc.
+           - [config attr] : The configuration will accept any configuration attribute of the pcdsdevices.tpr.TprTrigger class, such as `seqcode`, `operation`, etc.
 
 Example configuration:
 
