@@ -256,19 +256,10 @@ lasers:
 
       cfg_goose_off:
         rate: "Goose off"
-        ch0:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch1:
           operation: "NOOP"
-        ch2:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch3:
           operation: "NOOP"
-        ch4:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch5:
           operation: "NOOP"
 
@@ -523,18 +514,9 @@ lasers:
 
       cfg_goose_off:
         rate: "Goose off"
-        ch0:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch1:
           operation: "NOOP"
-        ch2:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch3:
           operation: "NOOP"
-        ch4:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch5:
           operation: "NOOP"
