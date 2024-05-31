@@ -1,7 +1,7 @@
 from functools import partial
 
 import yaml
-from ophyd import EpicsSignal
+from pcdsdevices.tpr import TimingMode, TprTrigger
 from pydm import Display
 from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
 from qtpy.QtGui import QFont
@@ -73,44 +73,72 @@ class App(Display):
         desc = PyDMLabel()
         desc.setText("Trigger")
         grid.addWidget(desc, 0, 0)
+
         reprate = PyDMLabel()
         reprate.setText("Rep. Rate")
         grid.addWidget(reprate, 0, 1)
+
         ratemode = PyDMLabel()
         ratemode.setText("Rate Mode")
         grid.addWidget(ratemode, 0, 2)
+
         eventcode = PyDMLabel()
         eventcode.setText("Event Code")
         grid.addWidget(eventcode, 0, 3)
+
         width = PyDMLabel()
         width.setText("Width (ns)")
         grid.addWidget(width, 0, 4)
+
         delay = PyDMLabel()
         delay.setText("Delay (ns)")
         grid.addWidget(delay, 0, 5)
 
+        op = PyDMLabel()
+        op.setText("Logic")
+        grid.addWidget(op, 0, 6)
+
+        enabled = PyDMLabel()
+        enabled.setText("Status")
+        grid.addWidget(enabled, 0, 7)
+
         # Setup PV RBVs
-        tpr_base = las_conf["tpr_base"]
         labels = ["DESC", "RATE", "RATEMODE", "SEQCODE", "SYS2_TWID",
-                  "SYS2_TDES"]
-        for nchannel, channel in enumerate(las_conf["channels"], start=1):
-            for nlabel, label in enumerate(labels):
-                child = PyDMLabel()
-                if label == "DESC":
-                    val = las_conf["channels"][f"{channel}"]["desc"]
-                    child.setText(val)
-                elif label in ["SYS2_TWID", "SYS2_TDES"]:
-                    # These need TRG instead of CH
-                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-                    pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
-                    child.set_channel(pv)
-                else:
-                    tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-                    pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
-                    child.set_channel(pv)
-                grid.addWidget(child, nchannel, nlabel)
+                  "SYS2_TDES", "TCMPL", "SYS2_TCTL"]
+
+        nchannel = 1
+        for channel in las_conf["channels"]:
+            if las_conf["channels"][channel]["show"]:
+                for nlabel, label in enumerate(labels):
+                    child = self.configure_ch_rbv_widget(laser, label, channel)
+                    grid.addWidget(child, nchannel, nlabel)
+                nchannel += 1
         # Add to GUI
         vlayout.addLayout(grid)
+
+    def configure_ch_rbv_widget(self, laser, label, channel):
+        """
+        Setup a channel RBV widget.
+
+        returns:
+            PyDMLabel
+        """
+        las_conf = self.config["lasers"][laser]
+        tpr_base = self.config["lasers"][laser]["tpr_base"]
+        child = PyDMLabel()
+        if label == "DESC":
+            val = las_conf["channels"][f"{channel}"]["desc"]
+            child.setText(val)
+        elif label in ["SYS2_TWID", "SYS2_TDES", "TCMPL", "SYS2_TCTL"]:
+            # These need TRG instead of CH
+            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+            pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
+            child.set_channel(pv)
+        else:
+            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
+            pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
+            child.set_channel(pv)
+        return child
 
     def setup_configs(self, laser):
         """
@@ -166,25 +194,9 @@ class App(Display):
         rate_conf = laser["rate_configs"][config]
         for channel in laser["channels"]:
             if channel in laser["rate_configs"][config]:
-                tpr_ch = laser["channels"][f"{channel}"]["ch"]
-                # Set rate mode
-                ratemode_val = rate_conf[channel]["ratemode"]
-                ratemode_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_RATEMODE")
-                ratemode_sig.put(ratemode_val)
-                # Set rate
-                rate_val = rate_conf[channel]["rate"]
-                if ratemode_val == "Fixed":
-                    rate_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_FIXEDRATE")
-                    rate_sig.put(rate_val)
-                elif ratemode_val == "Seq":
-                    rate_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SEQCODE")
-                    event_code = laser["rep_rates"][rate_val]
-                    rate_sig.put(event_code)
-                else:
-                    raise ValueError(f"Unknown ratemode {ratemode_val}")
-                # Enable/Disable the trigger
-                enable_val = rate_conf[channel]["enable"]
-                trg_sig = EpicsSignal(f"{tpr_base}:TRG{tpr_ch}_SYS2_TCTL")
-                trg_sig.put(enable_val)
-                ch_sig = EpicsSignal(f"{tpr_base}:CH{tpr_ch}_SYS2_TCTL")
-                ch_sig.put(enable_val)
+                tpr_ch = int(laser["channels"][f"{channel}"]["ch"])
+                tpr = TprTrigger(tpr_base, channel=tpr_ch,
+                                 timing_mode=TimingMode.LCLS2,
+                                 name=f"ch{tpr_ch}")
+                tpr.wait_for_connection()  # pvs connect slowly for some reason
+                tpr.configure(rate_conf[channel])
