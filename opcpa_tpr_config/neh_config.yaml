@@ -182,6 +182,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -190,6 +191,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -198,6 +200,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -214,6 +217,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -222,6 +226,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -230,6 +235,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -246,6 +252,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -254,6 +261,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -262,6 +270,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -278,6 +287,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -286,6 +296,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -294,6 +305,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -489,6 +501,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -497,6 +510,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -505,6 +519,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -521,6 +536,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -529,6 +545,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -537,6 +554,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -553,6 +571,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -561,6 +580,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -569,6 +589,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -585,6 +606,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -593,6 +615,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -601,6 +624,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
