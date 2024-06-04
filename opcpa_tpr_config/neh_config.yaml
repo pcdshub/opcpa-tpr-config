@@ -41,20 +41,13 @@ lasers:
         desc: "TIC Stop Trigger"
         ch: "06"
         show: True
+      ch7:
+        desc: "TIC Gate Trigger"
+        ch: "07"
+        show: True
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
-      cfg_100:
-        rate: "100 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 100
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 100
-          enable: "Enabled"
-
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -63,6 +56,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 256
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 256
           enable_trg_cmd: "Enabled"
@@ -80,6 +78,11 @@ lasers:
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 257
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_650:
         rate: "650 Hz"
@@ -89,6 +92,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 258
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 258
           enable_trg_cmd: "Enabled"
@@ -106,6 +114,11 @@ lasers:
           seqcode: 259
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 259
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_2500:
         rate: "2500 Hz"
@@ -115,6 +128,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 260
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 260
           enable_trg_cmd: "Enabled"
@@ -132,6 +150,11 @@ lasers:
           seqcode: 261
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 261
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_32500:
         rate: "32500 Hz"
@@ -145,6 +168,11 @@ lasers:
           seqcode: 262
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 262
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_4:
         rate: "4 Hz Goose"
@@ -154,6 +182,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -162,6 +191,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -170,8 +200,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 264
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_40:
         rate: "40 Hz Goose"
@@ -181,6 +217,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -189,6 +226,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -197,8 +235,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 265
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_50:
         rate: "50 Hz Goose"
@@ -208,6 +252,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -216,6 +261,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -224,8 +270,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 266
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_250:
         rate: "250 Hz Goose"
@@ -235,6 +287,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -243,6 +296,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -251,24 +305,21 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 267
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_off:
         rate: "Goose off"
-        ch0:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch1:
           operation: "NOOP"
-        ch2:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch3:
           operation: "NOOP"
-        ch4:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch5:
           operation: "NOOP"
 
@@ -309,20 +360,13 @@ lasers:
         desc: "TIC Stop Trigger"
         ch: "06"
         show: True
+      ch7:
+        desc: "TIC Gate Trigger"
+        ch: "07"
+        show: True
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     rate_configs:
-      cfg_100:
-        rate: "100 Hz"
-        ch4:
-          ratemode: "Seq"
-          rate: 100
-          enable: "Enabled"
-        ch5:
-          ratemode: "Seq"
-          rate: 100
-          enable: "Enabled"
-
       cfg_130:
         rate: "130 Hz"
         ch4:
@@ -331,6 +375,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 256
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 256
           enable_trg_cmd: "Enabled"
@@ -348,6 +397,11 @@ lasers:
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 257
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_650:
         rate: "650 Hz"
@@ -357,6 +411,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 258
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 258
           enable_trg_cmd: "Enabled"
@@ -374,6 +433,11 @@ lasers:
           seqcode: 259
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 259
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_2500:
         rate: "2500 Hz"
@@ -383,6 +447,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         ch5:
+          ratemode: "Seq"
+          seqcode: 260
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        ch7:
           ratemode: "Seq"
           seqcode: 260
           enable_trg_cmd: "Enabled"
@@ -400,6 +469,11 @@ lasers:
           seqcode: 261
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 261
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_32500:
         rate: "32500 Hz"
@@ -413,6 +487,11 @@ lasers:
           seqcode: 262
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 262
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_4:
         rate: "4 Hz Goose"
@@ -422,6 +501,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -430,6 +510,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -438,8 +519,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 264
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_40:
         rate: "40 Hz Goose"
@@ -449,6 +536,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -457,6 +545,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -465,8 +554,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 265
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_50:
         rate: "50 Hz Goose"
@@ -476,6 +571,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -484,6 +580,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
@@ -492,8 +589,14 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 266
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_250:
         rate: "250 Hz Goose"
@@ -503,6 +606,7 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch1:
           operation: "AND"
         ch2:
@@ -511,30 +615,29 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch3:
           operation: "AND"
         ch4:
           ratemode: "Seq"
           seqcode: 267
+          polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+          width_setpoint: 15.4
         ch5:
           operation: "AND"
+        ch7:
+          ratemode: "Seq"
+          seqcode: 267
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
 
       cfg_goose_off:
         rate: "Goose off"
-        ch0:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch1:
           operation: "NOOP"
-        ch2:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch3:
           operation: "NOOP"
-        ch4:
-          enable_trg_cmd: "Disabled"
-          enable_ch_cmd: "Disabled"
         ch5:
           operation: "NOOP"
