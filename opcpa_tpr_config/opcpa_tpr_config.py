@@ -1,11 +1,11 @@
-from functools import partial
+# from functools import partial
 
 import yaml
 from pcdsdevices.tpr import TimingMode, TprTrigger
 from pydm import Display
 from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
 from qtpy.QtGui import QFont
-from qtpy.QtWidgets import QGridLayout, QSizePolicy, QSpacerItem
+from qtpy.QtWidgets import QComboBox, QGridLayout, QSizePolicy, QSpacerItem
 
 
 class App(Display):
@@ -158,18 +158,39 @@ class App(Display):
         config_desc.setFont(config_font)
         vlayout.addWidget(config_desc)
 
-        las = self.config["lasers"][laser]
-        for ncfg, cfg in enumerate(las["rate_configs"]):
-            button = PyDMPushButton(f"{laser}_{cfg}")
-            rate = las["rate_configs"][cfg]["rate"]
-            button.setText(f"{rate}")
-            button.showConfirmDialog = True
-            row, col = divmod(ncfg, 4)
-            row += 1  # Leave first row for title
-            grid.addWidget(button, row, col)
-            button.clicked.connect(
-                partial(self.set_configuration, las, cfg)
-            )
+        las = self.config['lasers'][laser]
+
+        cfg_sections = ['laser_rate_configs', 'goose_rate_configs',
+                        'goose_arrival_configs']
+
+        for nsection, section in enumerate(cfg_sections):
+            desc = PyDMLabel()
+            desc.setText(las[section]['desc'])
+            grid.addWidget(desc, 0, nsection)
+            cbox = QComboBox()
+            cfgs = las[section]
+            cfgs.pop('desc', None)
+            for ncfg, cfg in enumerate(cfgs):
+                txt = las[section][cfg]['desc']
+                data = las[section][cfg]
+                cbox.insertItem(ncfg, txt, userData=data)
+            grid.addWidget(cbox, 1, nsection)
+
+        apply_button = PyDMPushButton("Apply")
+        grid.addWidget(apply_button, 1, nsection+1)
+        # Setup goose rate configs
+#        las = self.config["lasers"][laser]
+#        for ncfg, cfg in enumerate(las["rate_configs"]):
+#            button = PyDMPushButton(f"{laser}_{cfg}")
+#            rate = las["rate_configs"][cfg]["rate"]
+#            button.setText(f"{rate}")
+#            button.showConfirmDialog = True
+#            row, col = divmod(ncfg, 4)
+#            row += 1  # Leave first row for title
+#            grid.addWidget(button, row, col)
+#            button.clicked.connect(
+#                partial(self.set_configuration, las, cfg)
+#            )
         vlayout.addLayout(grid)
 
         # Finish the section
@@ -179,7 +200,7 @@ class App(Display):
         space = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         vlayout.addItem(space)
 
-    def set_configuration(self, laser, config):
+    def set_tpr_configuration(self, laser, config):
         """
         Apply the given configuration to the TPR.
 
@@ -191,7 +212,7 @@ class App(Display):
                 function.
         """
         tpr_base = laser["tpr_base"]
-        rate_conf = laser["rate_configs"][config]
+        rate_conf = laser["laser_rate_configs"][config]
         for channel in laser["channels"]:
             if channel in laser["rate_configs"][config]:
                 tpr_ch = int(laser["channels"][f"{channel}"]["ch"])
