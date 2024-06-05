@@ -1,7 +1,7 @@
 # from functools import partial
 
 import yaml
-from pcdsdevices.tpr import TimingMode, TprTrigger
+# from pcdsdevices.tpr import TimingMode, TprTrigger
 from pydm import Display
 from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
 from qtpy.QtGui import QFont
@@ -163,20 +163,34 @@ class App(Display):
         cfg_sections = ['laser_rate_configs', 'goose_rate_configs',
                         'goose_arrival_configs']
 
+        cfgd = dict()  # Dict to store widgets for later use
+
         for nsection, section in enumerate(cfg_sections):
             desc = PyDMLabel()
             desc.setText(las[section]['desc'])
             grid.addWidget(desc, 0, nsection)
+
             cbox = QComboBox()
             cfgs = las[section]
-            cfgs.pop('desc', None)
+            cfgs.pop('desc', None)  # Remove description field before loop
+
             for ncfg, cfg in enumerate(cfgs):
                 txt = las[section][cfg]['desc']
                 data = las[section][cfg]
                 cbox.insertItem(ncfg, txt, userData=data)
             grid.addWidget(cbox, 1, nsection)
 
+            cfgd[section] = cbox
+
         apply_button = PyDMPushButton("Apply")
+        apply_button.clicked.connect(
+            lambda: self.apply_configuration(
+                las,
+                cfgd['laser_rate_configs'],
+                cfgd['goose_rate_configs'],
+                cfgd['goose_arrival_configs']
+            )
+        )
         grid.addWidget(apply_button, 1, nsection+1)
         # Setup goose rate configs
 #        las = self.config["lasers"][laser]
@@ -200,7 +214,13 @@ class App(Display):
         space = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         vlayout.addItem(space)
 
-    def set_tpr_configuration(self, laser, config):
+    def apply_configuration(self, laser, base, goose, arrival):
+
+        self.set_tpr_configuration(laser, base)
+        # self.set_goose_configuration(laser, goose)
+        # self.set_arrival_configuration(laser, arrival)
+
+    def set_tpr_configuration(self, laser, cbox):
         """
         Apply the given configuration to the TPR.
 
@@ -211,13 +231,22 @@ class App(Display):
         config: The rep rate configuration to be applied when calling this
                 function.
         """
-        tpr_base = laser["tpr_base"]
-        rate_conf = laser["laser_rate_configs"][config]
-        for channel in laser["channels"]:
-            if channel in laser["rate_configs"][config]:
-                tpr_ch = int(laser["channels"][f"{channel}"]["ch"])
-                tpr = TprTrigger(tpr_base, channel=tpr_ch,
-                                 timing_mode=TimingMode.LCLS2,
-                                 name=f"ch{tpr_ch}")
-                tpr.wait_for_connection()  # pvs connect slowly for some reason
-                tpr.configure(rate_conf[channel])
+#        tpr_base = laser["tpr_base"]
+        print(f"index {cbox.currentIndex()}")
+        print(f"text {cbox.currentText()}")
+        print(f"userdata: {cbox.currentData()}")
+#        rate_conf = laser["laser_rate_configs"][config]
+#        for channel in laser["channels"]:
+#            if channel in laser["rate_configs"][config]:
+#                tpr_ch = int(laser["channels"][f"{channel}"]["ch"])
+#                tpr = TprTrigger(tpr_base, channel=tpr_ch,
+#                                 timing_mode=TimingMode.LCLS2,
+#                                 name=f"ch{tpr_ch}")
+#                tpr.wait_for_connection()  # pvs connect slow for some reason
+#                tpr.configure(rate_conf[channel])
+
+    def set_arrival_configuration(self, laser, config):
+        print(config)
+
+    def set_goose_configuration(self, laser, config):
+        print(config)

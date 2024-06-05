@@ -309,7 +309,6 @@ lasers:
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-          width_setpoint: 15.4
         ch5:
           operation: "AND"
         ch7:
@@ -331,8 +330,26 @@ lasers:
       desc: "Goose Arrival"
       cfg_early:
         desc: "Early"
+        ch0:
+          polarity: 1
+          width_setpoint: 30.8
+        ch2:
+          polarity: 1
+          width_setpoint: 30.8
+        ch4:
+          polarity: 1
+          width_setpoint: 30.8
       cfg_late:
         desc: "Late"
+        ch0:
+          polarity: 0
+          width_setpoint: 15.4
+        ch2:
+          polarity: 0
+          width_setpoint: 15.4
+        ch4:
+          polarity: 0
+          width_setpoint: 15.4
 
 #  bay_3:
 #
