@@ -34,7 +34,7 @@ class App(Display):
         # Setup laser specific portions of GUI
         for laser in self.config["lasers"]:
             self.setup_rbvs(laser)
-#            self.setup_configs(laser)
+            self.setup_configs(laser)
 
     def ui_filename(self):
         return "opcpa_tpr_config.ui"
@@ -73,7 +73,15 @@ class App(Display):
         vlayout.addWidget(laser_desc)
 
         # Setup TPR triggers first
+        grid = self.setup_tpr_rbvs(las_conf, las_db, grid)
 
+        # Add to GUI
+        vlayout.addLayout(grid)
+
+    def setup_tpr_rbvs(self, las_conf, las_db, grid):
+        """
+        Setup RBV widgets for TPR triggers associated with the laser system.
+        """
         # Setup column headers
         desc = PyDMLabel()
         desc.setText("Trigger")
@@ -107,7 +115,7 @@ class App(Display):
         enabled.setText("Status")
         grid.addWidget(enabled, 0, 7)
 
-        # Setup PV RBVs
+        # Setup TPR PV RBVs
         tpr_trigs = las_db.search(device_class='pcdsdevices.tpr.TprTrigger')
         ntrig = 1
         for trig in tpr_trigs:
@@ -119,8 +127,8 @@ class App(Display):
                     child = self.configure_tpr_rbv_widget(trig, rbv)
                     grid.addWidget(child, ntrig, nrbv)
                 ntrig += 1
-        # Add to GUI
-        vlayout.addLayout(grid)
+
+        return grid
 
     def configure_tpr_rbv_widget(self, trig, rbv):
         """
