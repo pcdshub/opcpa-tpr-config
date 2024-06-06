@@ -5,8 +5,7 @@
 #export PCDS_CONDA_VER=dev
 
 source /cds/group/pcds/pyps/conda/pcds_conda
-#source /cds/group/pcds/pyps/conda/dev_conda
-export PYTHONPATH=/cds/home/t/tjohnson/trunk/hutch-python/forks/pcdsdevices:/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
+export PYTHONPATH=/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
 
 if [[ $# -ne 1 ]]; then
     echo
