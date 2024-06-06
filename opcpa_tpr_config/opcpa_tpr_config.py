@@ -1,8 +1,5 @@
-# from functools import partial
-
 import yaml
 from happi import Client
-# from pcdsdevices.tpr import TimingMode, TprTrigger
 from pydm import Display
 from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
 from qtpy.QtGui import QFont
@@ -269,15 +266,15 @@ class App(Display):
         space = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         vlayout.addItem(space)
 
-    def apply_configuration(self, laser, laser_db, base, goose, arrival):
+    def apply_configuration(self, las_conf, laser_db, base, goose, arrival):
 
-        self.set_tpr_configuration(laser, laser_db, base)
-        # self.set_goose_configuration(laser, goose)
-        # self.set_arrival_configuration(laser, arrival)
+        self.set_device_configuration(las_conf, laser_db, base)
+        self.set_device_configuration(las_conf, laser_db, goose)
+        self.set_device_configuration(las_conf, laser_db, arrival)
 
-    def set_tpr_configuration(self, laser, laser_db, cbox):
+    def set_device_configuration(self, las_conf, laser_db, cbox):
         """
-        Apply the given configuration to the TPR.
+        Apply the given configuration to the device.
 
         Arguments
         ---------
@@ -286,20 +283,24 @@ class App(Display):
         config: The rep rate configuration to be applied when calling this
                 function.
         """
-        rate_conf = cbox.currentData()
-        tprs = laser_db.search(
-                device_class='pcdsdevices.tpr.TprTrigger'
+        supported_devices = [
+            "pcdsdevices.tpr.TprTrigger",
+            "ophyd.signal.EpicsSignal"
+        ]
+        userdata = cbox.currentData()
+        for devclass in supported_devices:
+            devices = laser_db.search(
+                device_class=devclass
                )
-        for tpr in tprs:
-            name = tpr.metadata['name']
-            if name in rate_conf:
-                dev = tpr.get()
-                print(dev)
-                print(rate_conf[name])
-                # dev.configure(rate_conf[key])
-
-    def set_arrival_configuration(self, laser, laser_db, cbox):
-        print(laser)
-
-    def set_goose_configuration(self, laser, config):
-        print(laser)
+            for device in devices:
+                name = device.metadata['name']
+                if name in userdata:
+                    instance = device.get()
+                    if devclass == "ophyd.signal.EpicsSignal":
+                        print("Signals are different!")  # reminder to fix
+                        print(instance)
+                        print(userdata[name])
+                    else:
+                        print(instance)
+                        print(userdata[name])
+                        # dev.configure(rate_conf[key])
