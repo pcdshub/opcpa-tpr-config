@@ -200,19 +200,7 @@ class App(Display):
             )
         )
         grid.addWidget(apply_button, 1, nsection+1)
-        # Setup goose rate configs
-#        las = self.config["lasers"][laser]
-#        for ncfg, cfg in enumerate(las["rate_configs"]):
-#            button = PyDMPushButton(f"{laser}_{cfg}")
-#            rate = las["rate_configs"][cfg]["rate"]
-#            button.setText(f"{rate}")
-#            button.showConfirmDialog = True
-#            row, col = divmod(ncfg, 4)
-#            row += 1  # Leave first row for title
-#            grid.addWidget(button, row, col)
-#            button.clicked.connect(
-#                partial(self.set_configuration, las, cfg)
-#            )
+
         vlayout.addLayout(grid)
 
         # Finish the section
