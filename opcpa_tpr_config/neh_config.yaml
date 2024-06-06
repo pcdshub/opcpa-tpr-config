@@ -9,41 +9,33 @@ lasers:
 
     laser_desc: "Bay 2 TPR Configuration"
 
-    tpr_base: "LAS:LHN:TPR:02"
+    laser_database: "db.json"
 
     # TPR Channels
-    channels:
-      ch0:
-        desc: "Carbide Goose"
-        ch: "00"
+    devices:
+      Carbide_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch1:
-        desc: "Carbide"
-        ch: "01"
+      Carbide_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch2:
-        desc: "Amphos Goose"
-        ch: "02"
+      Amphos_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch3:
-        desc: "Amphos Base"
-        ch: "03"
+      Amphos_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch4:
-        desc: "Carbide PP Goose"
-        ch: "04"
+      Carbide_PP_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch5:
-        desc: "Carbide PP"
-        ch: "05"
+      Carbide_PP:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch6:
-        desc: "TIC Stop Trigger"
-        ch: "06"
+      TIC_Stop:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
-      ch7:
-        desc: "TIC Gate Trigger"
-        ch: "07"
+      TIC_Gate:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser

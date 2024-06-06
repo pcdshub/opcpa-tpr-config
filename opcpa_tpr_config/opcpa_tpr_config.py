@@ -1,6 +1,7 @@
 # from functools import partial
 
 import yaml
+from happi import Client
 # from pcdsdevices.tpr import TimingMode, TprTrigger
 from pydm import Display
 from pydm.widgets import PyDMDrawingLine, PyDMLabel, PyDMPushButton
@@ -33,7 +34,7 @@ class App(Display):
         # Setup laser specific portions of GUI
         for laser in self.config["lasers"]:
             self.setup_rbvs(laser)
-            self.setup_configs(laser)
+#            self.setup_configs(laser)
 
     def ui_filename(self):
         return "opcpa_tpr_config.ui"
@@ -60,6 +61,8 @@ class App(Display):
 
         las_conf = self.config["lasers"][laser]
 
+        las_db = Client(path=las_conf['laser_database'])
+
         # Add description widgets
         desc_font = QFont()
         desc_font.setBold(True)
@@ -68,6 +71,8 @@ class App(Display):
         laser_desc.setText(las_conf["laser_desc"])
         laser_desc.setFont(desc_font)
         vlayout.addWidget(laser_desc)
+
+        # Setup TPR triggers first
 
         # Setup column headers
         desc = PyDMLabel()
@@ -103,41 +108,36 @@ class App(Display):
         grid.addWidget(enabled, 0, 7)
 
         # Setup PV RBVs
-        labels = ["DESC", "RATE", "RATEMODE", "SEQCODE", "SYS2_TWID",
-                  "SYS2_TDES", "TCMPL", "SYS2_TCTL"]
-
-        nchannel = 1
-        for channel in las_conf["channels"]:
-            if las_conf["channels"][channel]["show"]:
-                for nlabel, label in enumerate(labels):
-                    child = self.configure_ch_rbv_widget(laser, label, channel)
-                    grid.addWidget(child, nchannel, nlabel)
-                nchannel += 1
+        tpr_trigs = las_db.search(device_class='pcdsdevices.tpr.TprTrigger')
+        ntrig = 1
+        for trig in tpr_trigs:
+            if trig.metadata['active']:
+                name = trig.metadata['name']
+                trig_conf = las_conf['devices'][name]
+                rbvs = trig_conf['rbvs']
+                for nrbv, rbv in enumerate(rbvs):
+                    child = self.configure_tpr_rbv_widget(trig, rbv)
+                    grid.addWidget(child, ntrig, nrbv)
+                ntrig += 1
         # Add to GUI
         vlayout.addLayout(grid)
 
-    def configure_ch_rbv_widget(self, laser, label, channel):
+    def configure_tpr_rbv_widget(self, trig, rbv):
         """
         Setup a channel RBV widget.
 
         returns:
             PyDMLabel
         """
-        las_conf = self.config["lasers"][laser]
-        tpr_base = self.config["lasers"][laser]["tpr_base"]
         child = PyDMLabel()
-        if label == "DESC":
-            val = las_conf["channels"][f"{channel}"]["desc"]
-            child.setText(val)
-        elif label in ["SYS2_TWID", "SYS2_TDES", "TCMPL", "SYS2_TCTL"]:
-            # These need TRG instead of CH
-            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-            pv = f"ca://{tpr_base}:TRG{tpr_ch}_{label}"
-            child.set_channel(pv)
+        dev = trig.get()
+        if rbv == 'name':
+            child.setText(getattr(dev, 'name'))
         else:
-            tpr_ch = las_conf["channels"][f"{channel}"]["ch"]
-            pv = f"ca://{tpr_base}:CH{tpr_ch}_{label}"
-            child.set_channel(pv)
+            pvname = getattr(dev, f"{rbv}.pvname")
+            channel = f"ca://{pvname}"
+            child.set_channel(channel)
+
         return child
 
     def setup_configs(self, laser):

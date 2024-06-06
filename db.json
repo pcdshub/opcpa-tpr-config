@@ -1,0 +1,146 @@
+{
+    "Carbide_Goose": {
+        "_id": "Carbide_Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Carbide Goose",
+        "kwargs": {
+            "channel": 0,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Carbide_Goose",
+        "type": "HappiItem"
+    },
+    "Carbide_Base": {
+        "_id": "Carbide_Base",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Carbide Base",
+        "kwargs": {
+            "channel": 1,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Carbide_Base",
+        "type": "HappiItem"
+    },
+    "Amphos_Goose": {
+        "_id": "Amphos_Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Amphos Goose",
+        "kwargs": {
+            "channel": 2,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Amphos_Goose",
+        "type": "HappiItem"
+    },
+    "Amphos_Base": {
+        "_id": "Amphos_Base",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Amphos Base",
+        "kwargs": {
+            "channel": 3,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Amphos_Base",
+        "type": "HappiItem"
+    },
+    "Carbide_PP_Goose": {
+        "_id": "Carbide_PP_Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Carbide PP Goose",
+        "kwargs": {
+            "channel": 4,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Carbide_PP_Goose",
+        "type": "HappiItem"
+    },
+    "Carbide_PP": {
+        "_id": "Carbide_PP",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Carbide PP",
+        "kwargs": {
+            "channel": 5,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Carbide_PP",
+        "type": "HappiItem"
+    },
+    "TIC_Stop": {
+        "_id": "TIC_Stop",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "TIC Stop",
+        "kwargs": {
+            "channel": 6,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "TIC_Stop",
+        "type": "HappiItem"
+    },
+    "TIC_Gate": {
+        "_id": "TIC_Gate",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "TIC Gate",
+        "kwargs": {
+            "channel": 7,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "TIC_Gate",
+        "type": "HappiItem"
+    }
+}
