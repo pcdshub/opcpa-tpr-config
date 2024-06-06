@@ -43,17 +43,17 @@ lasers:
       desc: "Base Rep. Rate"
       cfg_130:
         desc: "130 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 256
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 256
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 256
           enable_trg_cmd: "Enabled"
@@ -61,17 +61,17 @@ lasers:
 
       cfg_500:
         desc: "500 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 257
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 257
           enable_trg_cmd: "Enabled"
@@ -79,17 +79,17 @@ lasers:
 
       cfg_650:
         desc: "650 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 258
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 258
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 258
           enable_trg_cmd: "Enabled"
@@ -97,17 +97,17 @@ lasers:
 
       cfg_1300:
         desc: "1300 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 259
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 259
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 259
           enable_trg_cmd: "Enabled"
@@ -115,17 +115,17 @@ lasers:
 
       cfg_2500:
         desc: "2500 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 260
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 260
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 260
           enable_trg_cmd: "Enabled"
@@ -133,17 +133,17 @@ lasers:
 
       cfg_8125:
         desc: "8125 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 261
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 261
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 261
           enable_trg_cmd: "Enabled"
@@ -151,17 +151,17 @@ lasers:
 
       cfg_32500:
         desc: "32500 Hz"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 262
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           ratemode: "Seq"
           seqcode: 262
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 262
           enable_trg_cmd: "Enabled"
@@ -172,34 +172,34 @@ lasers:
       desc: "Goose Rep. Rate"
       cfg_goose_4:
         desc: "4 Hz Goose"
-        ch0:
+        Carbide_Goose:
           ratemode: "Seq"
           seqcode: 264
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch1:
+        Carbide_Base:
           operation: "AND"
-        ch2:
+        Amphos_Goose:
           ratemode: "Seq"
           seqcode: 264
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch3:
+        Amphos_Base:
           operation: "AND"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 264
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch5:
+        Carbide_PP:
           operation: "AND"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 264
           enable_trg_cmd: "Enabled"
@@ -207,34 +207,34 @@ lasers:
 
       cfg_goose_40:
         desc: "40 Hz Goose"
-        ch0:
+        Carbide_Goose:
           ratemode: "Seq"
           seqcode: 265
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch1:
+        Carbide_Base:
           operation: "AND"
-        ch2:
+        Amphos_Goose:
           ratemode: "Seq"
           seqcode: 265
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch3:
+        Amphos_Base:
           operation: "AND"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 265
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch5:
+        Carbide_PP:
           operation: "AND"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 265
           enable_trg_cmd: "Enabled"
@@ -242,34 +242,34 @@ lasers:
 
       cfg_goose_50:
         desc: "50 Hz Goose"
-        ch0:
+        Carbide_Goose:
           ratemode: "Seq"
           seqcode: 266
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch1:
+        Carbide_Base:
           operation: "AND"
-        ch2:
+        Amphos_Goose:
           ratemode: "Seq"
           seqcode: 266
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch3:
+        Amphos_Base:
           operation: "AND"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 266
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch5:
+        Carbide_PP:
           operation: "AND"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 266
           enable_trg_cmd: "Enabled"
@@ -277,33 +277,33 @@ lasers:
 
       cfg_goose_250:
         desc: "250 Hz Goose"
-        ch0:
+        Carbide_Goose:
           ratemode: "Seq"
           seqcode: 267
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch1:
+        Carbide_Base:
           operation: "AND"
-        ch2:
+        Amphos_Goose:
           ratemode: "Seq"
           seqcode: 267
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
           width_setpoint: 15.4
-        ch3:
+        Amphos_Base:
           operation: "AND"
-        ch4:
+        Carbide_PP_Goose:
           ratemode: "Seq"
           seqcode: 267
           polarity: 0
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
-        ch5:
+        Carbide_PP:
           operation: "AND"
-        ch7:
+        TIC_Gate:
           ratemode: "Seq"
           seqcode: 267
           enable_trg_cmd: "Enabled"
@@ -311,35 +311,35 @@ lasers:
 
       cfg_goose_off:
         desc: "Goose off"
-        ch1:
+        Carbide_Base:
           operation: "NOOP"
-        ch3:
+        Amphos_Base:
           operation: "NOOP"
-        ch5:
+        Carbide_PP:
           operation: "NOOP"
 
     goose_arrival_configs:
       desc: "Goose Arrival"
       cfg_early:
         desc: "Early"
-        ch0:
+        Carbide_Goose:
           polarity: 1
           width_setpoint: 30.8
-        ch2:
+        Amphos_Goose:
           polarity: 1
           width_setpoint: 30.8
-        ch4:
+        Carbide_PP_Goose:
           polarity: 1
           width_setpoint: 30.8
       cfg_late:
         desc: "Late"
-        ch0:
+        Carbide_Goose:
           polarity: 0
           width_setpoint: 15.4
-        ch2:
+        Amphos_Goose:
           polarity: 0
           width_setpoint: 15.4
-        ch4:
+        Carbide_PP_Goose:
           polarity: 0
           width_setpoint: 15.4
 
@@ -351,27 +351,27 @@ lasers:
 #
 #    # TPR Channels
 #    channels:
-#      ch0:
+#      Carbide_Goose:
 #        desc: "Carbide Goose"
 #        ch: "00"
 #        show: True
-#      ch1:
+#      Carbide_Base:
 #        desc: "Carbide"
 #        ch: "01"
 #        show: True
-#      ch2:
+#      Amphos_Goose:
 #        desc: "Amphos Goose"
 #        ch: "02"
 #        show: True
-#      ch3:
+#      Amphos_Base:
 #        desc: "Amphos Base"
 #        ch: "03"
 #        show: True
-#      ch4:
+#      Carbide_PP:_Goose
 #        desc: "Carbide PP Goose"
 #        ch: "04"
 #        show: True
-#      ch5:
+#      Carbide_PP:
 #        desc: "Carbide PP"
 #        ch: "05"
 #        show: True
@@ -379,7 +379,7 @@ lasers:
 #        desc: "TIC Stop Trigger"
 #        ch: "06"
 #        show: True
-#      ch7:
+#      TIC_Gate:
 #        desc: "TIC Gate Trigger"
 #        ch: "07"
 #        show: True
@@ -388,17 +388,17 @@ lasers:
 #    rate_configs:
 #      cfg_130:
 #        desc: "130 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 256
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 256
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 256
 #          enable_trg_cmd: "Enabled"
@@ -406,17 +406,17 @@ lasers:
 #
 #      cfg_500:
 #        desc: "500 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 257
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 257
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 257
 #          enable_trg_cmd: "Enabled"
@@ -424,17 +424,17 @@ lasers:
 #
 #      cfg_650:
 #        desc: "650 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 258
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 258
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 258
 #          enable_trg_cmd: "Enabled"
@@ -442,17 +442,17 @@ lasers:
 #
 #      cfg_1300:
 #        desc: "1300 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 259
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 259
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 259
 #          enable_trg_cmd: "Enabled"
@@ -460,17 +460,17 @@ lasers:
 #
 #      cfg_2500:
 #        desc: "2500 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 260
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 260
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 260
 #          enable_trg_cmd: "Enabled"
@@ -478,17 +478,17 @@ lasers:
 #
 #      cfg_8125:
 #        desc: "8125 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 261
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 261
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 261
 #          enable_trg_cmd: "Enabled"
@@ -496,17 +496,17 @@ lasers:
 #
 #      cfg_32500:
 #        desc: "32500 Hz"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 262
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch5:
+#        Carbide_PP:
 #          ratemode: "Seq"
 #          seqcode: 262
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 262
 #          enable_trg_cmd: "Enabled"
@@ -514,34 +514,34 @@ lasers:
 #
 #      cfg_goose_4:
 #        desc: "4 Hz Goose"
-#        ch0:
+#        Carbide_Goose:
 #          ratemode: "Seq"
 #          seqcode: 264
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch1:
+#        Carbide_Base:
 #          operation: "AND"
-#        ch2:
+#        Amphos_Goose:
 #          ratemode: "Seq"
 #          seqcode: 264
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch3:
+#        Amphos_Base:
 #          operation: "AND"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 264
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch5:
+#        Carbide_PP:
 #          operation: "AND"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 264
 #          enable_trg_cmd: "Enabled"
@@ -549,34 +549,34 @@ lasers:
 #
 #      cfg_goose_40:
 #        desc: "40 Hz Goose"
-#        ch0:
+#        Carbide_Goose:
 #          ratemode: "Seq"
 #          seqcode: 265
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch1:
+#        Carbide_Base:
 #          operation: "AND"
-#        ch2:
+#        Amphos_Goose:
 #          ratemode: "Seq"
 #          seqcode: 265
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch3:
+#        Amphos_Base:
 #          operation: "AND"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 265
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch5:
+#        Carbide_PP:
 #          operation: "AND"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 265
 #          enable_trg_cmd: "Enabled"
@@ -584,34 +584,34 @@ lasers:
 #
 #      cfg_goose_50:
 #        desc: "50 Hz Goose"
-#        ch0:
+#        Carbide_Goose:
 #          ratemode: "Seq"
 #          seqcode: 266
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch1:
+#        Carbide_Base:
 #          operation: "AND"
-#        ch2:
+#        Amphos_Goose:
 #          ratemode: "Seq"
 #          seqcode: 266
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch3:
+#        Amphos_Base:
 #          operation: "AND"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 266
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch5:
+#        Carbide_PP:
 #          operation: "AND"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 266
 #          enable_trg_cmd: "Enabled"
@@ -619,34 +619,34 @@ lasers:
 #
 #      cfg_goose_250:
 #        desc: "250 Hz Goose"
-#        ch0:
+#        Carbide_Goose:
 #          ratemode: "Seq"
 #          seqcode: 267
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch1:
+#        Carbide_Base:
 #          operation: "AND"
-#        ch2:
+#        Amphos_Goose:
 #          ratemode: "Seq"
 #          seqcode: 267
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch3:
+#        Amphos_Base:
 #          operation: "AND"
-#        ch4:
+#        Carbide_PP:_Goose
 #          ratemode: "Seq"
 #          seqcode: 267
 #          polarity: 0
 #          enable_trg_cmd: "Enabled"
 #          enable_ch_cmd: "Enabled"
 #          width_setpoint: 15.4
-#        ch5:
+#        Carbide_PP:
 #          operation: "AND"
-#        ch7:
+#        TIC_Gate:
 #          ratemode: "Seq"
 #          seqcode: 267
 #          enable_trg_cmd: "Enabled"
@@ -654,9 +654,9 @@ lasers:
 #
 #      cfg_goose_off:
 #        desc: "Goose off"
-#        ch1:
+#        Carbide_Base:
 #          operation: "NOOP"
-#        ch3:
+#        Amphos_Base:
 #          operation: "NOOP"
-#        ch5:
+#        Carbide_PP:
 #          operation: "NOOP"
