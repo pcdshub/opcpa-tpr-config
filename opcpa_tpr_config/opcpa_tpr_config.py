@@ -91,6 +91,12 @@ class App(Display):
     def setup_tpr_rbvs(self, las_conf, las_db, grid):
         """
         Setup RBV widgets for TPR triggers associated with the laser system.
+
+        Arguments
+        ---------
+        las_conf: The key name of the laser to be used.
+        las_db: The file name of the laser happi db.json file
+        grid: The QGridLayout widget to add widgets to
         """
         # Setup column headers
         desc = PyDMLabel()
@@ -151,6 +157,12 @@ class App(Display):
     def setup_signal_rbvs(self, las_conf, las_db, grid):
         """
         Setup RBV widgets for TPR triggers associated with the laser system.
+
+        Arguments
+        ---------
+        las_conf: The key name of the laser to be used.
+        las_db: The file name of the laser happi db.json file
+        grid: The QGridLayout widget to add widgets to
         """
         # Setup column headers
         desc = PyDMLabel()
@@ -184,6 +196,13 @@ class App(Display):
     def configure_rbv_widget(self, dev, rbv):
         """
         Setup a ophyd device RBV widget.
+
+        Arguments
+        ---------
+        dev: happi Client search result
+        rbv: The device class signal to create an RBV widget for
+             *Note: in the case of EpicsSignals, we use a "val" to indicate
+             that we want to use the base PV of the signal.
 
         returns:
             PyDMLabel
@@ -222,6 +241,7 @@ class App(Display):
         config_desc.setFont(self.header_font)
         vlayout.addWidget(config_desc)
 
+        # Currently supported configuration sections
         cfg_sections = ['laser_rate_configs', 'goose_rate_configs',
                         'goose_arrival_configs']
 
@@ -267,7 +287,20 @@ class App(Display):
         vlayout.addItem(space)
 
     def apply_configuration(self, las_conf, laser_db, base, goose, arrival):
+        """
+        Apply the given configuration to the laser system.
 
+        Arguments
+        ---------
+        las_conf: The configuration dictonary for the laser
+        las_db: A Client of the happi database of the laser
+        base: QComboBox widget containing the valid "base" rep rate
+              configurations for the laser.
+        goose: QComboBox widget containing the valid "goose" rep rate
+               configurations for the laser.
+        arrival: QComboBox widget containing the valid "arrival" rep rate
+                 configurations for the laser.
+        """
         self.set_device_configuration(las_conf, laser_db, base)
         self.set_device_configuration(las_conf, laser_db, goose)
         self.set_device_configuration(las_conf, laser_db, arrival)
@@ -278,10 +311,10 @@ class App(Display):
 
         Arguments
         ---------
-        laser: The name of the laser configuration to be used.
-
-        config: The rep rate configuration to be applied when calling this
-                function.
+        las_conf: The configuration dictonary for the laser
+        las_db: A Client of the happi database of the laser
+        cbox: A QComboBox for the particular configuration aspect of the
+              laser (base, goose, arrival, etc).
         """
         supported_devices = [
             "pcdsdevices.tpr.TprTrigger",
