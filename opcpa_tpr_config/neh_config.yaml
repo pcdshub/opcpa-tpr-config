@@ -37,6 +37,10 @@ lasers:
       TIC_Gate:
         rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
+      Tstsig:
+        rbvs: ["name", "val"]
+        show: True
+
 
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     laser_rate_configs:

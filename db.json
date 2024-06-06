@@ -1,38 +1,20 @@
 {
-    "Carbide_Goose": {
-        "_id": "Carbide_Goose",
+    "Amphos_Base": {
+        "_id": "Amphos_Base",
         "active": true,
         "args": [
             "LAS:LHN:TPR:02"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
-        "documentation": "Carbide Goose",
+        "documentation": "Amphos Base",
         "kwargs": {
-            "channel": 0,
+            "channel": 3,
             "name": "{{name}}",
             "timing_mode": 2
         },
         "last_edit": "Thu Jun  6 07:54:55 2024",
-        "name": "Carbide_Goose",
-        "type": "HappiItem"
-    },
-    "Carbide_Base": {
-        "_id": "Carbide_Base",
-        "active": true,
-        "args": [
-            "LAS:LHN:TPR:02"
-        ],
-        "creation": "Thu Jun  6 07:54:55 2024",
-        "device_class": "pcdsdevices.tpr.TprTrigger",
-        "documentation": "Carbide Base",
-        "kwargs": {
-            "channel": 1,
-            "name": "{{name}}",
-            "timing_mode": 2
-        },
-        "last_edit": "Thu Jun  6 07:54:55 2024",
-        "name": "Carbide_Base",
+        "name": "Amphos_Base",
         "type": "HappiItem"
     },
     "Amphos_Goose": {
@@ -53,40 +35,40 @@
         "name": "Amphos_Goose",
         "type": "HappiItem"
     },
-    "Amphos_Base": {
-        "_id": "Amphos_Base",
+    "Carbide_Base": {
+        "_id": "Carbide_Base",
         "active": true,
         "args": [
             "LAS:LHN:TPR:02"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
-        "documentation": "Amphos Base",
+        "documentation": "Carbide Base",
         "kwargs": {
-            "channel": 3,
+            "channel": 1,
             "name": "{{name}}",
             "timing_mode": 2
         },
         "last_edit": "Thu Jun  6 07:54:55 2024",
-        "name": "Amphos_Base",
+        "name": "Carbide_Base",
         "type": "HappiItem"
     },
-    "Carbide_PP_Goose": {
-        "_id": "Carbide_PP_Goose",
+    "Carbide_Goose": {
+        "_id": "Carbide_Goose",
         "active": true,
         "args": [
             "LAS:LHN:TPR:02"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
-        "documentation": "Carbide PP Goose",
+        "documentation": "Carbide Goose",
         "kwargs": {
-            "channel": 4,
+            "channel": 0,
             "name": "{{name}}",
             "timing_mode": 2
         },
         "last_edit": "Thu Jun  6 07:54:55 2024",
-        "name": "Carbide_PP_Goose",
+        "name": "Carbide_Goose",
         "type": "HappiItem"
     },
     "Carbide_PP": {
@@ -107,22 +89,22 @@
         "name": "Carbide_PP",
         "type": "HappiItem"
     },
-    "TIC_Stop": {
-        "_id": "TIC_Stop",
+    "Carbide_PP_Goose": {
+        "_id": "Carbide_PP_Goose",
         "active": true,
         "args": [
             "LAS:LHN:TPR:02"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
-        "documentation": "TIC Stop",
+        "documentation": "Carbide PP Goose",
         "kwargs": {
-            "channel": 6,
+            "channel": 4,
             "name": "{{name}}",
             "timing_mode": 2
         },
         "last_edit": "Thu Jun  6 07:54:55 2024",
-        "name": "TIC_Stop",
+        "name": "Carbide_PP_Goose",
         "type": "HappiItem"
     },
     "TIC_Gate": {
@@ -141,6 +123,40 @@
         },
         "last_edit": "Thu Jun  6 07:54:55 2024",
         "name": "TIC_Gate",
+        "type": "HappiItem"
+    },
+    "TIC_Stop": {
+        "_id": "TIC_Stop",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "TIC Stop",
+        "kwargs": {
+            "channel": 6,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "TIC_Stop",
+        "type": "HappiItem"
+    },
+    "Tstsig": {
+        "_id": "Tstsig",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02:CH00_SYS2_TCTL"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "test tpr signal",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "Tstsig",
         "type": "HappiItem"
     }
 }
