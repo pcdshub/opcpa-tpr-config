@@ -329,11 +329,11 @@ class App(Display):
                 name = device.metadata['name']
                 if name in userdata:
                     instance = device.get()
+                    config = userdata['name']
                     if devclass == "ophyd.signal.EpicsSignal":
-                        print("Signals are different!")  # reminder to fix
-                        print(instance)
-                        print(userdata[name])
+                        if 'val' in config.keys():
+                            instance.put(config['val'])
+                        else:
+                            raise Exception("Missing 'val' for EpicsSignal")
                     else:
-                        print(instance)
-                        print(userdata[name])
-                        # dev.configure(rate_conf[key])
+                        instance.configure(config)
