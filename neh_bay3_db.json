@@ -3,7 +3,7 @@
         "_id": "Amphos_Base",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -21,7 +21,7 @@
         "_id": "Amphos_Goose",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -39,7 +39,7 @@
         "_id": "Carbide_Base",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -57,7 +57,7 @@
         "_id": "Carbide_Goose",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -75,7 +75,7 @@
         "_id": "Carbide_PP",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -93,7 +93,7 @@
         "_id": "Carbide_PP_Goose",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -111,7 +111,7 @@
         "_id": "TIC_Gate",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -129,7 +129,7 @@
         "_id": "TIC_Stop",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02"
+            "LAS:LHN:TPR:01"
         ],
         "creation": "Thu Jun  6 07:54:55 2024",
         "device_class": "pcdsdevices.tpr.TprTrigger",
@@ -143,20 +143,84 @@
         "name": "TIC_Stop",
         "type": "HappiItem"
     },
-    "Tstsig": {
-        "_id": "Tstsig",
+    "Carbide_Goose_Offset": {
+        "_id": "Carbide_Goose_Offset",
         "active": true,
         "args": [
-            "LAS:LHN:TPR:02:CH00_SYS2_TCTL"
+            "LAS:LHN:LLG2:01:GOOSE:TRIG1_OFFSET"
         ],
         "creation": "Thu Jun  6 13:54:47 2024",
         "device_class": "ophyd.signal.EpicsSignal",
-        "documentation": "test tpr signal",
+        "documentation": "Carbide Goose Trigger Offset",
         "kwargs": {
             "name": "{{name}}"
         },
         "last_edit": "Thu Jun  6 13:54:47 2024",
-        "name": "Tstsig",
+        "name": "Carbide_Goose_Offset",
+        "type": "HappiItem"
+    },
+    "Amphos_Goose_Offset": {
+        "_id": "Amphos_Goose_Offset",
+        "active": true,
+        "args": [
+            "LAS:LHN:LLG2:01:GOOSE:TRIG2_OFFSET"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "Amphos Goose Trigger Offset",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "Amphos_Goose_Offset",
+        "type": "HappiItem"
+    },
+    "PP_Goose_Offset": {
+        "_id": "PP_Goose_Offset",
+        "active": true,
+        "args": [
+            "LAS:LHN:LLG2:01:GOOSE:TRIG3_OFFSET"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "Carbide Pulse Picker Trigger Offset",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "PP_Goose_Offset",
+        "type": "HappiItem"
+    },
+    "TIC_Gate_Offset": {
+        "_id": "TIC_Gate_Offset",
+        "active": true,
+        "args": [
+            "LAS:LHN:LLG2:01:GOOSE:TRIG4_OFFSET"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "TIC Gate Trigger Offset",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "TIC_Gate_Offset",
+        "type": "HappiItem"
+    },
+    "TIC_Averaging": {
+        "_id": "TIC_Averaging",
+        "active": true,
+        "args": [
+            "LAS:FS13:CNT:TI:SetSampleSize"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "TIC Averaging Sample Size",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "TIC_Averaging",
         "type": "HappiItem"
     }
 }

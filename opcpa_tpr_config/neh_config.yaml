@@ -9,7 +9,7 @@ lasers:
 
     laser_desc: "Bay 2 Configuration"
 
-    laser_database: "db.json"
+    laser_database: "neh_bay2_db.json"
 
     # TPR Channels
     devices:
