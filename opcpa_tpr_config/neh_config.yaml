@@ -112,14 +112,25 @@ lasers:
         TIC_Averaging:
           val: 100
 
-      cfg_8125:
-        desc: "8125 Hz"
+      cfg_3250:
+        desc: "3250 Hz"
         Carbide_PP_Goose:
           seqcode: 261
         Carbide_PP:
           seqcode: 261
         TIC_Gate:
           seqcode: 261
+        TIC_Averaging:
+          val: 100
+
+      cfg_8125:
+        desc: "8125 Hz"
+        Carbide_PP_Goose:
+          seqcode: 272
+        Carbide_PP:
+          seqcode: 272
+        TIC_Gate:
+          seqcode: 272
         TIC_Averaging:
           val: 500
 
@@ -384,14 +395,25 @@ lasers:
         TIC_Averaging:
           val: 100
 
-      cfg_8125:
-        desc: "8125 Hz"
+      cfg_3250:
+        desc: "3250 Hz"
         Carbide_PP_Goose:
           seqcode: 261
         Carbide_PP:
           seqcode: 261
         TIC_Gate:
           seqcode: 261
+        TIC_Averaging:
+          val: 100
+
+      cfg_8125:
+        desc: "8125 Hz"
+        Carbide_PP_Goose:
+          seqcode: 272
+        Carbide_PP:
+          seqcode: 272
+        TIC_Gate:
+          seqcode: 272
         TIC_Averaging:
           val: 500
 
@@ -543,7 +565,16 @@ lasers:
         desc: "Goose off"
         Carbide_Base:
           operation: "NOOP"
+          ratemode: "Seq"
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         Amphos_Base:
           operation: "NOOP"
+          ratemode: "Seq"
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         Carbide_PP:
           operation: "NOOP"
+          ratemode: "Seq"
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
