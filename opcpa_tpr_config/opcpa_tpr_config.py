@@ -329,7 +329,7 @@ class App(Display):
                 name = device.metadata['name']
                 if name in userdata:
                     instance = device.get()
-                    config = userdata['name']
+                    config = userdata[name]
                     if devclass == "ophyd.signal.EpicsSignal":
                         if 'val' in config.keys():
                             instance.put(config['val'])
