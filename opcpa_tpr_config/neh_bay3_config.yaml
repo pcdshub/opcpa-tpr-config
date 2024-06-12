@@ -192,6 +192,17 @@ lasers:
         TIC_Gate:
           seqcode: 267
 
+      cfg_goose_625:
+        desc: "625 Hz Goose"
+        Carbide_Goose:
+          seqcode: 273
+        Amphos_Goose:
+          seqcode: 273
+        Carbide_PP_Goose:
+          seqcode: 273
+        TIC_Gate:
+          seqcode: 273
+
     goose_arrival_configs:
       desc: "Goose Arrival"
       cfg_early:
