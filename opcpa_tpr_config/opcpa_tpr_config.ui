@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1174</width>
-    <height>782</height>
+    <width>1300</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -83,22 +83,6 @@
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Maximum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <layout class="QVBoxLayout" name="xpm_vlayout">
         <item>
          <widget class="PyDMLabel" name="xpm_label">
@@ -116,14 +100,14 @@
         <item>
          <widget class="PyDMNTTable" name="xpm">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
            <size>
-            <width>475</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
@@ -177,12 +161,12 @@
     <rect>
      <x>10</x>
      <y>30</y>
-     <width>1149</width>
+     <width>1280</width>
      <height>16</height>
     </rect>
    </property>
    <property name="sizePolicy">
-    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>

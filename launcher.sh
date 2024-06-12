@@ -5,7 +5,6 @@
 #export PCDS_CONDA_VER=dev
 
 source /cds/group/pcds/pyps/conda/pcds_conda
-#source /cds/group/pcds/pyps/conda/dev_conda
 export PYTHONPATH=/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
 
 if [[ $# -ne 1 ]]; then
