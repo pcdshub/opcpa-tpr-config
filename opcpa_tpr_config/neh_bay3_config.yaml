@@ -134,6 +134,17 @@ lasers:
         TIC_Averaging:
           val: 500
 
+      cfg_16250:
+        desc: "16250 Hz"
+        Carbide_PP_Goose:
+          seqcode: 271
+        Carbide_PP:
+          seqcode: 271
+        TIC_Gate:
+          seqcode: 271
+        TIC_Averaging:
+          val: 1000
+
       cfg_32500:
         desc: "32500 Hz"
         Carbide_PP_Goose:
