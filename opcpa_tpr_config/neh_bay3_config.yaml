@@ -57,39 +57,39 @@ lasers:
     # Allowed rep-rate configs (in TPG seconds) for the given laser
     laser_rate_configs:
       desc: "Base Rep. Rate"
-      cfg_130:
-        desc: "130 Hz"
-        Carbide_PP_Goose:
-          seqcode: 256
-        Carbide_PP:
-          seqcode: 256
-        TIC_Gate:
-          seqcode: 256
-        TIC_Averaging:
-          val: 50
-
-      cfg_500:
-        desc: "500 Hz"
-        Carbide_PP_Goose:
-          seqcode: 257
-        Carbide_PP:
-          seqcode: 257
-        TIC_Gate:
-          seqcode: 257
-        TIC_Averaging:
-          val: 50
-
-      cfg_650:
-        desc: "650 Hz"
-        Carbide_PP_Goose:
-          seqcode: 258
-        Carbide_PP:
-          seqcode: 258
-        TIC_Gate:
-          seqcode: 258
-        TIC_Averaging:
-          val: 50
-
+#      cfg_130:
+#        desc: "130 Hz"
+#        Carbide_PP_Goose:
+#          seqcode: 256
+#        Carbide_PP:
+#          seqcode: 256
+#        TIC_Gate:
+#          seqcode: 256
+#        TIC_Averaging:
+#          val: 50
+#
+#      cfg_500:
+#        desc: "500 Hz"
+#        Carbide_PP_Goose:
+#          seqcode: 257
+#        Carbide_PP:
+#          seqcode: 257
+#        TIC_Gate:
+#          seqcode: 257
+#        TIC_Averaging:
+#          val: 50
+#
+#      cfg_650:
+#        desc: "650 Hz"
+#        Carbide_PP_Goose:
+#          seqcode: 258
+#        Carbide_PP:
+#          seqcode: 258
+#        TIC_Gate:
+#          seqcode: 258
+#        TIC_Averaging:
+#          val: 50
+#
       cfg_1300:
         desc: "1300 Hz"
         Carbide_PP_Goose:
