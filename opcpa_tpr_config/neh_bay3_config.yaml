@@ -145,6 +145,17 @@ lasers:
         TIC_Averaging:
           val: 2000
 
+      cfg_on_time:
+        desc: "On Time (EC 284)"
+        Carbide_PP_Goose:
+          seqcode: 284
+        Carbide_PP:
+          seqcode: 284
+        TIC_Gate:
+          seqcode: 284
+        TIC_Averaging:
+          val: 50
+
     # Allowed goose configs (in TPG seconds) for the given laser
     goose_rate_configs:
       desc: "Goose Rep. Rate"
@@ -202,6 +213,17 @@ lasers:
           seqcode: 273
         TIC_Gate:
           seqcode: 273
+
+      cfg_goose_off_time:
+        desc: "Off Time (EC 285)"
+        Carbide_Goose:
+          seqcode: 285
+        Amphos_Goose:
+          seqcode: 285
+        Carbide_PP_Goose:
+          seqcode: 285
+        TIC_Gate:
+          seqcode: 285
 
     goose_arrival_configs:
       desc: "Goose Arrival"
