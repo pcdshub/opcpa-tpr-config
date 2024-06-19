@@ -301,8 +301,16 @@ class App(Display):
         arrival: QComboBox widget containing the valid "arrival" rep rate
                  configurations for the laser.
         """
+        # Setup base configuration first
         self.set_device_configuration(las_conf, laser_db, base)
-        self.set_device_configuration(las_conf, laser_db, goose)
+
+        # Don't setup goose config if not using goose
+        arrival_mode = str(arrival.currentText())
+        if arrival_mode != "Goose off":
+            # Modify goose setting after base settings (TIC gate is different)
+            self.set_device_configuration(las_conf, laser_db, goose)
+
+        # Setup arrival conditions
         self.set_device_configuration(las_conf, laser_db, arrival)
 
     def set_device_configuration(self, las_conf, laser_db, cbox):
