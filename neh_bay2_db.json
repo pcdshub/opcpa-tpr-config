@@ -117,7 +117,7 @@
         "device_class": "pcdsdevices.tpr.TprTrigger",
         "documentation": "TIC Gate",
         "kwargs": {
-            "channel": 7,
+            "channel": 9,
             "name": "{{name}}",
             "timing_mode": 2
         },
