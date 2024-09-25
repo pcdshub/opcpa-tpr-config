@@ -37,6 +37,9 @@ lasers:
       TIC_Gate:
         rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
+      TIC_Gate_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
       Carbide_Goose_Offset:
         rbvs: ["name", "val"]
         show: True
@@ -47,6 +50,9 @@ lasers:
         rbvs: ["name", "val"]
         show: True
       TIC_Gate_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Gate_Goose_Offset:
         rbvs: ["name", "val"]
         show: True
       TIC_Averaging:
@@ -160,6 +166,8 @@ lasers:
         desc: "4 Hz Goose"
         TIC_Gate:
           seqcode: 264
+        TIC_Gate_Goose:
+          seqcode: 264
         Carbide_Goose:
           seqcode: 264
         Amphos_Goose:
@@ -170,6 +178,8 @@ lasers:
       cfg_goose_40:
         desc: "40 Hz Goose"
         TIC_Gate:
+          seqcode: 265
+        TIC_Gate_Goose:
           seqcode: 265
         Carbide_Goose:
           seqcode: 265
@@ -182,6 +192,8 @@ lasers:
         desc: "50 Hz Goose"
         TIC_Gate:
           seqcode: 266
+        TIC_Gate_Goose:
+          seqcode: 266
         Carbide_Goose:
           seqcode: 266
         Amphos_Goose:
@@ -192,6 +204,8 @@ lasers:
       cfg_goose_250:
         desc: "250 Hz Goose"
         TIC_Gate:
+          seqcode: 267
+        TIC_Gate_Goose:
           seqcode: 267
         Carbide_Goose:
           seqcode: 267
@@ -204,6 +218,8 @@ lasers:
         desc: "625 Hz Goose"
         TIC_Gate:
           seqcode: 273
+        TIC_Gate_Goose:
+          seqcode: 273
         Carbide_Goose:
           seqcode: 273
         Amphos_Goose:
@@ -214,6 +230,8 @@ lasers:
       cfg_goose_off_time:
         desc: "Off Time (EC 285)"
         TIC_Gate:
+          seqcode: 285
+        TIC_Gate_Goose:
           seqcode: 285
         Carbide_Goose:
           seqcode: 285
@@ -259,6 +277,13 @@ lasers:
           ratemode: "Seq"
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        TIC_Gate_Goose:
+          ratemode: "Seq"
+          operation: "AND"
+          polarity: 0
+          width_setpoint: 1000.0
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         Carbide_Goose_Offset:
           val: 15.4
         Amphos_Goose_Offset:
@@ -301,6 +326,13 @@ lasers:
           ratemode: "Seq"
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
+        TIC_Gate_Goose:
+          ratemode: "Seq"
+          operation: "AND"
+          polarity: 0
+          width_setpoint: 1000.0
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
         Carbide_Goose_Offset:
           val: 0.0
         Amphos_Goose_Offset:
@@ -321,6 +353,11 @@ lasers:
           enable_trg_cmd: "Enabled"
           enable_ch_cmd: "Enabled"
         Carbide_PP:
+          operation: "NOOP"
+          ratemode: "Seq"
+          enable_trg_cmd: "Enabled"
+          enable_ch_cmd: "Enabled"
+        TIC_Gate:
           operation: "NOOP"
           ratemode: "Seq"
           enable_trg_cmd: "Enabled"
