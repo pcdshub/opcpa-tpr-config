@@ -2,6 +2,7 @@
 
 main:
     xpm_pv: "DAQ:NEH:XPM:0:SEQCODES"
+    meta_pv: "TPG:SYS0:1:DST04"
     title: "NEH Laser Hall Bay 3 OPCPA Rep. Rate Configuration"
 
 lasers:
