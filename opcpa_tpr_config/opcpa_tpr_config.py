@@ -54,6 +54,13 @@ class App(Display):
         xpm_pv = self.config["main"]["xpm_pv"]
         self.ui.xpm_label.setText(xpm_pv)
         self.ui.xpm.set_channel(f"pva://{xpm_pv}")
+        meta_pv = self.config["main"]["meta_pv"]
+        self.ui.pattern_name_rbv.set_channel(f"ca://{meta_pv}:NAME")
+        self.ui.rate_rbv.set_channel(f"ca://{meta_pv}:RATE_RBV")
+        self.ui.time_source_rbv.set_channel(f"ca://{meta_pv}:TIME_SRC")
+        self.ui.offset_rbv.set_channel(f"ca://{meta_pv}:OFFSET_RBV")
+        self.ui.time_slot_rbv.set_channel(f"ca://{meta_pv}:TS")
+        self.ui.time_slot_mask_rbv.set_channel(f"ca://{meta_pv}:TSMASK")
 
     def setup_rbvs(self, laser):
         """
