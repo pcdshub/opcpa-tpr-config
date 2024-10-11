@@ -143,6 +143,24 @@
         "name": "TIC_Stop",
         "type": "HappiItem"
     },
+    "TIC_Gate_Goose": {
+        "_id": "TIC_Gate_Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:01"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "TIC Stop",
+        "kwargs": {
+            "channel": 8,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "TIC_Gate_Goose",
+        "type": "HappiItem"
+    },
     "Carbide_Goose_Offset": {
         "_id": "Carbide_Goose_Offset",
         "active": true,
@@ -205,6 +223,22 @@
         },
         "last_edit": "Thu Jun  6 13:54:47 2024",
         "name": "TIC_Gate_Offset",
+        "type": "HappiItem"
+    },
+    "TIC_Gate_Goose_Offset": {
+        "_id": "TIC_Gate_Goose_Offset",
+        "active": true,
+        "args": [
+            "LAS:LHN:LLG2:01:GOOSE:TRIG5_OFFSET"
+        ],
+        "creation": "Thu Jun  6 13:54:47 2024",
+        "device_class": "ophyd.signal.EpicsSignal",
+        "documentation": "TIC Gate Goose Trigger Offset",
+        "kwargs": {
+            "name": "{{name}}"
+        },
+        "last_edit": "Thu Jun  6 13:54:47 2024",
+        "name": "TIC_Gate_Goose_Offset",
         "type": "HappiItem"
     },
     "TIC_Averaging": {
