@@ -86,6 +86,8 @@ class UserConfigDisplay(Display):
 
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
+        self.apply_button.clicked.connect(self.apply_config)
+
     def ui_filename(self):
         return "user_config.ui"
 
@@ -139,11 +141,14 @@ class UserConfigDisplay(Display):
             if self._debug:
                 print(f"Allowed base rates: {self._base_rates}")
 
+    @property
+    def base_rate(self):
+        return int(self.total_rate_box.currentText())
+
     def update_goose_rates(self):
         if self._base_rates is not None:
-            rate = int(self.total_rate_box.currentText())
             goose_rates = allowed_goose_rates(
-                rate,
+                self.base_rate,
                 self._base_rates
             )
             self.goose_rate_box.clear()
@@ -153,6 +158,10 @@ class UserConfigDisplay(Display):
                 print(f"Requested base rate: {rate}")
                 print(f"Allowed goose rates: {goose_rates}")
 
+    @property
+    def goose_rate(self):
+        return int(self.goose_rate_box.currentText())
+
     def update_goose_arrival(self):
         cfgs = self._config['goose_arrival_configs']
         if cfgs is not None:
@@ -160,8 +169,21 @@ class UserConfigDisplay(Display):
                 print(f"Goose arrival configs: {cfgs}")
             for name, cfg in cfgs.items():
                 text = cfg['desc']
-                data = cfg.pop('desc', None)
+                cfg.pop('desc', None)
                 self.goose_arrival_box.addItem(
                     text,
-                    userData=data
+                    userData=cfg
                 )
+
+    @property
+    def arrival_config(self):
+        return self.goose_arrival_box.currentData()
+
+    def apply_config(self):
+        """
+        Apply the requested configuration to the system.
+        """
+        if self._debug:
+            print(f"Base rate: {self.base_rate}")
+            print(f"Goose rate: {self.goose_rate}")
+            print(f"Goose arrival: {self.arrival_config}")
