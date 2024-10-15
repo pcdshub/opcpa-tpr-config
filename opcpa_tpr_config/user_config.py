@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 
 def main(
     config: str = "",
+    debug: bool = False,
     stylesheet: Optional[str] = None
 ) -> None:
     """Launch the ``Rep. rate user config UI``."""
@@ -17,11 +18,11 @@ def main(
         app = QtWidgets.QApplication([])
 
     try:
-        widget = UserConfigDisplay(config=config)
+        widget = UserConfigDisplay(config=config, debug=debug)
         widget.show()
+        app.exec_()
     except Exception:
         logger.exception("Failed to load user interface")
-    app.exec_()
 
 
 if __name__ == "__main__":
@@ -31,6 +32,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "-c", "--config", help="Yaml config file for user UI", type=str
     )
+    parser.add_argument(
+        "-d", "--debug", action='store_true',
+        help="Print debug information, do not change settings"
+    )
     args = parser.parse_args()
 
-    main(config=args.config)
+    main(config=args.config, debug=args.debug)
