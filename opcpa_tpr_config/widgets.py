@@ -7,7 +7,7 @@ import yaml
 from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
-from xpm_prog import carbide_factors, make_base_rates
+from xpm_prog import allowed_goose_rates, carbide_factors, make_base_rates
 
 logger = logging.getLogger(__name__)
 
@@ -79,6 +79,9 @@ class UserConfigDisplay(Display):
         self._base_rates = make_base_rates(carbide_factors)
 
         self.update_base_rates()
+        self.update_goose_rates()
+
+        self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
     def ui_filename(self):
         return "user_config.ui"
@@ -129,8 +132,16 @@ class UserConfigDisplay(Display):
 
     def update_base_rates(self):
         if self._base_rates is not None:
-            factors = sorted(self._base_rates.keys())
-            for factor in factors:
-                self.total_rate_box.addItem(
-                    str(self._base_rates[factor]), userData=factor
-                )
+            for rate in self._base_rates:
+                self.total_rate_box.addItem(str(rate))
+
+    def update_goose_rates(self):
+        if self._base_rates is not None:
+            rate = int(self.total_rate_box.currentText())
+            goose_rates = allowed_goose_rates(
+                rate,
+                self._base_rates
+            )
+            self.goose_rate_box.clear()
+            for rate in goose_rates:
+                self.goose_rate_box.addItem(str(rate))
