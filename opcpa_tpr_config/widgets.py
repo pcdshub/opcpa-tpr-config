@@ -95,7 +95,6 @@ class UserConfigDisplay(Display):
         """
         Read in the config file for the screen.
         """
-
         with open(config_file, "r") as f:
             conf = yaml.safe_load(f)
         self._config = conf
@@ -134,6 +133,8 @@ class UserConfigDisplay(Display):
         if self._base_rates is not None:
             for rate in self._base_rates:
                 self.total_rate_box.addItem(str(rate))
+            if self._debug:
+                print(f"Allowed base rates: {self._base_rates}")
 
     def update_goose_rates(self):
         if self._base_rates is not None:
@@ -145,3 +146,6 @@ class UserConfigDisplay(Display):
             self.goose_rate_box.clear()
             for rate in goose_rates:
                 self.goose_rate_box.addItem(str(rate))
+            if self._debug:
+                print(f"Requested base rate: {rate}")
+                print(f"Allowed goose rates: {goose_rates}")
