@@ -7,6 +7,7 @@ import yaml
 from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
+from xpm_prog import carbide_factors, make_base_rates
 
 logger = logging.getLogger(__name__)
 
@@ -55,18 +56,29 @@ class UserConfigDisplay(Display):
         parent=None,
         config: str = "",
         db: str = "",
+        debug: bool = False,
         **kwargs
     ):
         super().__init__(parent, **kwargs)
+
+        self._debug = debug
 
         self.read_config(config)
 
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
+        if self._debug:
+            print(f"Read configuration file {config}:")
+            print(self._config)
+
         self.screen_title.setText(self._config['main']['title'])
 
         self.update_pvs()
+
+        self._base_rates = make_base_rates(carbide_factors)
+
+        self.update_base_rates()
 
     def ui_filename(self):
         return "user_config.ui"
@@ -90,16 +102,35 @@ class UserConfigDisplay(Display):
         Modify RBV widgets to use the PV(s) specified in the config file.
         """
         # Event code data
-        self.on_time_ec_rbv.setText(self._config['main']['on_time_ec'])
-        self.off_time_ec_rbv.setText(self._config['main']['off_time_ec'])
+        self._on_time = self._config['main']['on_time_ec']
+        self._off_time = self._config['main']['off_time_ec']
+
+        self.on_time_ec_rbv.setText(self._on_time)
+        self.off_time_ec_rbv.setText(self._off_time)
+
+        if self._debug:
+            print(f"On time EC: {self._on_time}")
+            print(f"Off time EC: {self._off_time}")
 
         # TODO: Figure out how to index out the sequence engine rate values
 
         # SC metadata
         sc_base = self._config['main']['meta_pv']
+
+        if self._debug:
+            print(f"SC metadata base PV: {sc_base}")
+
         self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
         self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
         self.time_source_rbv.set_channel(f"ca://{sc_base}:TIME_SRC")
         self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
         self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
         self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
+
+    def update_base_rates(self):
+        if self._base_rates is not None:
+            factors = sorted(self._base_rates.keys())
+            for factor in factors:
+                self.total_rate_box.addItem(
+                    str(self._base_rates[factor]), userData=factor
+                )
