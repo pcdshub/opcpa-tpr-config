@@ -69,7 +69,9 @@ class UserConfigDisplay(Display):
             raise ValueError(f"Could not read config file {config}")
 
         if self._debug:
-            print(f"Read configuration file {config}:")
+            print(f"Read configuration file: {config}")
+            cfg_keys = self._config.keys()
+            print(f"Configuration sections: {cfg_keys}")
             print(self._config)
 
         self.screen_title.setText(self._config['main']['title'])
@@ -80,6 +82,7 @@ class UserConfigDisplay(Display):
 
         self.update_base_rates()
         self.update_goose_rates()
+        self.update_goose_arrival()
 
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
@@ -149,3 +152,16 @@ class UserConfigDisplay(Display):
             if self._debug:
                 print(f"Requested base rate: {rate}")
                 print(f"Allowed goose rates: {goose_rates}")
+
+    def update_goose_arrival(self):
+        cfgs = self._config['goose_arrival_configs']
+        if cfgs is not None:
+            if self._debug:
+                print(f"Goose arrival configs: {cfgs}")
+            for name, cfg in cfgs.items():
+                text = cfg['desc']
+                data = cfg.pop('desc', None)
+                self.goose_arrival_box.addItem(
+                    text,
+                    userData=data
+                )
