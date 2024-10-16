@@ -1,9 +1,8 @@
-# from psdaq.seq.seq import *
-
 # import argparse
 import itertools
 
 import numpy as np
+from psdaq.seq.seq import Branch, ControlRequest, FixedRateSync
 
 # import sys
 
@@ -40,30 +39,40 @@ def allowed_goose_rates(base_rate, rate_list):
 
 
 # Selected base rate + goose rate --> pulse sequence
-# def make_sequence(base_div, goose_div=None, offset=None):
-#     # Do some setup
-#     instrset = []
-#
-#     if offset is not None and offset != 0:
-#         instrset.append( FixedRateSync(marker="910kH", occ=offset ) )
-#
-#     # Loop over base:goose rate ratio once. Because we're using divisors,
-#     # we divide goose divider by base divider, rather than base rate by
-#     # goose rate.
-#     if goose_div is None:
-#         n = 1
-#     else:
-#         n = (goose_div//base_div) - 1
-#     for i in range(n):
-#         instrset.append( ControlRequest([0]) )
-#         instrset.append( FixedRateSync(marker="910kH", occ=base_div ) )
-#     if goose_div is not None:
-#         # Finish with goose pulse
-#         instrset.append( ControlRequest([1]) )
-#         instrset.append( FixedRateSync(marker="910kH", occ=base_div ) )
-#     instrset.append( Branch.unconditional(0) )
-#
-#     return instrset
+def make_sequence(base_div, goose_div=None, offset=None, debug=False):
+    # Do some setup
+    instrset = []
+
+    if offset is not None and offset != 0:
+        instrset.append(FixedRateSync(marker="910kH", occ=offset))
+        if debug:
+            print(f"FixedRateSync(marker=\"910kH\", occ={offset})")
+
+    # Loop over base:goose rate ratio once. Because we're using divisors,
+    # we divide goose divider by base divider, rather than base rate by
+    # goose rate.
+    if goose_div is None:
+        n = 1
+    else:
+        n = (goose_div//base_div) - 1
+    for i in range(n):
+        instrset.append(ControlRequest([0]))
+        instrset.append(FixedRateSync(marker="910kH", occ=base_div))
+        if debug:
+            print("ControlRequest([0])")
+            print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
+    if goose_div is not None:
+        # Finish with goose pulse
+        instrset.append(ControlRequest([1]))
+        instrset.append(FixedRateSync(marker="910kH", occ=base_div))
+        if debug:
+            print("ControlRequest([1])")
+            print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
+    instrset.append(Branch.unconditional(0))
+    if debug:
+        print("Branch.unconditional(0)")
+
+    return instrset
 
 # if __name__ == "__main__":
 #     parser = argparse.ArgumentParser()

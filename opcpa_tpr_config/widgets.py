@@ -8,7 +8,8 @@ import yaml
 from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
-from xpm_prog import allowed_goose_rates, carbide_factors, make_base_rates
+from xpm_prog import (allowed_goose_rates, carbide_factors, make_base_rates,
+                      make_sequence)
 
 logger = logging.getLogger(__name__)
 
@@ -28,8 +29,11 @@ class UserConfigDisplay(Display):
     off_time_rate_rbv: pydm_widgets.PyDMLabel
 
     total_rate_box: QtWidgets.QComboBox
+    total_rate_label: QtWidgets.QLabel
     goose_rate_box: QtWidgets.QComboBox
+    goose_rate_label: QtWidgets.QLabel
     goose_arrival_box: QtWidgets.QComboBox
+    goose_arrival_label: QtWidgets.QLabel
 
     apply_button: QtWidgets.QPushButton
 
@@ -97,10 +101,16 @@ class UserConfigDisplay(Display):
 
         self.update_expert_vis()
 
+        self.update_goose_vis()
+
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
         self.apply_button.clicked.connect(self.apply_config)
         self.expert_checkbox.stateChanged.connect(self.update_expert_vis)
+
+        self.goose_arrival_box.currentTextChanged.connect(
+            self.update_goose_vis
+        )
 
     def ui_filename(self):
         return "user_config.ui"
@@ -130,6 +140,14 @@ class UserConfigDisplay(Display):
         self.xpm_table.setVisible(self.expert_mode)
         self.tpr_frame.setVisible(self.expert_mode)
         self.rbv_frame.setVisible(self.expert_mode)
+
+    def update_goose_vis(self):
+        """
+        Update visibility of goose rate control widget based on goose mode
+        status.
+        """
+        self.goose_rate_box.setVisible(self.goose_enabled)
+        self.goose_rate_label.setVisible(self.goose_enabled)
 
     def configure_rbv_frames(self):
         """
@@ -352,15 +370,36 @@ class UserConfigDisplay(Display):
     def arrival_config(self):
         return self.goose_arrival_box.currentData()
 
+    @property
+    def goose_enabled(self):
+        txt = self.goose_arrival_box.currentText()
+        if txt != "Goose off":
+            return True
+        else:
+            return False
+
     def apply_config(self):
         """
         Apply the requested configuration to the system.
         """
         base_div = 910000//self.base_rate
-        goose_div = 910000//self.goose_rate
+        if self.goose_enabled:
+            goose_div = 910000//self.goose_rate
+        else:
+            goose_div = None
+
+        # This is a float PV for some reason
+        offset = int(self.offset_rbv.value)
+        if offset == 0:
+            offset = None
+
         if self._debug:
             print(f"Base rate: {self.base_rate}")
             print(f"Goose rate: {self.goose_rate}")
             print(f"Goose arrival: {self.arrival_config}")
             print(f"Base div: {base_div}")
             print(f"Goose div: {goose_div}")
+            print(f"Offset: {offset}")
+
+        instrset = make_sequence(base_div, goose_div, offset, self._debug)
+        print(instrset)  # Make flake8 happy for now
