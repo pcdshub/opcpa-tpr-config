@@ -51,6 +51,10 @@ class UserConfigDisplay(Display):
     time_slot_mask_label: QtWidgets.QLabel
     time_slot_mask_rbv: pydm_widgets.PyDMLabel
 
+    # Expert mode widgets
+    expert_checkbox: QtWidgets.QCheckBox
+    xpm_table: pydm_widgets.PyDMNTTable
+
     def __init__(
         self,
         parent=None,
@@ -84,9 +88,12 @@ class UserConfigDisplay(Display):
         self.update_goose_rates()
         self.update_goose_arrival()
 
+        self.update_expert_vis()
+
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
         self.apply_button.clicked.connect(self.apply_config)
+        self.expert_checkbox.stateChanged.connect(self.update_expert_vis)
 
     def ui_filename(self):
         return "user_config.ui"
@@ -103,6 +110,17 @@ class UserConfigDisplay(Display):
         with open(config_file, "r") as f:
             conf = yaml.safe_load(f)
         self._config = conf
+
+    @property
+    def expert_mode(self):
+        return self.expert_checkbox.isChecked()
+
+    def update_expert_vis(self):
+        """
+        Update visibility of "expert mode" widgets based on expert mode check
+        box status.
+        """
+        self.xpm_table.setVisible(self.expert_mode)
 
     def update_pvs(self):
         """
@@ -144,6 +162,8 @@ class UserConfigDisplay(Display):
         self.off_time_rate_rbv.set_channel(
             f"pva://{xpm_pv}/Rate/{off_time_idx}"
         )
+
+        self.xpm_table.set_channel(f"pva://{xpm_pv}")
 
     def update_base_rates(self):
         if self._base_rates is not None:
