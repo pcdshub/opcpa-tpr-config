@@ -435,6 +435,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QFrame" name="tpr_frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QFrame" name="rbv_frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>

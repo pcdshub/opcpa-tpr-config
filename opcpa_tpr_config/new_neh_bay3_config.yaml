@@ -6,60 +6,55 @@ main:
     engine: "7"
     title: "NEH Laser Hall Bay 3 OPCPA Rep. Rate Configuration"
 
-#lasers:
-#  bay_3:
-#
-#    laser_desc: "Bay 3 TPR Configuration"
-#
-#    laser_database: "neh_bay3_db.json"
-#
-#    # TPR Channels
-#    devices:
-#      Carbide_Goose:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Carbide_Base:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Amphos_Goose:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Amphos_Base:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Carbide_PP_Goose:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Carbide_PP:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      TIC_Stop:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      TIC_Gate:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      TIC_Gate_Goose:
-#        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
-#        show: True
-#      Carbide_Goose_Offset:
-#        rbvs: ["name", "val"]
-#        show: True
-#      Amphos_Goose_Offset:
-#        rbvs: ["name", "val"]
-#        show: True
-#      PP_Goose_Offset:
-#        rbvs: ["name", "val"]
-#        show: True
-#      TIC_Gate_Offset:
-#        rbvs: ["name", "val"]
-#        show: True
-#      TIC_Gate_Goose_Offset:
-#        rbvs: ["name", "val"]
-#        show: True
-#      TIC_Averaging:
-#        rbvs: ["name", "val"]
-#        show: True
+    laser_database: "neh_bay3_db.json"
+
+    # TPR Channels
+    devices:
+      Carbide_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Amphos_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Amphos_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_PP_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_PP:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Stop:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Gate:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Gate_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      Amphos_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      PP_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Gate_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Gate_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Averaging:
+        rbvs: ["name", "val"]
+        show: True
 #
 #
 #    # Allowed rep-rate configs (in TPG seconds) for the given laser
