@@ -109,13 +109,15 @@ class UserConfigDisplay(Display):
         Modify RBV widgets to use the PV(s) specified in the config file.
         """
         # Event code data
-        self._on_time = self._config['main']['on_time_ec']
-        self._off_time = self._config['main']['off_time_ec']
+        self._engine = int(self._config['main']['engine'])
+        self._on_time = (64 + self._engine) * 4
+        self._off_time = ((64 + self._engine) * 4) + 1
 
-        self.on_time_ec_rbv.setText(self._on_time)
-        self.off_time_ec_rbv.setText(self._off_time)
+        self.on_time_ec_rbv.setText(str(self._on_time))
+        self.off_time_ec_rbv.setText(str(self._off_time))
 
         if self._debug:
+            print(f"Engine: {self._engine}")
             print(f"On time EC: {self._on_time}")
             print(f"Off time EC: {self._off_time}")
 
@@ -183,7 +185,11 @@ class UserConfigDisplay(Display):
         """
         Apply the requested configuration to the system.
         """
+        base_div = 910000//self.base_rate
+        goose_div = 910000//self.goose_rate
         if self._debug:
             print(f"Base rate: {self.base_rate}")
             print(f"Goose rate: {self.goose_rate}")
             print(f"Goose arrival: {self.arrival_config}")
+            print(f"Base div: {base_div}")
+            print(f"Goose div: {goose_div}")

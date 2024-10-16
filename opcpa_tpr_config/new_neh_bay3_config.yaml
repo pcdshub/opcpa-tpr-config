@@ -3,8 +3,7 @@
 main:
     xpm_pv: "DAQ:NEH:XPM:0:SEQCODES"
     meta_pv: "TPG:SYS0:1:DST04"
-    on_time_ec: "284"
-    off_time_ec: "285"
+    engine: "7"
     title: "NEH Laser Hall Bay 3 OPCPA Rep. Rate Configuration"
 
 #lasers:
@@ -162,74 +161,6 @@ main:
 #        TIC_Averaging:
 #          val: 50
 #
-    # Allowed goose configs (in TPG seconds) for the given laser
-    goose_rate_configs:
-      desc: "Goose Rep. Rate"
-      cfg_goose_4:
-        desc: "4 Hz Goose"
-        TIC_Gate_Goose:
-          seqcode: 264
-        Carbide_Goose:
-          seqcode: 264
-        Amphos_Goose:
-          seqcode: 264
-        Carbide_PP_Goose:
-          seqcode: 264
-
-      cfg_goose_40:
-        desc: "40 Hz Goose"
-        TIC_Gate_Goose:
-          seqcode: 265
-        Carbide_Goose:
-          seqcode: 265
-        Amphos_Goose:
-          seqcode: 265
-        Carbide_PP_Goose:
-          seqcode: 265
-
-      cfg_goose_50:
-        desc: "50 Hz Goose"
-        TIC_Gate_Goose:
-          seqcode: 266
-        Carbide_Goose:
-          seqcode: 266
-        Amphos_Goose:
-          seqcode: 266
-        Carbide_PP_Goose:
-          seqcode: 266
-
-      cfg_goose_250:
-        desc: "250 Hz Goose"
-        TIC_Gate_Goose:
-          seqcode: 267
-        Carbide_Goose:
-          seqcode: 267
-        Amphos_Goose:
-          seqcode: 267
-        Carbide_PP_Goose:
-          seqcode: 267
-
-      cfg_goose_625:
-        desc: "625 Hz Goose"
-        TIC_Gate_Goose:
-          seqcode: 273
-        Carbide_Goose:
-          seqcode: 273
-        Amphos_Goose:
-          seqcode: 273
-        Carbide_PP_Goose:
-          seqcode: 273
-
-      cfg_goose_off_time:
-        desc: "Off Time (EC 285)"
-        TIC_Gate_Goose:
-          seqcode: 285
-        Carbide_Goose:
-          seqcode: 285
-        Amphos_Goose:
-          seqcode: 285
-        Carbide_PP_Goose:
-          seqcode: 285
 
 goose_arrival_configs:
   cfg_early:
