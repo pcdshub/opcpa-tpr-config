@@ -110,8 +110,10 @@ class UserConfigDisplay(Display):
         """
         # Event code data
         self._engine = int(self._config['main']['engine'])
-        self._on_time = (64 + self._engine) * 4
-        self._off_time = ((64 + self._engine) * 4) + 1
+        on_time_idx = self._engine * 4
+        off_time_idx = (self._engine * 4) + 1
+        self._on_time = 256 + on_time_idx
+        self._off_time = 256 + off_time_idx
 
         self.on_time_ec_rbv.setText(str(self._on_time))
         self.off_time_ec_rbv.setText(str(self._off_time))
@@ -120,11 +122,14 @@ class UserConfigDisplay(Display):
             print(f"Engine: {self._engine}")
             print(f"On time EC: {self._on_time}")
             print(f"Off time EC: {self._off_time}")
+            print(f"On time index: {on_time_idx}")
+            print(f"Off time index: {off_time_idx}")
 
         # TODO: Figure out how to index out the sequence engine rate values
 
         # SC metadata
         sc_base = self._config['main']['meta_pv']
+        xpm_pv = self._config['main']['xpm_pv']
 
         if self._debug:
             print(f"SC metadata base PV: {sc_base}")
@@ -135,6 +140,10 @@ class UserConfigDisplay(Display):
         self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
         self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
         self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
+        self.on_time_rate_rbv.set_channel(f"pva://{xpm_pv}/Rate/{on_time_idx}")
+        self.off_time_rate_rbv.set_channel(
+            f"pva://{xpm_pv}/Rate/{off_time_idx}"
+        )
 
     def update_base_rates(self):
         if self._base_rates is not None:
