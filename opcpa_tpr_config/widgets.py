@@ -54,6 +54,7 @@ class UserConfigDisplay(Display):
     # Expert mode widgets
     expert_checkbox: QtWidgets.QCheckBox
     xpm_table: pydm_widgets.PyDMNTTable
+    rbv_frame: QtWidgets.QFrame
 
     def __init__(
         self,
@@ -88,6 +89,8 @@ class UserConfigDisplay(Display):
         self.update_goose_rates()
         self.update_goose_arrival()
 
+        self.configure_rbv_frame()
+
         self.update_expert_vis()
 
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
@@ -121,6 +124,18 @@ class UserConfigDisplay(Display):
         box status.
         """
         self.xpm_table.setVisible(self.expert_mode)
+        self.rbv_frame.setVisible(self.expert_mode)
+
+    def configure_rbv_frame(self):
+        """
+        Add a layout and widgets to the rbv frame based on the laser system
+        happi database.
+        """
+        layout = QtWidgets.QGridLayout()
+        tst_widget = QtWidgets.QLabel()
+        tst_widget.setText("Test")
+        layout.addWidget(tst_widget, 0, 0)
+        self.rbv_frame.setLayout(layout)
 
     def update_pvs(self):
         """
@@ -142,8 +157,6 @@ class UserConfigDisplay(Display):
             print(f"Off time EC: {self._off_time}")
             print(f"On time index: {on_time_idx}")
             print(f"Off time index: {off_time_idx}")
-
-        # TODO: Figure out how to index out the sequence engine rate values
 
         # SC metadata
         sc_base = self._config['main']['meta_pv']
