@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>621</height>
+    <width>217</width>
+    <height>168</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -58,7 +58,7 @@
       <number>6</number>
      </property>
      <property name="sizeConstraint">
-      <enum>QLayout::SetNoConstraint</enum>
+      <enum>QLayout::SetDefaultConstraint</enum>
      </property>
      <property name="rightMargin">
       <number>0</number>
@@ -69,196 +69,19 @@
         <enum>QLayout::SetMinimumSize</enum>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="control_layout">
-         <item>
-          <widget class="QLabel" name="config_label">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Laser Configuration</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="control_rbv_layout">
-           <item row="1" column="2">
-            <widget class="PyDMLabel" name="on_time_rate_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="PyDMLabel" name="off_time_ec_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="PyDMLabel" name="on_time_ec_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="ec_label">
-             <property name="text">
-              <string>Event Code</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="PyDMLabel" name="off_time_rate_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="on_time_label">
-             <property name="text">
-              <string>On Time</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="rate_label">
-             <property name="text">
-              <string>Event Rate</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="off_time_label">
-             <property name="text">
-              <string>Off Time</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QLabel" name="rep_rate_label">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Rep. Rate Control</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="rep_rate_layout">
-           <item>
-            <layout class="QHBoxLayout" name="total_rate_layout">
-             <item>
-              <widget class="QLabel" name="total_rate_label">
-               <property name="text">
-                <string>Rep. Rate (Total)</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="total_rate_box"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLabel" name="goose_arrival_label">
-               <property name="text">
-                <string>Goose Arrival</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="goose_arrival_box"/>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="goose_rate_layout">
-             <item>
-              <widget class="QLabel" name="goose_rate_label">
-               <property name="text">
-                <string>Goose Rate</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="goose_rate_box"/>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::MinimumExpanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QPushButton" name="apply_button">
-           <property name="text">
-            <string>Apply Configuration</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
+        <widget class="LaserConfigDisplay" name="laser_config_widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="PyDMDrawingLine" name="PyDMDrawingLine">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -278,216 +101,32 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="sc_data_vlayout">
-         <item>
-          <widget class="QLabel" name="sc_label">
-           <property name="font">
-            <font>
-             <weight>75</weight>
-             <bold>true</bold>
-             <underline>false</underline>
-            </font>
-           </property>
-           <property name="text">
-            <string>SC Pattern Metadata</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QGridLayout" name="sc_grid_layout">
-           <item row="0" column="1">
-            <widget class="PyDMLabel" name="pattern_name_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="PyDMLabel" name="time_source_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="offset_rbv_label">
-             <property name="text">
-              <string>Offset RBV</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="time_slot_label">
-             <property name="text">
-              <string>Time Slot</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="name_label">
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <widget class="PyDMLabel" name="time_slot_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="time_source_label">
-             <property name="text">
-              <string>Time Source</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="rate_rbv_label">
-             <property name="text">
-              <string>Rate RBV</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="PyDMLabel" name="rate_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="PyDMLabel" name="offset_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="time_slot_mask_label">
-             <property name="text">
-              <string>Time Slot Mask</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="PyDMLabel" name="time_slot_mask_rbv">
-             <property name="toolTip">
-              <string/>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <spacer name="verticalSpacer_3">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="SCMetadataDisplay" name="sc_metadata_widget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::MinimumExpanding</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+        </widget>
        </item>
       </layout>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QFrame" name="tpr_frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QFrame" name="rbv_frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="PyDMNTTable" name="xpm_table">
+    <widget class="ExpertDisplay" name="expert_display_widget" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="toolTip">
-      <string/>
-     </property>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>PyDMNTTable</class>
-   <extends>QWidget</extends>
-   <header>pydm.widgets.nt_table</header>
-  </customwidget>
   <customwidget>
    <class>PyDMLabel</class>
    <extends>QLabel</extends>
@@ -497,6 +136,24 @@
    <class>PyDMDrawingLine</class>
    <extends>QWidget</extends>
    <header>pydm.widgets.drawing</header>
+  </customwidget>
+  <customwidget>
+   <class>LaserConfigDisplay</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SCMetadataDisplay</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ExpertDisplay</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

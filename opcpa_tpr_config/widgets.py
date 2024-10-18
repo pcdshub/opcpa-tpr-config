@@ -14,14 +14,78 @@ from xpm_prog import (allowed_goose_rates, carbide_factors, make_base_rates,
 logger = logging.getLogger(__name__)
 
 
-class UserConfigDisplay(Display):
+def read_config(config_file):
+    """
+    Read in the config file for the screen.
+    """
+    with open(config_file, "r") as f:
+        conf = yaml.safe_load(f)
+    return conf
+
+
+class SCMetadataDisplay(Display):
+    """
+    Class for SC metatdata user display.
+    """
+    def __init__(
+        self,
+        parent=QtWidgets.QWidget,
+        **kwargs
+    ):
+        super().__init__(parent, **kwargs)
+
+    def setup_display(self, config, debug):
+        """
+        Run the things we would run during init but can't because I can't
+        figure out how to pass variables to sub-displays at init....
+        """
+        self._debug = debug
+
+        self._config = read_config(config)
+        if self._config is None:
+            raise ValueError(f"Could not read config file {config}")
+
+        if self._debug:
+            print(f"Read configuration file: {config}")
+            cfg_keys = self._config.keys()
+            print(f"Configuration sections: {cfg_keys}")
+            print(self._config)
+
+        self.update_pvs()
+
+    def update_pvs(self):
+        """
+        Modify RBV widgets to use the PV(s) specified in the config file.
+        """
+        # Event code data
+        self._engine = int(self._config['main']['engine'])
+
+        # SC metadata
+        sc_base = self._config['main']['meta_pv']
+
+        if self._debug:
+            print(f"SC metadata base PV: {sc_base}")
+
+        self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
+        self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
+        self.time_source_rbv.set_channel(f"ca://{sc_base}:TIME_SRC")
+        self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
+        self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
+        self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
+
+    def ui_filename(self):
+        return "sc_metadata.ui"
+
+    def ui_filepath(self):
+        return path.join(
+            path.dirname(path.realpath(__file__)), self.ui_filename()
+        )
+
+
+class LaserConfigDisplay(Display):
     """
     Class for rep. rate configuration application user display.
     """
-
-    # Top level widgets
-    screen_title: pydm_widgets.PyDMLabel
-
     # Laser configuration widgets
     on_time_ec_rbv: pydm_widgets.PyDMLabel
     on_time_rate_rbv: pydm_widgets.PyDMLabel
@@ -37,47 +101,21 @@ class UserConfigDisplay(Display):
 
     apply_button: QtWidgets.QPushButton
 
-    # SC metadata widgets
-    pattern_name_label: QtWidgets.QLabel
-    pattern_name_rbv: pydm_widgets.PyDMLabel
-
-    rate_label: QtWidgets.QLabel
-    rate_rbv: pydm_widgets.PyDMLabel
-
-    time_source_label: QtWidgets.QLabel
-    time_source_rbv: pydm_widgets.PyDMLabel
-
-    offset_label: QtWidgets.QLabel
-    offset_rbv: pydm_widgets.PyDMLabel
-
-    time_slot_label: QtWidgets.QLabel
-    time_slot_rbv: pydm_widgets.PyDMLabel
-
-    time_slot_mask_label: QtWidgets.QLabel
-    time_slot_mask_rbv: pydm_widgets.PyDMLabel
-
-    # Expert mode widgets
-    expert_checkbox: QtWidgets.QCheckBox
-    xpm_table: pydm_widgets.PyDMNTTable
-    tpr_frame: QtWidgets.QFrame
-    rbv_frame: QtWidgets.QFrame
-
     def __init__(
         self,
-        parent=None,
-        config: str = "",
-        db: str = "",
-        debug: bool = False,
+        parent=QtWidgets.QWidget,
         **kwargs
     ):
         super().__init__(parent, **kwargs)
 
+    def setup_display(self, config, debug):
+        """
+        Run the things we would run during init but can't because I can't
+        figure out how to pass variables to sub-displays at init....
+        """
         self._debug = debug
 
-        self.read_config(config)
-
-        self._db = happi.Client(path=self._config['main']['laser_database'])
-
+        self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
@@ -87,59 +125,84 @@ class UserConfigDisplay(Display):
             print(f"Configuration sections: {cfg_keys}")
             print(self._config)
 
-        self.screen_title.setText(self._config['main']['title'])
-
-        self.update_user_pvs()
+        self.update_pvs()
 
         self._base_rates = make_base_rates(carbide_factors)
 
         self.update_base_rates()
+
         self.update_goose_rates()
         self.update_goose_arrival()
-
-        self.configure_rbv_frames()
-
-        self.update_expert_vis()
 
         self.update_goose_vis()
 
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
-        self.apply_button.clicked.connect(self.apply_config)
-        self.expert_checkbox.stateChanged.connect(self.update_expert_vis)
-
         self.goose_arrival_box.currentTextChanged.connect(
             self.update_goose_vis
         )
 
+    def update_pvs(self):
+        """
+        Modify RBV widgets to use the PV(s) specified in the config file.
+        """
+        # Event code data
+        self._engine = int(self._config['main']['engine'])
+        xpm_pv = self._config['main']['xpm_pv']
+        on_time_idx = self._engine * 4
+        off_time_idx = (self._engine * 4) + 1
+        self._on_time = 256 + on_time_idx
+        self._off_time = 256 + off_time_idx
+
+        self.on_time_ec_rbv.setText(str(self._on_time))
+        self.off_time_ec_rbv.setText(str(self._off_time))
+        self.on_time_rate_rbv.set_channel(f"pva://{xpm_pv}/Rate/{on_time_idx}")
+        self.off_time_rate_rbv.set_channel(
+            f"pva://{xpm_pv}/Rate/{off_time_idx}"
+        )
+
+        if self._debug:
+            print(f"Engine: {self._engine}")
+            print(f"On time EC: {self._on_time}")
+            print(f"Off time EC: {self._off_time}")
+            print(f"On time index: {on_time_idx}")
+            print(f"Off time index: {off_time_idx}")
+
+# TODO: Put this into SC metadata widget function
+#        # SC metadata
+#        sc_base = self._config['main']['meta_pv']
+#        xpm_pv = self._config['main']['xpm_pv']
+#
+#        if self._debug:
+#            print(f"SC metadata base PV: {sc_base}")
+#
+#        self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
+#        self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
+#        self.time_source_rbv.set_channel(f"ca://{sc_base}:TIME_SRC")
+#        self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
+#        self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
+#        self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
+#
+#        self.xpm_table.set_channel(f"pva://{xpm_pv}")
+
     def ui_filename(self):
-        return "user_config.ui"
+        return "rep_rate_config.ui"
 
     def ui_filepath(self):
         return path.join(
             path.dirname(path.realpath(__file__)), self.ui_filename()
         )
 
-    def read_config(self, config_file):
-        """
-        Read in the config file for the screen.
-        """
-        with open(config_file, "r") as f:
-            conf = yaml.safe_load(f)
-        self._config = conf
+    def update_base_rates(self):
+        if self._base_rates is not None:
+            for rate in self._base_rates:
+                self.total_rate_box.addItem(str(rate))
+            if self._debug:
+                print(f"Allowed base rates: {self._base_rates}")
 
     @property
-    def expert_mode(self):
-        return self.expert_checkbox.isChecked()
-
-    def update_expert_vis(self):
-        """
-        Update visibility of "expert mode" widgets based on expert mode check
-        box status.
-        """
-        self.xpm_table.setVisible(self.expert_mode)
-        self.tpr_frame.setVisible(self.expert_mode)
-        self.rbv_frame.setVisible(self.expert_mode)
+    def base_rate(self):
+        return int(self.total_rate_box.currentText())
 
     def update_goose_vis(self):
         """
@@ -148,6 +211,99 @@ class UserConfigDisplay(Display):
         """
         self.goose_rate_box.setVisible(self.goose_enabled)
         self.goose_rate_label.setVisible(self.goose_enabled)
+
+    def update_goose_rates(self):
+        if self._base_rates is not None:
+            goose_rates = allowed_goose_rates(
+                self.base_rate,
+                self._base_rates
+            )
+            self.goose_rate_box.clear()
+            for rate in goose_rates:
+                self.goose_rate_box.addItem(str(rate))
+            if self._debug:
+                print(f"Requested base rate: {rate}")
+                print(f"Allowed goose rates: {goose_rates}")
+
+    @property
+    def goose_rate(self):
+        return int(self.goose_rate_box.currentText())
+
+    def update_goose_arrival(self):
+        cfgs = self._config['goose_arrival_configs']
+        if cfgs is not None:
+            if self._debug:
+                print(f"Goose arrival configs: {cfgs}")
+            for name, cfg in cfgs.items():
+                text = cfg['desc']
+                cfg.pop('desc', None)
+                self.goose_arrival_box.addItem(
+                    text,
+                    userData=cfg
+                )
+
+    @property
+    def arrival_config(self):
+        return self.goose_arrival_box.currentData()
+
+    @property
+    def goose_enabled(self):
+        txt = self.goose_arrival_box.currentText()
+        if txt != "Goose off":
+            return True
+        else:
+            return False
+
+
+class ExpertDisplay(Display):
+    """
+    Class for expert level user display.
+    """
+    xpm_table: pydm_widgets.PyDMNTTable
+    tpr_frame: QtWidgets.QFrame
+    rbv_frame: QtWidgets.QFrame
+
+    def __init__(
+        self,
+        parent=None,
+        **kwargs
+    ):
+        super().__init__(parent, **kwargs)
+
+    def ui_filename(self):
+        return "expert_screen.ui"
+
+    def ui_filepath(self):
+        return path.join(
+            path.dirname(path.realpath(__file__)), self.ui_filename()
+        )
+
+    def setup_display(self, config, debug):
+
+        self._debug = debug
+
+        self._config = read_config(config)
+        if self._config is None:
+            raise ValueError(f"Could not read config file {config}")
+
+        if self._config is not None:
+            self._db = happi.Client(
+                path=self._config['main']['laser_database']
+            )
+
+        xpm_pv = self._config['main']['xpm_pv']
+        self.xpm_table.set_channel(f"pva://{xpm_pv}")
+
+        self.configure_rbv_frames()
+
+    def set_visibility(self, visible):
+        """
+        Update visibility of "expert mode" widgets based on expert mode check
+        box status.
+        """
+        self.xpm_table.setVisible(visible)
+        self.tpr_frame.setVisible(visible)
+        self.rbv_frame.setVisible(visible)
 
     def configure_rbv_frames(self):
         """
@@ -284,99 +440,87 @@ class UserConfigDisplay(Display):
 
         return child
 
-    def update_user_pvs(self):
-        """
-        Modify RBV widgets to use the PV(s) specified in the config file.
-        """
-        # Event code data
-        self._engine = int(self._config['main']['engine'])
-        on_time_idx = self._engine * 4
-        off_time_idx = (self._engine * 4) + 1
-        self._on_time = 256 + on_time_idx
-        self._off_time = 256 + off_time_idx
 
-        self.on_time_ec_rbv.setText(str(self._on_time))
-        self.off_time_ec_rbv.setText(str(self._off_time))
+class UserConfigDisplay(Display):
+    """
+    Class for rep. rate configuration application user display.
+    """
 
-        if self._debug:
-            print(f"Engine: {self._engine}")
-            print(f"On time EC: {self._on_time}")
-            print(f"Off time EC: {self._off_time}")
-            print(f"On time index: {on_time_idx}")
-            print(f"Off time index: {off_time_idx}")
+    # Top level widgets
+    screen_title: pydm_widgets.PyDMLabel
 
-        # SC metadata
-        sc_base = self._config['main']['meta_pv']
-        xpm_pv = self._config['main']['xpm_pv']
+    # SC Metadata
+    sc_metadata_widget: SCMetadataDisplay
 
-        if self._debug:
-            print(f"SC metadata base PV: {sc_base}")
+    # Laser Config
+    laser_config_widget: LaserConfigDisplay
 
-        self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
-        self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
-        self.time_source_rbv.set_channel(f"ca://{sc_base}:TIME_SRC")
-        self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
-        self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
-        self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
-        self.on_time_rate_rbv.set_channel(f"pva://{xpm_pv}/Rate/{on_time_idx}")
-        self.off_time_rate_rbv.set_channel(
-            f"pva://{xpm_pv}/Rate/{off_time_idx}"
+    # Expert mode widgets
+    expert_display_widget: ExpertDisplay
+    expert_checkbox: QtWidgets.QCheckBox
+
+    def __init__(
+        self,
+        parent=None,
+        config: str = "",
+        debug: bool = False,
+        **kwargs
+    ):
+        super().__init__(parent, **kwargs)
+
+        self.laser_config_widget.setup_display(config, debug)
+
+        self.sc_metadata_widget.setup_display(config, debug)
+
+        self.expert_display_widget.setup_display(config, debug)
+
+        self._config = read_config(config)
+        if self._config is None:
+            raise ValueError(f"Could not read config file {config}")
+
+        if self._config is not None:
+            self._db = happi.Client(
+                path=self._config['main']['laser_database']
+            )
+
+        self.screen_title.setText(self._config['main']['title'])
+
+        self.update_expert_vis()
+
+        # self.apply_button.clicked.connect(self.apply_config)
+        self.expert_checkbox.stateChanged.connect(self.update_expert_vis)
+
+    def ui_filename(self):
+        return "user_config.ui"
+
+    def ui_filepath(self):
+        return path.join(
+            path.dirname(path.realpath(__file__)), self.ui_filename()
         )
 
-        self.xpm_table.set_channel(f"pva://{xpm_pv}")
-
-    def update_base_rates(self):
-        if self._base_rates is not None:
-            for rate in self._base_rates:
-                self.total_rate_box.addItem(str(rate))
-            if self._debug:
-                print(f"Allowed base rates: {self._base_rates}")
+    def update_expert_vis(self):
+        self.expert_display_widget.set_visibility(self.expert_mode)
 
     @property
-    def base_rate(self):
-        return int(self.total_rate_box.currentText())
+    def debug(self):
+        return self._debug
 
-    def update_goose_rates(self):
-        if self._base_rates is not None:
-            goose_rates = allowed_goose_rates(
-                self.base_rate,
-                self._base_rates
+    @debug.setter
+    def debug(self, value):
+        self._debug = bool(value)
+
+    @property
+    def db(self):
+        if self.config is not None:
+            self._db = happi.Client(
+                path=self._config['main']['laser_database']
             )
-            self.goose_rate_box.clear()
-            for rate in goose_rates:
-                self.goose_rate_box.addItem(str(rate))
-            if self._debug:
-                print(f"Requested base rate: {rate}")
-                print(f"Allowed goose rates: {goose_rates}")
+            return self._db
+        return None
 
     @property
-    def goose_rate(self):
-        return int(self.goose_rate_box.currentText())
-
-    def update_goose_arrival(self):
-        cfgs = self._config['goose_arrival_configs']
-        if cfgs is not None:
-            if self._debug:
-                print(f"Goose arrival configs: {cfgs}")
-            for name, cfg in cfgs.items():
-                text = cfg['desc']
-                cfg.pop('desc', None)
-                self.goose_arrival_box.addItem(
-                    text,
-                    userData=cfg
-                )
-
-    @property
-    def arrival_config(self):
-        return self.goose_arrival_box.currentData()
-
-    @property
-    def goose_enabled(self):
-        txt = self.goose_arrival_box.currentText()
-        if txt != "Goose off":
-            return True
-        else:
-            return False
+    def expert_mode(self):
+        return self.expert_checkbox.isChecked()
 
     def apply_config(self):
         """
