@@ -522,6 +522,32 @@ class UserConfigDisplay(Display):
     def expert_mode(self):
         return self.expert_checkbox.isChecked()
 
+    def apply_device_config(self):
+        supported_devices = [
+            "pcdsdevices.tpr.TprTrigger",
+            "ophyd.signal.EpicsSignal",
+        ]
+        for devclass in supported_devices:
+            devices = self._db.search(device_class=devclass)
+            for device in devices:
+                name = device.metadata['name']
+                if name in self.arrival_config:
+                    instance = device.get()
+                    config = self.arrival_config[name]
+                    if devclass == "ophyd.signal.EpicsSignal":
+                        if 'val' in config.keys():
+                            if self._debug:
+                                print(f"Put {device} {config['val']}")
+                            else:
+                                instance.put(config['val'])
+                        else:
+                            raise Exception("Missing 'val' for EpicsSignal")
+                    else:
+                        if self._debug:
+                            print("Configure {device} {config}")
+                        else:
+                            instance.configure(config)
+
     def apply_config(self):
         """
         Apply the requested configuration to the system.
@@ -546,4 +572,8 @@ class UserConfigDisplay(Display):
             print(f"Offset: {offset}")
 
         instrset = make_sequence(base_div, goose_div, offset, self._debug)
-        print(instrset)  # Make flake8 happy for now
+        if self._debug:
+            print(instrset)  # Make flake8 happy for now
+
+        # TODO: Disable TIC Gate, configure, re-enable TIC Gate
+        self.apply_device_config()
