@@ -158,6 +158,29 @@ main:
 #
 
 goose_arrival_configs:
+  cfg_goose_off:
+    desc: "Goose off"
+    Carbide_Base:
+      operation: "NOOP"
+      ratemode: "Seq"
+      enable_trg_cmd: "Enabled"
+      enable_ch_cmd: "Enabled"
+    Amphos_Base:
+      operation: "NOOP"
+      ratemode: "Seq"
+      enable_trg_cmd: "Enabled"
+      enable_ch_cmd: "Enabled"
+    Carbide_PP:
+      operation: "NOOP"
+      ratemode: "Seq"
+      enable_trg_cmd: "Enabled"
+      enable_ch_cmd: "Enabled"
+    TIC_Gate:
+      operation: "NOOP"
+      ratemode: "Seq"
+      enable_trg_cmd: "Enabled"
+      enable_ch_cmd: "Enabled"
+
   cfg_early:
     desc: "Early"
     Carbide_Goose:
@@ -257,26 +280,3 @@ goose_arrival_configs:
       val: 0.0
     PP_Goose_Offset:
       val: 0.0
-
-  cfg_goose_off:
-    desc: "Goose off"
-    Carbide_Base:
-      operation: "NOOP"
-      ratemode: "Seq"
-      enable_trg_cmd: "Enabled"
-      enable_ch_cmd: "Enabled"
-    Amphos_Base:
-      operation: "NOOP"
-      ratemode: "Seq"
-      enable_trg_cmd: "Enabled"
-      enable_ch_cmd: "Enabled"
-    Carbide_PP:
-      operation: "NOOP"
-      ratemode: "Seq"
-      enable_trg_cmd: "Enabled"
-      enable_ch_cmd: "Enabled"
-    TIC_Gate:
-      operation: "NOOP"
-      ratemode: "Seq"
-      enable_trg_cmd: "Enabled"
-      enable_ch_cmd: "Enabled"
