@@ -5,6 +5,7 @@ from os import path
 
 import happi
 import yaml
+from psdaq.seq.seqprogram import SeqUser
 from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
@@ -156,9 +157,11 @@ class LaserConfigDisplay(Display):
 
         self.on_time_ec_rbv.setText(str(self._on_time))
         self.off_time_ec_rbv.setText(str(self._off_time))
-        self.on_time_rate_rbv.set_channel(f"pva://{xpm_pv}/Rate/{on_time_idx}")
+        self.on_time_rate_rbv.set_channel(
+            f"pva://{xpm_pv}:SEQCODES/Rate/{on_time_idx}"
+        )
         self.off_time_rate_rbv.set_channel(
-            f"pva://{xpm_pv}/Rate/{off_time_idx}"
+            f"pva://{xpm_pv}:SEQCODES/Rate/{off_time_idx}"
         )
 
         if self._debug:
@@ -292,7 +295,7 @@ class ExpertDisplay(Display):
             )
 
         xpm_pv = self._config['main']['xpm_pv']
-        self.xpm_table.set_channel(f"pva://{xpm_pv}")
+        self.xpm_table.set_channel(f"pva://{xpm_pv}:SEQCODES")
 
         self.configure_rbv_frames()
 
@@ -482,6 +485,11 @@ class UserConfigDisplay(Display):
             self._db = happi.Client(
                 path=self._config['main']['laser_database']
             )
+
+        self._engine = int(self._config['main']['engine'])
+        xpm_pv = self._config['main']['xpm_pv']
+
+        self._SeqUser = SeqUser(f"{xpm_pv}:SEQENG:{self._engine}")
 
         self.screen_title.setText(self._config['main']['title'])
 
