@@ -2,7 +2,9 @@ import argparse
 import itertools
 
 import numpy as np
+from psdaq.cas.pvedit import Pv
 from psdaq.seq.seq import Branch, ControlRequest, FixedRateSync
+from psdaq.seq.seqprogram import SeqUser
 
 factors = [2, 2, 2, 2, 5, 5, 5, 5, 7, 13]  # 910,000
 carbide_factors = [1, 2, 2, 5, 5, 5, 5, 13]  # 32,500 (remove 2, 2, 7, add 1)
@@ -48,7 +50,7 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
     # Loop over base:goose rate ratio once. Because we're using divisors,
     # we divide goose divider by base divider, rather than base rate by
     # goose rate.
-    if goose_div is None:
+    if goose_div in (None, 0):
         n = 1
     else:
         n = (goose_div//base_div) - 1
@@ -58,16 +60,21 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
         if debug:
             print("ControlRequest([0])")
             print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
-    if goose_div is not None:
+    if goose_div not in (None, 0):
         # Finish with goose pulse
         instrset.append(ControlRequest([1]))
         instrset.append(FixedRateSync(marker="910kH", occ=base_div))
         if debug:
             print("ControlRequest([1])")
             print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
-    instrset.append(Branch.unconditional(0))
-    if debug:
-        print("Branch.unconditional(0)")
+    if offset is not None and offset != 0:
+        if debug:
+            print("Branch.unconditional(1)")
+        instrset.append(Branch.unconditional(1))
+    else:
+        if debug:
+            print("Branch.unconditional(0)")
+        instrset.append(Branch.unconditional(0))
 
     return instrset
 
@@ -97,34 +104,54 @@ if __name__ == "__main__":
     else:
         bay = int(args.bay)
 
-    engine = {2: 6, 3: 7}  # Bay --> sequence engine mapping
+    engines = {2: 6, 3: 7}  # Bay --> sequence engine mapping
 
     # Dict will eventually be applied to drop down menu
-    base_dict = make_base_rates(carbide_factors)
+    base_list = make_base_rates(carbide_factors)
 
-    if base_rate not in list(base_dict.keys()):
-        rates = sorted(base_dict)
+    if base_rate not in base_list:
         raise ValueError(
            ("Base rate {base_rate} is not one of the available laser "
-            f"rates: {rates}")
+            f"rates: {base_list}")
         )
 
     # Dict will eventually be applied to drop down menu
-    goose_dict = allowed_goose_rates(base_rate, base_dict)
+    goose_list = allowed_goose_rates(base_rate, base_list)
 
-    if goose_rate not in goose_dict.keys():
-        rates = sorted(goose_dict)
+    if goose_rate not in goose_list:
         raise ValueError(
            (f"Goose rate {goose_rate} is not one of the available goose "
-            f"rates: {rates}")
+            f"rates: {goose_list}")
         )
 
-    seqcodes = {0: f"Bay {bay}" + " On Time,1:" + f"Bay {bay}" + " Off Time"}
-    inst = make_sequence(
-        base_dict[base_rate], goose_dict[goose_rate], offset
-    )
+    seqdesc = {0: f"Bay {bay} On Time", 1: f"Bay {bay} Off Time", 2: "", 3: ""}
+    base_div = 910000//int(base_rate)
+    goose_div = 910000//int(goose_rate)
+    inst = make_sequence(base_div, goose_div, offset, True)
 
-    print(seqcodes)
-    print(inst)
+    xpm_pv = "DAQ:NEH:XPM:0"
+    seqcodes_pv = Pv(f'{xpm_pv}:SEQCODES', isStruct=True)
+    seqcodes = seqcodes_pv.get()
+    desc = seqcodes.value.Description
 
-    # Get descset from XPM, pass to execute
+    engine = int(engines[bay])
+    seq = SeqUser(f'{xpm_pv}:SEQENG:{engine}')
+    seq.execute('title', inst, None, sync=True, refresh=False)
+
+    engineMask = 0
+    engineMask |= (1 << engine)
+
+    for e in range(4*engine, 4*engine+4):
+        desc[e] = ''
+    for e, d in seqdesc.items():
+        desc[4*engine+e] = d
+
+    tmo = 5.0  # epics pva timeout
+
+    v = seqcodes.value
+    v.Description = desc
+    seqcodes.value = v
+    seqcodes_pv.put(seqcodes, wait=tmo)
+
+    pvSeqReset = Pv(f'{xpm_pv}:SeqReset')
+    pvSeqReset.put(engineMask, wait=tmo)
