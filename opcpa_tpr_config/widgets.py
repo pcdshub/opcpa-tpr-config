@@ -5,6 +5,7 @@ from os import path
 
 import happi
 import yaml
+from psdaq.cas.pvedit import Pv
 from psdaq.seq.seqprogram import SeqUser
 from pydm import Display
 from pydm import widgets as pydm_widgets
@@ -587,11 +588,33 @@ class UserConfigDisplay(Display):
             print(f"Offset: {offset}")
 
         instrset = make_sequence(base_div, goose_div, offset, self._debug)
-        print(instrset)
 
         bay = self._config['main']['bay']
         seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time", 2: "", 3: ""}
-        print(seqdesc)
+
+        seqcodes_pv = Pv(f"{self._config['main']['xpm_pv']}:SEQCODES")
+        seqcodes = seqcodes_pv.get()
+        desc = seqcodes.value.Description
+
+        self._LasSeq.execute('title', instrset, None, sync=True, refresh=False)
+
+        engineMask = 0
+        engineMask |= (1 << 4*self._engine1+4)
+
+        for e in range(4*self._engine1, 4*self._engine1+4):
+            desc[e] = ''
+        for e, d in seqdesc.items():
+            desc[4*self._engine1+e] = d
+
+        tmo = 5.0  # EPICS PVA timeout
+
+        v = seqcodes.value
+        v.Description = desc
+        seqcodes.value = v
+        seqcodes_pv.put(seqcodes, wait=tmo)
+
+        pvSeqReset = Pv(f"{self._config['main']['xpm_pv']}:SeqReset")
+        pvSeqReset.put(engineMask, wait=tmo)
 
     def apply_config(self):
         """
