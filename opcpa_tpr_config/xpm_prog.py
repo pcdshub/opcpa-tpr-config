@@ -42,10 +42,20 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
     # Do some setup
     instrset = []
 
+    # Insert bucket offset if it is present
     if offset is not None and offset != 0:
         instrset.append(FixedRateSync(marker="910kH", occ=offset))
         if debug:
             print(f"FixedRateSync(marker=\"910kH\", occ={offset})")
+
+    # If we're goosing, put that pulse in _first_ because it makes delay
+    # management easier
+    if goose_div not in (None, 0):  # Start with goose
+        instrset.append(ControlRequest([1]))
+        instrset.append(FixedRateSync(marker="910kH", occ=base_div))
+        if debug:
+            print("ControlRequest([1])")
+            print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
 
     # Loop over base:goose rate ratio once. Because we're using divisors,
     # we divide goose divider by base divider, rather than base rate by
@@ -60,13 +70,8 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
         if debug:
             print("ControlRequest([0])")
             print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
-    if goose_div not in (None, 0):
-        # Finish with goose pulse
-        instrset.append(ControlRequest([1]))
-        instrset.append(FixedRateSync(marker="910kH", occ=base_div))
-        if debug:
-            print("ControlRequest([1])")
-            print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
+
+    # Change branching based on offset
     if offset is not None and offset != 0:
         if debug:
             print("Branch.unconditional(1)")
