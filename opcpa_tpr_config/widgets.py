@@ -58,9 +58,6 @@ class SCMetadataDisplay(Display):
         """
         Modify RBV widgets to use the PV(s) specified in the config file.
         """
-        # Event code data
-        self._engine = int(self._config['main']['engine'])
-
         # SC metadata
         sc_base = self._config['main']['meta_pv']
 
@@ -116,6 +113,10 @@ class LaserConfigDisplay(Display):
         """
         self._debug = debug
 
+        # Event code data
+        self._engine1 = int(self._config['main']['engine1'])
+        self._engine2 = int(self._config['main']['engine2'])
+
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
@@ -148,10 +149,9 @@ class LaserConfigDisplay(Display):
         Modify RBV widgets to use the PV(s) specified in the config file.
         """
         # Event code data
-        self._engine = int(self._config['main']['engine'])
         xpm_pv = self._config['main']['xpm_pv']
-        on_time_idx = self._engine * 4
-        off_time_idx = (self._engine * 4) + 1
+        on_time_idx = self._engine1 * 4
+        off_time_idx = (self._engine1 * 4) + 1
         self._on_time = 256 + on_time_idx
         self._off_time = 256 + off_time_idx
 
@@ -165,7 +165,8 @@ class LaserConfigDisplay(Display):
         )
 
         if self._debug:
-            print(f"Engine: {self._engine}")
+            print(f"Engine 1: {self._engine1}")
+            print(f"Engine 2: {self._engine2}")
             print(f"On time EC: {self._on_time}")
             print(f"Off time EC: {self._off_time}")
             print(f"On time index: {on_time_idx}")
@@ -486,10 +487,14 @@ class UserConfigDisplay(Display):
                 path=self._config['main']['laser_database']
             )
 
-        self._engine = int(self._config['main']['engine'])
+        self._engine1 = int(self._config['main']['engine1'])
+        self._engine2 = int(self._config['main']['engine2'])
         xpm_pv = self._config['main']['xpm_pv']
 
-        self._SeqUser = SeqUser(f"{xpm_pv}:SEQENG:{self._engine}")
+        # Sequence engine for on/off time codes
+        self._LasSeq = SeqUser(f"{xpm_pv}:SEQENG:{self._engine1}")
+        # Sequence engine for base laser rate and diagnostic codes
+        self._BaseSeq = SeqUser(f"{xpm_pv}:SEQENG:{self._engine2}")
 
         self.screen_title.setText(self._config['main']['title'])
 
@@ -556,9 +561,10 @@ class UserConfigDisplay(Display):
                         else:
                             instance.configure(config)
 
-    def apply_config(self):
+    def apply_laser_rates(self):
         """
-        Apply the requested configuration to the system.
+        Generate and apply the XPM configuration for the laser on/off time
+        event codes.
         """
         base_div = 910000//self.base_rate
         if self.goose_enabled:
@@ -572,6 +578,7 @@ class UserConfigDisplay(Display):
             offset = None
 
         if self._debug:
+            print("Applying laser rates")
             print(f"Base rate: {self.base_rate}")
             print(f"Goose rate: {self.goose_rate}")
             print(f"Goose arrival: {self.arrival_config}")
@@ -580,8 +587,16 @@ class UserConfigDisplay(Display):
             print(f"Offset: {offset}")
 
         instrset = make_sequence(base_div, goose_div, offset, self._debug)
-        if self._debug:
-            print(instrset)  # Make flake8 happy for now
+        print(instrset)
+
+        bay = self._config['main']['bay']
+        seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time", 2: "", 3: ""}
+        print(seqdesc)
+
+    def apply_config(self):
+        """
+        Apply the requested configuration to the system.
+        """
 
         # TODO: Disable TIC Gate, configure, re-enable TIC Gate
-        self.apply_device_config()
+        # self.apply_device_config()
