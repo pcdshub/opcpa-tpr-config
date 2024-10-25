@@ -223,7 +223,6 @@ goose_arrival_configs:
     TIC_Gate_Goose:
       ratemode: "Seq"
       polarity: 0
-      width_setpoint: 1000.0
       enable_trg_cmd: "Enabled"
       enable_ch_cmd: "Enabled"
     Carbide_Goose_Offset:
@@ -273,7 +272,6 @@ goose_arrival_configs:
     TIC_Gate_Goose:
       ratemode: "Seq"
       polarity: 0
-      width_setpoint: 1000.0
       enable_trg_cmd: "Enabled"
       enable_ch_cmd: "Enabled"
     Carbide_Goose_Offset:
