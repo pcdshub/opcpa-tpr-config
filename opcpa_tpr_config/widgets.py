@@ -644,10 +644,31 @@ class UserConfigDisplay(Display):
         pvSeqReset = Pv(f"{self._config['main']['xpm_pv']}:SeqReset")
         pvSeqReset.put(engineMask, wait=tmo)
 
+    def set_tic_enable(self, enable):
+        """
+        Function to help with enabling/disabling the TIC gate trigger. This
+        prevents the TIC measurement from getting messed up during
+        configuration.
+        """
+        if enable:
+            conf = {'enable_trg_cmd': 'Enabled', 'enable_ch_cmd': 'Enabled'}
+        else:
+            conf = {'enable_trg_cmd': 'Disabled', 'enable_ch_cmd': 'Disabled'}
+
+        trig_names = ['TIC_Gate', 'TIC_Gate_Goose']
+        devices = self._db.search(device_class="pcdsdevices.tpr.TprTrigger")
+        for device in devices:
+            name = device.metadata['name']
+            if name in trig_names:
+                instance = device.get()
+                instance.configure(conf)
+
     def apply_config(self):
         """
         Apply the requested configuration to the system.
         """
-
-        # TODO: Disable TIC Gate, configure, re-enable TIC Gate
+        # self.set_tic_enable(False)
+        # self.apply_base_rates()
+        # self.apply_laser_rates()
         # self.apply_device_config()
+        # self.set_tic_enable(True)
