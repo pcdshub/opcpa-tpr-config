@@ -173,23 +173,6 @@ class LaserConfigDisplay(Display):
             print(f"On time index: {on_time_idx}")
             print(f"Off time index: {off_time_idx}")
 
-# TODO: Put this into SC metadata widget function
-#        # SC metadata
-#        sc_base = self._config['main']['meta_pv']
-#        xpm_pv = self._config['main']['xpm_pv']
-#
-#        if self._debug:
-#            print(f"SC metadata base PV: {sc_base}")
-#
-#        self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
-#        self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
-#        self.time_source_rbv.set_channel(f"ca://{sc_base}:TIME_SRC")
-#        self.offset_rbv.set_channel(f"ca://{sc_base}:OFFSET_RBV")
-#        self.time_slot_rbv.set_channel(f"ca://{sc_base}:TS")
-#        self.time_slot_mask_rbv.set_channel(f"ca://{sc_base}:TSMASK")
-#
-#        self.xpm_table.set_channel(f"pva://{xpm_pv}")
-
     def ui_filename(self):
         return "rep_rate_config.ui"
 
