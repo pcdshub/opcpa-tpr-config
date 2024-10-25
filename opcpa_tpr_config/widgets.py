@@ -537,17 +537,15 @@ class UserConfigDisplay(Display):
                     config = self.arrival_config[name]
                     if devclass == "ophyd.signal.EpicsSignal":
                         if 'val' in config.keys():
+                            instance.put(config['val'])
                             if self._debug:
                                 print(f"Put {device} {config['val']}")
-                            else:
-                                instance.put(config['val'])
                         else:
                             raise Exception("Missing 'val' for EpicsSignal")
                     else:
+                        instance.configure(config)
                         if self._debug:
                             print("Configure {device} {config}")
-                        else:
-                            instance.configure(config)
 
     def calc_tic_averaging(self, total_rate):
         """
