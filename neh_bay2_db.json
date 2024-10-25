@@ -125,6 +125,24 @@
         "name": "TIC_Gate",
         "type": "HappiItem"
     },
+    "TIC_Gate_Goose": {
+        "_id": "TIC_Gate_Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:02"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "TIC Gate Goose",
+        "kwargs": {
+            "channel": 8,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "TIC_Gate_Goose",
+        "type": "HappiItem"
+    },
     "TIC_Stop": {
         "_id": "TIC_Stop",
         "active": true,
