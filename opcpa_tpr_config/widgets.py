@@ -545,7 +545,11 @@ class UserConfigDisplay(Display):
             devices = self._db.search(device_class=devclass)
             for device in devices:
                 name = device.metadata['name']
-                if name in self.arrival_config:
+                if name == "TIC_Averaging":  # Handle this as special case
+                    navg = self.calc_tic_averaging(self.base_rate)
+                    instance = device.get()
+                    instance.put(navg)
+                elif name in self.arrival_config:
                     instance = device.get()
                     config = self.arrival_config[name]
                     if devclass == "ophyd.signal.EpicsSignal":
@@ -561,6 +565,27 @@ class UserConfigDisplay(Display):
                             print("Configure {device} {config}")
                         else:
                             instance.configure(config)
+
+    def calc_tic_averaging(self, total_rate):
+        """
+        Calculate the best TIC averaging setting based on total rate. The
+        goal is to have about 50ms of data in the TIC measurement. The allowed
+        averaging settings on the TIC follow a 1-2-5 scale, approximating a
+        logarithm.
+        """
+        rate = int(total_rate)
+        if rate < 1000:
+            return 50
+        elif rate < 2000:
+            return 100
+        elif rate < 4000:
+            return 200
+        elif rate < 10000:
+            return 500
+        elif rate < 20000:
+            return 1000
+        else:  # The rep rate can't go over 33kHz so we stop here
+            return 2000
 
     def apply_laser_rates(self):
         """
