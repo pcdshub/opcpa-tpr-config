@@ -616,7 +616,7 @@ class UserConfigDisplay(Display):
 
         self.write_xpm_config(seqdesc, instrset, self._BaseSeq, self._engine2)
 
-    def write_xpm_config(self, seqdesc, instrset, engine, nengine):
+    def write_xpm_config(self, seqdesc, instrset, sequser, nengine):
         """
         Function to write a given XPM configuration to the specified engine.
         """
@@ -624,7 +624,7 @@ class UserConfigDisplay(Display):
         seqcodes = seqcodes_pv.get()
         desc = seqcodes.value.Description
 
-        engine.execute('title', instrset, None, sync=True, refresh=False)
+        sequser.execute('title', instrset, None, sync=True, refresh=False)
 
         engineMask = 0
         engineMask |= (1 << 4*nengine+4)
