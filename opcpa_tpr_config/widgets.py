@@ -114,13 +114,13 @@ class LaserConfigDisplay(Display):
         """
         self._debug = debug
 
-        # Event code data
-        self._engine1 = int(self._config['main']['engine1'])
-        self._engine2 = int(self._config['main']['engine2'])
-
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
+
+        # Event code data
+        self._engine1 = int(self._config['main']['engine1'])
+        self._engine2 = int(self._config['main']['engine2'])
 
         if self._debug:
             print(f"Read configuration file: {config}")
