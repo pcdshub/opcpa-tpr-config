@@ -11,7 +11,7 @@ from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
 from xpm_prog import (allowed_goose_rates, carbide_factors, make_base_rates,
-                      make_sequence)
+                      make_base_sequence, make_sequence)
 
 logger = logging.getLogger(__name__)
 
@@ -592,19 +592,47 @@ class UserConfigDisplay(Display):
         bay = self._config['main']['bay']
         seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time", 2: "", 3: ""}
 
+        self.write_xpm_config(seqdesc, instrset, self._LasSeq, self._engine1)
+
+    def apply_base_rates(self):
+        """
+        Generate and apply the XPM configuration for the "base" laser rates
+        that should always be available.
+        """
+        # This is a float PV for some reason
+        offset = int(self.offset_rbv.value)
+        if offset == 0:
+            offset = None
+
+        if self._debug:
+            print("Applying base rates")
+            print(f"Offset: {offset}")
+
+        instrset = make_base_sequence(offset)
+
+        bay = self._config['main']['bay']
+        seqdesc = {0: f"{bay} 910kHz", 1: f"{bay} 32.5kHz", 2: f"{bay} 100Hz",
+                   3: f"{bay} 5Hz"}
+
+        self.write_xpm_config(seqdesc, instrset, self._BaseSeq, self._engine2)
+
+    def write_xpm_config(self, seqdesc, instrset, engine, nengine):
+        """
+        Function to write a given XPM configuration to the specified engine.
+        """
         seqcodes_pv = Pv(f"{self._config['main']['xpm_pv']}:SEQCODES")
         seqcodes = seqcodes_pv.get()
         desc = seqcodes.value.Description
 
-        self._LasSeq.execute('title', instrset, None, sync=True, refresh=False)
+        engine.execute('title', instrset, None, sync=True, refresh=False)
 
         engineMask = 0
-        engineMask |= (1 << 4*self._engine1+4)
+        engineMask |= (1 << 4*nengine+4)
 
-        for e in range(4*self._engine1, 4*self._engine1+4):
+        for e in range(4*nengine, 4*nengine+4):
             desc[e] = ''
         for e, d in seqdesc.items():
-            desc[4*self._engine1+e] = d
+            desc[4*nengine+e] = d
 
         tmo = 5.0  # EPICS PVA timeout
 
