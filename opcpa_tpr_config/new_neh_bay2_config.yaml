@@ -1,0 +1,127 @@
+# Configuration file for NEH OPCPA lasers
+
+main:
+    xpm_pv: "DAQ:NEH:XPM:0"
+    meta_pv: "TPG:SYS0:1:DST04"
+    engine1: "4"
+    engine2: "5"
+    title: "NEH Laser Hall Bay 2 OPCPA Rep. Rate Configuration"
+    bay: "Bay 2"
+
+    laser_database: "neh_bay2_db.json"
+
+    # TPR Channels
+    devices:
+      Carbide_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Amphos_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Amphos_Base:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_PP_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_PP:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Stop:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Gate:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      TIC_Gate_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
+      Carbide_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      Amphos_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      PP_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Gate_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Gate_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
+      TIC_Averaging:
+        rbvs: ["name", "val"]
+        show: True
+
+goose_arrival_configs:
+  cfg_goose_off:
+    desc: "Goose off"
+    Carbide_Base:
+      operation: "NOOP"
+    Amphos_Base:
+      operation: "NOOP"
+    Carbide_PP:
+      operation: "NOOP"
+    TIC_Gate:
+      operation: "NOOP"
+
+  cfg_early:
+    desc: "Early"
+    Carbide_Goose:
+      polarity: 1
+      width_setpoint: 30.8
+    Amphos_Goose:
+      polarity: 1
+      width_setpoint: 30.8
+    Carbide_PP_Goose:
+      polarity: 1
+      width_setpoint: 30.8
+    Carbide_Base:
+      operation: "OR"
+    Amphos_Base:
+      operation: "OR"
+    Carbide_PP:
+      operation: "OR"
+    TIC_Gate:
+      operation: "AND"
+    TIC_Gate_Goose:
+      polarity: 0
+    Carbide_Goose_Offset:
+      val: 15.4
+    Amphos_Goose_Offset:
+      val: 15.4
+    PP_Goose_Offset:
+      val: 15.4
+
+  cfg_late:
+    desc: "Late"
+    Carbide_Goose:
+      polarity: 0
+      width_setpoint: 15.4
+    Amphos_Goose:
+      polarity: 0
+      width_setpoint: 15.4
+    Carbide_PP_Goose:
+      polarity: 0
+      width_setpoint: 15.4
+    Carbide_Base:
+      operation: "AND"
+    Amphos_Base:
+      operation: "AND"
+    Carbide_PP:
+      operation: "AND"
+    TIC_Gate:
+      operation: "AND"
+    TIC_Gate_Goose:
+      polarity: 0
+    Carbide_Goose_Offset:
+      val: 0.0
+    Amphos_Goose_Offset:
+      val: 0.0
+    PP_Goose_Offset:
+      val: 0.0
