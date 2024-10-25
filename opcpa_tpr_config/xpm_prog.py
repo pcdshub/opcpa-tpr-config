@@ -84,6 +84,53 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
     return instrset
 
 
+def make_base_sequence(offset=None):
+    """
+    Setup standard sequence of full rate, 32500, 100, and 5 Hz codes.
+    """
+    # Do some setup
+    instrset = []
+
+    # Insert bucket offset if it is present
+    if offset is not None and offset != 0:
+        instrset.append(FixedRateSync(marker="910kH", occ=offset))
+
+    b0 = len(instrset)
+    instrset.append(ControlRequest([0, 1, 2, 3]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    b1 = len(instrset)
+    instrset.append(ControlRequest([0]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    instrset.append(Branch.conditional(line=b1, counter=0, value=26))
+    b2 = len(instrset)
+    instrset.append(ControlRequest([0, 1]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    b3 = len(instrset)
+    instrset.append(ControlRequest([0]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    instrset.append(Branch.conditional(line=b3, counter=0, value=26))
+    instrset.append(Branch.conditional(line=b2, counter=1, value=323))
+    b4 = len(instrset)
+    instrset.append(ControlRequest([0, 1, 2]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    b5 = len(instrset)
+    instrset.append(ControlRequest([0]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    instrset.append(Branch.conditional(line=b5, counter=0, value=26))
+    b6 = len(instrset)
+    instrset.append(ControlRequest([0, 1]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    b7 = len(instrset)
+    instrset.append(ControlRequest([0]))
+    instrset.append(FixedRateSync(marker="910kH", occ=1))
+    instrset.append(Branch.conditional(line=b7, counter=0, value=26))
+    instrset.append(Branch.conditional(line=b6, counter=1, value=323))
+    instrset.append(Branch.conditional(line=b4, counter=2, value=18))
+    instrset.append(Branch.unconditional(line=b0))
+
+    return instrset
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
