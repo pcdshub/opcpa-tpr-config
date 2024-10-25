@@ -462,6 +462,8 @@ class UserConfigDisplay(Display):
 
         self.expert_display_widget.setup_display(config, debug)
 
+        self._debug = debug
+
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
@@ -484,7 +486,9 @@ class UserConfigDisplay(Display):
 
         self.update_expert_vis()
 
-        # self.apply_button.clicked.connect(self.apply_config)
+        self.laser_config_widget.apply_button.clicked.connect(
+            self.apply_config
+        )
         self.expert_checkbox.stateChanged.connect(self.update_expert_vis)
 
     def ui_filename(self):
@@ -529,7 +533,9 @@ class UserConfigDisplay(Display):
             for device in devices:
                 name = device.metadata['name']
                 if name == "TIC_Averaging":  # Handle this as special case
-                    navg = self.calc_tic_averaging(self.base_rate)
+                    navg = self.calc_tic_averaging(
+                        self.laser_config_widget.base_rate
+                    )
                     instance = device.get()
                     instance.put(navg)
                 elif name in self.arrival_config:
@@ -573,22 +579,22 @@ class UserConfigDisplay(Display):
         Generate and apply the XPM configuration for the laser on/off time
         event codes.
         """
-        base_div = 910000//self.base_rate
-        if self.goose_enabled:
-            goose_div = 910000//self.goose_rate
+        base_div = 910000//self.laser_config_widget.base_rate
+        if self.laser_config_widget.goose_enabled:
+            goose_div = 910000//self.laser_config_widget.goose_rate
         else:
             goose_div = None
 
         # This is a float PV for some reason
-        offset = int(self.offset_rbv.value)
+        offset = int(self.sc_metadata_widget.offset_rbv.value)
         if offset == 0:
             offset = None
 
         if self._debug:
             print("Applying laser rates")
-            print(f"Base rate: {self.base_rate}")
-            print(f"Goose rate: {self.goose_rate}")
-            print(f"Goose arrival: {self.arrival_config}")
+            print(f"Base rate: {self.laser_config_widget.base_rate}")
+            print(f"Goose rate: {self.laser_config_widget.goose_rate}")
+            print(f"Goose arrival: {self.laser_config_widget.arrival_config}")
             print(f"Base div: {base_div}")
             print(f"Goose div: {goose_div}")
             print(f"Offset: {offset}")
@@ -606,7 +612,7 @@ class UserConfigDisplay(Display):
         that should always be available.
         """
         # This is a float PV for some reason
-        offset = int(self.offset_rbv.value)
+        offset = int(self.sc_metadata_widget.offset_rbv.value)
         if offset == 0:
             offset = None
 
@@ -626,14 +632,16 @@ class UserConfigDisplay(Display):
         """
         Function to write a given XPM configuration to the specified engine.
         """
-        seqcodes_pv = Pv(f"{self._config['main']['xpm_pv']}:SEQCODES")
+        seqcodes_pv = Pv(
+            f"{self._config['main']['xpm_pv']}:SEQCODES", isStruct=True
+        )
         seqcodes = seqcodes_pv.get()
         desc = seqcodes.value.Description
 
         sequser.execute('title', instrset, None, sync=True, refresh=False)
 
         engineMask = 0
-        engineMask |= (1 << 4*nengine+4)
+        engineMask |= (1 << nengine)
 
         for e in range(4*nengine, 4*nengine+4):
             desc[e] = ''
@@ -674,7 +682,7 @@ class UserConfigDisplay(Display):
         Apply the requested configuration to the system.
         """
         # self.set_tic_enable(False)
-        # self.apply_base_rates()
-        # self.apply_laser_rates()
+        self.apply_base_rates()
+        self.apply_laser_rates()
         # self.apply_device_config()
         # self.set_tic_enable(True)
