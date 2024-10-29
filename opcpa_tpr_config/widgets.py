@@ -538,9 +538,9 @@ class UserConfigDisplay(Display):
                     )
                     instance = device.get()
                     instance.put(navg)
-                elif name in self.arrival_config:
+                elif name in self.laser_config_widget.arrival_config:
                     instance = device.get()
-                    config = self.arrival_config[name]
+                    config = self.laser_config_widget.arrival_config[name]
                     if devclass == "ophyd.signal.EpicsSignal":
                         if 'val' in config.keys():
                             instance.put(config['val'])
@@ -551,7 +551,7 @@ class UserConfigDisplay(Display):
                     else:
                         instance.configure(config)
                         if self._debug:
-                            print("Configure {device} {config}")
+                            print(f"Configure {device} {config}")
 
     def calc_tic_averaging(self, total_rate):
         """
@@ -681,8 +681,8 @@ class UserConfigDisplay(Display):
         """
         Apply the requested configuration to the system.
         """
-        # self.set_tic_enable(False)
+        self.set_tic_enable(False)
         self.apply_base_rates()
         self.apply_laser_rates()
-        # self.apply_device_config()
-        # self.set_tic_enable(True)
+        self.apply_device_config()
+        self.set_tic_enable(True)

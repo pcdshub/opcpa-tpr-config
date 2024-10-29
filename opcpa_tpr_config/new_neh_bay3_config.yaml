@@ -80,7 +80,6 @@ goose_arrival_configs:
       width_setpoint: 30.8
     Carbide_PP_Goose:
       polarity: 1
-      width_setpoint: 30.8
     Carbide_Base:
       operation: "OR"
     Amphos_Base:
@@ -107,14 +106,13 @@ goose_arrival_configs:
       polarity: 0
       width_setpoint: 15.4
     Carbide_PP_Goose:
-      polarity: 0
-      width_setpoint: 15.4
+      polarity: 1
     Carbide_Base:
       operation: "AND"
     Amphos_Base:
       operation: "AND"
     Carbide_PP:
-      operation: "AND"
+      operation: "OR"
     TIC_Gate:
       operation: "AND"
     TIC_Gate_Goose:
