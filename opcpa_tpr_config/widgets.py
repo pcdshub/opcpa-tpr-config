@@ -602,7 +602,8 @@ class UserConfigDisplay(Display):
         instrset = make_sequence(base_div, goose_div, offset, self._debug)
 
         bay = self._config['main']['bay']
-        seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time", 2: "", 3: ""}
+        seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time",
+                   2: f"{bay} total rate", 3: ""}
 
         self.write_xpm_config(seqdesc, instrset, self._LasSeq, self._engine1)
 

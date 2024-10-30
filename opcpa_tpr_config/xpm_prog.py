@@ -51,10 +51,10 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
     # If we're goosing, put that pulse in _first_ because it makes delay
     # management easier
     if goose_div not in (None, 0):  # Start with goose
-        instrset.append(ControlRequest([1]))
+        instrset.append(ControlRequest([1, 2]))
         instrset.append(FixedRateSync(marker="910kH", occ=base_div))
         if debug:
-            print("ControlRequest([1])")
+            print("ControlRequest([1, 2])")
             print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
 
     # Loop over base:goose rate ratio once. Because we're using divisors,
@@ -65,10 +65,10 @@ def make_sequence(base_div, goose_div=None, offset=None, debug=False):
     else:
         n = (goose_div//base_div) - 1
     for i in range(n):
-        instrset.append(ControlRequest([0]))
+        instrset.append(ControlRequest([0, 2]))
         instrset.append(FixedRateSync(marker="910kH", occ=base_div))
         if debug:
-            print("ControlRequest([0])")
+            print("ControlRequest([0, 2])")
             print(f"FixedRateSync(marker=\"910kH\", occ={base_div})")
 
     # Change branching based on offset
