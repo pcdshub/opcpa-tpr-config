@@ -80,7 +80,6 @@ goose_arrival_configs:
       width_setpoint: 30.8
     Carbide_PP_Goose:
       polarity: 1
-      width_setpoint: 30.8
     Carbide_Base:
       operation: "OR"
     Amphos_Base:
