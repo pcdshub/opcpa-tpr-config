@@ -8,14 +8,6 @@ changes to repetition rate and "goose" triggering configuration.
 The application accepts a configuration file and generates a screen based on
 the configuration.
 
-There are two main ways to launch this pydm application:
-1. Via the `./launch.sh` script, which selects a pre-installed environment
-   and invokes the pydm command.
-2. Via the `__main__.py` script, which can be bundled with the application
-   for use in an installed python environment. You can execute this script
-   by calling `opcpa_tpr_config`with the package installed, or by calling
-   `python -m opcpa_tpr_config` from the root directory.
-
 ## Configuration File Structure
 
 The configuration file takes the following \<required> and [optional] configuration keys:
@@ -81,7 +73,7 @@ goose_arrival_configs:
         val: 0.0
 
     goose_early:
-      desc: "Goose off"
+      desc: "Goose early"
       trigger0:
         ratemode: "Seq"
         enable_trg_cmd: "Enabled"
@@ -94,7 +86,7 @@ goose_arrival_configs:
         val: -1.0
 
     goose_late:
-      desc: "Goose off"
+      desc: "Goose late"
       trigger0:
         ratemode: "Seq"
         enable_trg_cmd: "Enabled"
