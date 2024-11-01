@@ -22,79 +22,87 @@ The configuration file takes the following \<required> and [optional] configurat
 
 - \<main> : configuration values for overall system/screen
   - \<xpm_pv> : PV of the XPM to be displayed and programmed
+  - \<meta_pv> : PV of upstream AD metadata
+  - \<engine1> : Engine number for laser on/off time event codes
+  - \<engine2> : Engine number for laser base rate event codes
+  - \<bay> : String describing the laser bay being used, e.g. "Bay 2"
+  - \<laser_database> : Happi database json file to be used for this bay
   - \<title> : The title of the main screen
-- \<lasers> : The laser system(s) to be supported
-  - \<laser_name> : Laser system name
-    - \<laser_desc> : Description of the laser system
-    - \<tpr_base> : Base PV of the TPR for this laser system
-    - \<channels> : TPR channels to be supported
-      - \<ch name> : Name of TPR channel
-        - \<desc> : Channel description
-        - \<ch> : Channel number
-        - \<show> : Boolean flag to display the trigger on the screen
-    - \<rate_configs> : Mapping of configuration buttons to channel config(s)
-      - \<cfg_name> : Configuration name
-        - \<rate> : Configuration description
-        - \<ch> : Channel to configure. Maps to channel in \<lasers>/\<channels>
-           - [config attr] : The configuration will accept any configuration attribute of the pcdsdevices.tpr.TprTrigger class, such as `seqcode`, `operation`, etc.
+  - \<devices> : Devices to be supported by this system.
+    - \<device> : Happi database name of device.
+      - \<rbvs> : List of device attributes to show
+      - \<show> : Boolean flag to display the device on the screen
+
+- \<goose_arrival_configs> : Options for goose "arrival" control
+    - \<config_name> : Name of arrival config
+      - \<desc> : Config description
+      - \<device> : Happi database name of device.
+        - [config attr] : The configuration will accept any configuration attribute of the pcdsdevices device class, for example pcdsdevices.tpr.TprTrigger can have `seqcode`, `operation`, etc.
 
 Example configuration:
 
 ```
 main:
     xpm_pv: "DAQ:TST:XPM:0:SEQCODES"
+    meta_pv: "TPG:SYS0:1:DST04"
+    engine1: "0"
+    engine2: "1"
     title: "Example Rep. Rate Configuration"
+    bay: "Bay 0"
 
-lasers:
-  laser_1:
-    laser_desc: "Laser 1 TPR Configuration"
-    tpr_base: "LAS:TST:TPR:01"
+    laser_database: "neh_bay0_db.json"
 
-    channels:
-      ch0:
-        desc: "Channel 0"
-        ch: "00"
+    devices:
+      trigger0:
+        rbvs: ["name", "eventrate", "seqcode", "width_setpoint", "delay_setpoint"]
         show: True
-      ch1:
-        desc: "Channel 1"
-        ch: "01"
+      trigger0:
+        rbvs: ["name", "eventrate", "seqcode", "width_setpoint", "delay_setpoint"]
+        show: True
+      scalar_pv1:
+        rbvs: ["name", "val"]
+        show: True
+      scalar_pv2:
+        rbvs: ["name", "val"]
         show: True
 
-    rate_configs:
-       cfg_130:
-         rate: "130 Hz"
-         ch0:
-           ratemode: "Seq"
-           seqcode: 250
-           enable_trg_cmd: "Enabled"
-         ch1:
-           ratemode: "Seq"
-           seqcode: 250
-           enable_trg_cmd: "Enabled"
+goose_arrival_configs:
+    goose_off:
+      desc: "Goose off"
+      trigger0:
+        ratemode: "Seq"
+        enable_trg_cmd: "Disabled"
+      trigger1:
+        ratemode: "Seq"
+        enable_trg_cmd: "Disabled"
+      scalar_pv1:
+        val: 0.0
+      scalar_pv2:
+        val: 0.0
 
-       cfg_260:
-         rate: "260 Hz"
-         ch0:
-           ratemode: "Seq"
-           seqcode: 251
-           enable_trg_cmd: "Enabled"
-         ch1:
-           ratemode: "Seq"
-           seqcode: 251
-           enable_trg_cmd: "Enabled"
+    goose_early:
+      desc: "Goose off"
+      trigger0:
+        ratemode: "Seq"
+        enable_trg_cmd: "Enabled"
+      trigger1:
+        ratemode: "Seq"
+        enable_trg_cmd: "Enabled"
+      scalar_pv1:
+        val: -1.0
+      scalar_pv2:
+        val: -1.0
 
-       cfg_CH0_AND:
-         rate: "260 Hz CH0 AND"
-         ch0:
-           ratemode: "Seq"
-           seqcode: 251
-           enable_trg_cmd: "Enabled"
-           operation: "AND"
-
-       cfg_disable:
-         rate: "CH0/1 Disable"
-         ch0:
-           enable_trg_cmd: "Disabled"
-         ch1:
-           enable_trg_cmd: "Disabled"
+    goose_late:
+      desc: "Goose off"
+      trigger0:
+        ratemode: "Seq"
+        enable_trg_cmd: "Enabled"
+      trigger1:
+        ratemode: "Seq"
+        enable_trg_cmd: "Enabled"
+      scalar_pv1:
+        val: 1.0
+      scalar_pv2:
+        val: 1.0
 ```
