@@ -90,6 +90,8 @@ class LaserConfigDisplay(Display):
     on_time_rate_rbv: pydm_widgets.PyDMLabel
     off_time_ec_rbv: pydm_widgets.PyDMLabel
     off_time_rate_rbv: pydm_widgets.PyDMLabel
+    all_shots_ec_rbv: pydm_widgets.PyDMLabel
+    all_shots_rate_rbv: pydm_widgets.PyDMLabel
 
     total_rate_box: QtWidgets.QComboBox
     total_rate_label: QtWidgets.QLabel
@@ -153,16 +155,22 @@ class LaserConfigDisplay(Display):
         xpm_pv = self._config['main']['xpm_pv']
         on_time_idx = self._engine1 * 4
         off_time_idx = (self._engine1 * 4) + 1
+        all_shots_idx = (self._engine1 * 4) + 2
         self._on_time = 256 + on_time_idx
         self._off_time = 256 + off_time_idx
+        self._all_shots = 256 + all_shots_idx
 
         self.on_time_ec_rbv.setText(str(self._on_time))
         self.off_time_ec_rbv.setText(str(self._off_time))
+        self.all_shots_ec_rbv.setText(str(self._all_shots))
         self.on_time_rate_rbv.set_channel(
             f"pva://{xpm_pv}:SEQCODES/Rate/{on_time_idx}"
         )
         self.off_time_rate_rbv.set_channel(
             f"pva://{xpm_pv}:SEQCODES/Rate/{off_time_idx}"
+        )
+        self.all_shots_rate_rbv.set_channel(
+            f"pva://{xpm_pv}:SEQCODES/Rate/{all_shots_idx}"
         )
 
         if self._debug:
@@ -602,8 +610,8 @@ class UserConfigDisplay(Display):
         instrset = make_sequence(base_div, goose_div, offset, self._debug)
 
         bay = self._config['main']['bay']
-        seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time",
-                   2: f"{bay} total rate", 3: ""}
+        seqdesc = {0: f"{bay} On time shots", 1: f"{bay} Goose shots",
+                   2: f"{bay} All laser shots", 3: ""}
 
         self.write_xpm_config(seqdesc, instrset, self._LasSeq, self._engine1)
 

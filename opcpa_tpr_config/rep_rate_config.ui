@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>228</width>
-    <height>238</height>
+    <width>279</width>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -41,8 +41,15 @@
      <property name="bottomMargin">
       <number>6</number>
      </property>
-     <item row="1" column="2">
-      <widget class="PyDMLabel" name="on_time_rate_rbv">
+     <item row="1" column="0">
+      <widget class="QLabel" name="on_time_label">
+       <property name="text">
+        <string>On Time Shots</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="PyDMLabel" name="on_time_ec_rbv">
        <property name="toolTip">
         <string/>
        </property>
@@ -61,23 +68,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="PyDMLabel" name="on_time_ec_rbv">
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="ec_label">
-       <property name="text">
-        <string>Event Code</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="2">
       <widget class="PyDMLabel" name="off_time_rate_rbv">
        <property name="toolTip">
@@ -85,13 +75,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="on_time_label">
-       <property name="text">
-        <string>On Time</string>
        </property>
       </widget>
      </item>
@@ -105,7 +88,51 @@
      <item row="2" column="0">
       <widget class="QLabel" name="off_time_label">
        <property name="text">
-        <string>Off Time</string>
+        <string>Goose Shots</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="ec_label">
+       <property name="text">
+        <string>Event Code</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="PyDMLabel" name="on_time_rate_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="all_shots_label">
+       <property name="text">
+        <string>All Laser Shots</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="PyDMLabel" name="all_shots_ec_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="PyDMLabel" name="all_shots_rate_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
