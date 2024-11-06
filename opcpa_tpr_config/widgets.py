@@ -100,7 +100,7 @@ class LaserConfigDisplay(Display):
     goose_arrival_box: QtWidgets.QComboBox
     goose_arrival_label: QtWidgets.QLabel
 
-    apply_button: QtWidgets.QPushButton
+    apply_button: pydm_widgets.PyDMPushButton
 
     def __init__(
         self,

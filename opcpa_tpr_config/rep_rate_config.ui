@@ -181,9 +181,15 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="apply_button">
+    <widget class="PyDMPushButton" name="apply_button">
+     <property name="toolTip">
+      <string/>
+     </property>
      <property name="text">
       <string>Apply Configuration</string>
+     </property>
+     <property name="showConfirmDialog" stdset="0">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -207,6 +213,11 @@
    <class>PyDMLabel</class>
    <extends>QLabel</extends>
    <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMPushButton</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.pushbutton</header>
   </customwidget>
  </customwidgets>
  <resources/>
