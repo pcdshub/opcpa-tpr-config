@@ -1,14 +1,12 @@
 # Configuration file for NEH OPCPA lasers
 
 main:
-    xpm_pv: "DAQ:NEH:XPM:0:SEQCODES"
+    xpm_pv: "DAQ:NEH:XPM:0"
     meta_pv: "TPG:SYS0:1:DST04"
+    engine1: "4"
+    engine2: "5"
     title: "NEH Laser Hall Bay 2 OPCPA Rep. Rate Configuration"
-
-lasers:
-  bay_3:
-
-    laser_desc: "Bay 2 TPR Configuration"
+    bay: "Bay 2"
 
     laser_database: "neh_bay2_db.json"
 
@@ -38,6 +36,9 @@ lasers:
       TIC_Gate:
         rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
         show: True
+      TIC_Gate_Goose:
+        rbvs: ["name", "eventrate", "ratemode", "seqcode", "width_setpoint", "delay_setpoint", "operation", "enable_ch_cmd"]
+        show: True
       Carbide_Goose_Offset:
         rbvs: ["name", "val"]
         show: True
@@ -50,279 +51,75 @@ lasers:
       TIC_Gate_Offset:
         rbvs: ["name", "val"]
         show: True
+      TIC_Gate_Goose_Offset:
+        rbvs: ["name", "val"]
+        show: True
       TIC_Averaging:
         rbvs: ["name", "val"]
         show: True
 
+goose_arrival_configs:
+  cfg_goose_off:
+    desc: "Goose off"
+    Carbide_Base:
+      operation: "NOOP"
+    Amphos_Base:
+      operation: "NOOP"
+    Carbide_PP:
+      operation: "NOOP"
+    TIC_Gate:
+      operation: "NOOP"
 
-    # Allowed rep-rate configs (in TPG seconds) for the given laser
-    laser_rate_configs:
-      desc: "Base Rep. Rate"
-#      cfg_130:
-#        desc: "130 Hz"
-#        Carbide_PP_Goose:
-#          seqcode: 256
-#        Carbide_PP:
-#          seqcode: 256
-#        TIC_Gate:
-#          seqcode: 256
-#        TIC_Averaging:
-#          val: 50
-#
-#      cfg_500:
-#        desc: "500 Hz"
-#        Carbide_PP_Goose:
-#          seqcode: 257
-#        Carbide_PP:
-#          seqcode: 257
-#        TIC_Gate:
-#          seqcode: 257
-#        TIC_Averaging:
-#          val: 50
-#
-#      cfg_650:
-#        desc: "650 Hz"
-#        Carbide_PP_Goose:
-#          seqcode: 258
-#        Carbide_PP:
-#          seqcode: 258
-#        TIC_Gate:
-#          seqcode: 258
-#        TIC_Averaging:
-#          val: 50
-#
-      cfg_1300:
-        desc: "1300 Hz"
-        TIC_Gate:
-          seqcode: 259
-        Carbide_PP:
-          seqcode: 259
-        TIC_Averaging:
-          val: 50
+  cfg_early:
+    desc: "Early"
+    Carbide_Goose:
+      polarity: 1
+      width_setpoint: 30.8
+    Amphos_Goose:
+      polarity: 1
+      width_setpoint: 30.8
+    Carbide_PP_Goose:
+      polarity: 1
+    Carbide_Base:
+      operation: "OR"
+    Amphos_Base:
+      operation: "OR"
+    Carbide_PP:
+      operation: "OR"
+    TIC_Gate:
+      operation: "AND"
+    TIC_Gate_Goose:
+      polarity: 0
+    Carbide_Goose_Offset:
+      val: 15.4
+    Amphos_Goose_Offset:
+      val: 15.4
+    PP_Goose_Offset:
+      val: 15.4
 
-      cfg_2500:
-        desc: "2500 Hz"
-        TIC_Gate:
-          seqcode: 260
-        Carbide_PP:
-          seqcode: 260
-        TIC_Averaging:
-          val: 100
-
-      cfg_3250:
-        desc: "3250 Hz"
-        TIC_Gate:
-          seqcode: 261
-        Carbide_PP:
-          seqcode: 261
-        TIC_Averaging:
-          val: 100
-
-      cfg_8125:
-        desc: "8125 Hz"
-        TIC_Gate:
-          seqcode: 272
-        Carbide_PP:
-          seqcode: 272
-        TIC_Averaging:
-          val: 500
-
-      cfg_16250:
-        desc: "16250 Hz"
-        TIC_Gate:
-          seqcode: 271
-        Carbide_PP:
-          seqcode: 271
-        TIC_Averaging:
-          val: 1000
-
-      cfg_32500:
-        desc: "32500 Hz"
-        TIC_Gate:
-          seqcode: 262
-        Carbide_PP:
-          seqcode: 262
-        TIC_Averaging:
-          val: 2000
-
-      cfg_on_time:
-        desc: "On Time (EC 284)"
-        TIC_Gate:
-          seqcode: 284
-        Carbide_PP:
-          seqcode: 284
-        TIC_Averaging:
-          val: 50
-
-    # Allowed goose configs (in TPG seconds) for the given laser
-    goose_rate_configs:
-      desc: "Goose Rep. Rate"
-      cfg_goose_4:
-        desc: "4 Hz Goose"
-        TIC_Gate:
-          seqcode: 264
-        Carbide_Goose:
-          seqcode: 264
-        Amphos_Goose:
-          seqcode: 264
-        Carbide_PP_Goose:
-          seqcode: 264
-
-      cfg_goose_40:
-        desc: "40 Hz Goose"
-        TIC_Gate:
-          seqcode: 265
-        Carbide_Goose:
-          seqcode: 265
-        Amphos_Goose:
-          seqcode: 265
-        Carbide_PP_Goose:
-          seqcode: 265
-
-      cfg_goose_50:
-        desc: "50 Hz Goose"
-        TIC_Gate:
-          seqcode: 266
-        Carbide_Goose:
-          seqcode: 266
-        Amphos_Goose:
-          seqcode: 266
-        Carbide_PP_Goose:
-          seqcode: 266
-
-      cfg_goose_250:
-        desc: "250 Hz Goose"
-        TIC_Gate:
-          seqcode: 267
-        Carbide_Goose:
-          seqcode: 267
-        Amphos_Goose:
-          seqcode: 267
-        Carbide_PP_Goose:
-          seqcode: 267
-
-      cfg_goose_625:
-        desc: "625 Hz Goose"
-        TIC_Gate:
-          seqcode: 273
-        Carbide_Goose:
-          seqcode: 273
-        Amphos_Goose:
-          seqcode: 273
-        Carbide_PP_Goose:
-          seqcode: 273
-
-      cfg_goose_off_time:
-        desc: "Off Time (EC 285)"
-        TIC_Gate:
-          seqcode: 285
-        Carbide_Goose:
-          seqcode: 285
-        Amphos_Goose:
-          seqcode: 285
-        Carbide_PP_Goose:
-          seqcode: 285
-
-    goose_arrival_configs:
-      desc: "Goose Arrival"
-      cfg_early:
-        desc: "Early"
-        Carbide_Goose:
-          ratemode: "Seq"
-          polarity: 1
-          width_setpoint: 30.8
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Amphos_Goose:
-          ratemode: "Seq"
-          polarity: 1
-          width_setpoint: 30.8
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_PP_Goose:
-          ratemode: "Seq"
-          polarity: 1
-          width_setpoint: 30.8
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_Base:
-          operation: "OR"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Amphos_Base:
-          operation: "OR"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_PP:
-          operation: "OR"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_Goose_Offset:
-          val: 15.4
-        Amphos_Goose_Offset:
-          val: 15.4
-        PP_Goose_Offset:
-          val: 15.4
-
-      cfg_late:
-        desc: "Late"
-        Carbide_Goose:
-          ratemode: "Seq"
-          polarity: 0
-          width_setpoint: 15.4
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Amphos_Goose:
-          ratemode: "Seq"
-          polarity: 0
-          width_setpoint: 15.4
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_PP_Goose:
-          ratemode: "Seq"
-          polarity: 0
-          width_setpoint: 15.4
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_Base:
-          operation: "AND"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Amphos_Base:
-          operation: "AND"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_PP:
-          operation: "AND"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_Goose_Offset:
-          val: 0.0
-        Amphos_Goose_Offset:
-          val: 0.0
-        PP_Goose_Offset:
-          val: 0.0
-
-      cfg_goose_off:
-        desc: "Goose off"
-        Carbide_Base:
-          operation: "NOOP"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Amphos_Base:
-          operation: "NOOP"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
-        Carbide_PP:
-          operation: "NOOP"
-          ratemode: "Seq"
-          enable_trg_cmd: "Enabled"
-          enable_ch_cmd: "Enabled"
+  cfg_late:
+    desc: "Late"
+    Carbide_Goose:
+      polarity: 0
+      width_setpoint: 15.4
+    Amphos_Goose:
+      polarity: 0
+      width_setpoint: 15.4
+    Carbide_PP_Goose:
+      polarity: 1
+    Carbide_Base:
+      operation: "AND"
+    Amphos_Base:
+      operation: "AND"
+    Carbide_PP:
+      operation: "OR"
+    TIC_Gate:
+      operation: "AND"
+    TIC_Gate_Goose:
+      polarity: 0
+    Carbide_Goose_Offset:
+      val: 0.0
+    Amphos_Goose_Offset:
+      val: 0.0
+    PP_Goose_Offset:
+      val: 0.0
