@@ -194,6 +194,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="status_label">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

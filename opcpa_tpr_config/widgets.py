@@ -101,6 +101,7 @@ class LaserConfigDisplay(Display):
     goose_arrival_label: QtWidgets.QLabel
 
     apply_button: pydm_widgets.PyDMPushButton
+    status_label: QtWidgets.QLabel
 
     def __init__(
         self,
@@ -129,6 +130,8 @@ class LaserConfigDisplay(Display):
             cfg_keys = self._config.keys()
             print(f"Configuration sections: {cfg_keys}")
             print(self._config)
+
+        self.status_label.setText("Status: Idle")
 
         self.update_pvs()
 
@@ -690,8 +693,10 @@ class UserConfigDisplay(Display):
         """
         Apply the requested configuration to the system.
         """
+        self.laser_config_widget.status_label.setText("Status: Configuring...")
         self.set_tic_enable(False)
         self.apply_base_rates()
         self.apply_laser_rates()
         self.apply_device_config()
         self.set_tic_enable(True)
+        self.laser_config_widget.status_label.setText("Status: Config Done")
