@@ -195,7 +195,12 @@ class LaserConfigDisplay(Display):
     def update_base_rates(self):
         if self._base_rates is not None:
             for rate in self._base_rates:
-                self.total_rate_box.addItem(str(rate))
+                # Restrict allowed rates to > 1kHz, but keep all rates in
+                # self._base_rates for allowed goose rate calculation
+                # TODO: The calculation of goose rates could probably be
+                # decoupled from the base rate array.
+                if rate >= 1000:
+                    self.total_rate_box.addItem(str(rate))
             if self._debug:
                 print(f"Allowed base rates: {self._base_rates}")
 
