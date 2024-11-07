@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>279</width>
-    <height>269</height>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -139,6 +139,67 @@
     </layout>
    </item>
    <item>
+    <layout class="QVBoxLayout" name="sc_bucket_layout">
+     <item>
+      <layout class="QHBoxLayout" name="sc_bucket_ctl_layout">
+       <item>
+        <widget class="QLabel" name="sc_start_bucket_control_label">
+         <property name="text">
+          <string>SC Start Bucket Control</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="sc_bucket_control_box"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="sc_bucket_set_layout">
+       <item>
+        <widget class="QLabel" name="sc_start_bucket_label">
+         <property name="text">
+          <string>SC Start Bucket</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="sc_bucket_edit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="inputMask">
+          <string>9</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PyDMLabel" name="sc_bucket_rbv">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>##</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QHBoxLayout" name="total_rate_layout">
      <item>
       <widget class="QLabel" name="total_rate_label">
@@ -199,6 +260,33 @@
       <string>TextLabel</string>
      </property>
     </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="timestamp_layout">
+     <item>
+      <widget class="QLabel" name="timestamp_label">
+       <property name="text">
+        <string>Last Update:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PyDMLabel" name="timestamp_rbv">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">
