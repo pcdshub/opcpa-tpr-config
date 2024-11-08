@@ -756,11 +756,14 @@ class UserConfigDisplay(Display):
                 instance = device.get()
                 instance.configure(conf)
 
+    def update_status(self, status):
+        self.laser_config_widget.status_label.setText(status)
+
     def apply_config(self):
         """
         Apply the requested configuration to the system.
         """
-        self.laser_config_widget.status_label.setText("Status: Configuring...")
+        self.update_status("Status: Configuring...")
         self.set_tic_enable(False)
         self.apply_base_rates()
         self.apply_laser_rates()
@@ -768,4 +771,4 @@ class UserConfigDisplay(Display):
         self.set_tic_enable(True)
         self.write_offset(self.offset)
         self.write_timestamp()
-        self.laser_config_widget.status_label.setText("Status: Config Done")
+        self.update_status("Status: Config Done")
