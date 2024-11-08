@@ -140,6 +140,8 @@ class LaserConfigDisplay(Display):
             print(self._config)
 
         self.status_label.setText("Status: Idle")
+        # Hiding this because the status doesn't work well without threading
+        # the configuration method. Will remove once that's done in a later PR
         self.status_label.setVisible(False)
 
         self.update_pvs()
