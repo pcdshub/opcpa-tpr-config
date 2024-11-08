@@ -3,6 +3,7 @@
 main:
     xpm_pv: "DAQ:NEH:XPM:0"
     meta_pv: "TPG:SYS0:1:DST04"
+    notepad_pv: "LAS:NEH:BAY3:PVPAD"
     engine1: "6"
     engine2: "7"
     title: "NEH Laser Hall Bay 3 OPCPA Rep. Rate Configuration"
