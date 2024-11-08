@@ -296,7 +296,7 @@ class LaserConfigDisplay(Display):
 
     @property
     def manual_bucket(self):
-        return int(self.sc_bucket_edit.text)
+        return int(self.sc_bucket_edit.text())
 
 
 class ExpertDisplay(Display):
