@@ -194,7 +194,7 @@ class LaserConfigDisplay(Display):
         # "Notepad" PVs
         notepad_pv = self._config['main']['notepad_pv']
         self.sc_bucket_rbv.set_channel(f"ca://{notepad_pv}:SC_BUCKET")
-        self.timestamp_rbv.set_channel(f"ca://{notepad_pv}:TIMESTAMP")
+        self.timestamp_rbv.set_channel(f"ca://{notepad_pv}:SC_TIMESTAMP")
 
         if self._debug:
             print(f"Engine 1: {self._engine1}")
@@ -606,7 +606,7 @@ class UserConfigDisplay(Display):
         """
         Write the current time into the timestamp PV for this system.
         """
-        pv = self._config['main']['notepad_pv'] + ':TIMESTAMP'
+        pv = self._config['main']['notepad_pv'] + ':SC_TIMESTAMP'
         sig = EpicsSignal(pv)
         t = time.asctime()
         sig.put(t)
