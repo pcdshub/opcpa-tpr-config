@@ -23,7 +23,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Rep. Rate Control</string>
+      <string>Laser Control</string>
      </property>
     </widget>
    </item>
@@ -145,7 +145,7 @@
        <item>
         <widget class="QLabel" name="sc_start_bucket_control_label">
          <property name="text">
-          <string>SC Start Bucket Control</string>
+          <string>Start Bucket Control</string>
          </property>
         </widget>
        </item>
@@ -159,7 +159,7 @@
        <item>
         <widget class="QLabel" name="sc_start_bucket_label">
          <property name="text">
-          <string>SC Start Bucket</string>
+          <string>Start Bucket</string>
          </property>
         </widget>
        </item>
@@ -179,6 +179,13 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="sc_bucket_rbv_label">
+         <property name="text">
+          <string>RBV: </string>
          </property>
         </widget>
        </item>
