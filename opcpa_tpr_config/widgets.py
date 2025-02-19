@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import logging
+import time
 from os import path
 
 import happi
 import yaml
+from ophyd import EpicsSignal
 from psdaq.cas.pvedit import Pv
 from psdaq.seq.seqprogram import SeqUser
 from pydm import Display
@@ -90,6 +92,14 @@ class LaserConfigDisplay(Display):
     on_time_rate_rbv: pydm_widgets.PyDMLabel
     off_time_ec_rbv: pydm_widgets.PyDMLabel
     off_time_rate_rbv: pydm_widgets.PyDMLabel
+    all_shots_ec_rbv: pydm_widgets.PyDMLabel
+    all_shots_rate_rbv: pydm_widgets.PyDMLabel
+
+    sc_bucket_control_box: QtWidgets.QComboBox
+    sc_bucket_edit: QtWidgets.QLineEdit
+    sc_bucket_rbv: pydm_widgets.PyDMLabel
+
+    timestamp_rbv: pydm_widgets.PyDMLabel
 
     total_rate_box: QtWidgets.QComboBox
     total_rate_label: QtWidgets.QLabel
@@ -98,7 +108,8 @@ class LaserConfigDisplay(Display):
     goose_arrival_box: QtWidgets.QComboBox
     goose_arrival_label: QtWidgets.QLabel
 
-    apply_button: QtWidgets.QPushButton
+    apply_button: pydm_widgets.PyDMPushButton
+    status_label: QtWidgets.QLabel
 
     def __init__(
         self,
@@ -128,6 +139,11 @@ class LaserConfigDisplay(Display):
             print(f"Configuration sections: {cfg_keys}")
             print(self._config)
 
+        self.status_label.setText("Status: Idle")
+        # Hiding this because the status doesn't work well without threading
+        # the configuration method. Will remove once that's done in a later PR
+        self.status_label.setVisible(False)
+
         self.update_pvs()
 
         self._base_rates = make_base_rates(carbide_factors)
@@ -139,10 +155,17 @@ class LaserConfigDisplay(Display):
 
         self.update_goose_vis()
 
+        self.update_bucket_control_items()
+        self.update_bucket_control_vis()
+
         self.total_rate_box.currentTextChanged.connect(self.update_goose_rates)
 
         self.goose_arrival_box.currentTextChanged.connect(
             self.update_goose_vis
+        )
+
+        self.sc_bucket_control_box.currentTextChanged.connect(
+            self.update_bucket_control_vis
         )
 
     def update_pvs(self):
@@ -153,17 +176,28 @@ class LaserConfigDisplay(Display):
         xpm_pv = self._config['main']['xpm_pv']
         on_time_idx = self._engine1 * 4
         off_time_idx = (self._engine1 * 4) + 1
+        all_shots_idx = (self._engine1 * 4) + 2
         self._on_time = 256 + on_time_idx
         self._off_time = 256 + off_time_idx
+        self._all_shots = 256 + all_shots_idx
 
         self.on_time_ec_rbv.setText(str(self._on_time))
         self.off_time_ec_rbv.setText(str(self._off_time))
+        self.all_shots_ec_rbv.setText(str(self._all_shots))
         self.on_time_rate_rbv.set_channel(
             f"pva://{xpm_pv}:SEQCODES/Rate/{on_time_idx}"
         )
         self.off_time_rate_rbv.set_channel(
             f"pva://{xpm_pv}:SEQCODES/Rate/{off_time_idx}"
         )
+        self.all_shots_rate_rbv.set_channel(
+            f"pva://{xpm_pv}:SEQCODES/Rate/{all_shots_idx}"
+        )
+
+        # "Notepad" PVs
+        notepad_pv = self._config['main']['notepad_pv']
+        self.sc_bucket_rbv.set_channel(f"ca://{notepad_pv}:SC_BUCKET")
+        self.timestamp_rbv.set_channel(f"ca://{notepad_pv}:SC_TIMESTAMP")
 
         if self._debug:
             print(f"Engine 1: {self._engine1}")
@@ -184,7 +218,12 @@ class LaserConfigDisplay(Display):
     def update_base_rates(self):
         if self._base_rates is not None:
             for rate in self._base_rates:
-                self.total_rate_box.addItem(str(rate))
+                # Restrict allowed rates to > 1kHz, but keep all rates in
+                # self._base_rates for allowed goose rate calculation
+                # TODO: The calculation of goose rates could probably be
+                # decoupled from the base rate array.
+                if rate >= 1000:
+                    self.total_rate_box.addItem(str(rate))
             if self._debug:
                 print(f"Allowed base rates: {self._base_rates}")
 
@@ -241,6 +280,26 @@ class LaserConfigDisplay(Display):
             return True
         else:
             return False
+
+    def update_bucket_control_items(self):
+        modes = ['Manual', 'Auto']
+        for mode in modes:
+            self.sc_bucket_control_box.addItem(mode)
+
+    @property
+    def bucket_control_enabled(self):
+        txt = self.sc_bucket_control_box.currentText()
+        if txt != "Auto":
+            return True
+        else:
+            return False
+
+    def update_bucket_control_vis(self):
+        self.sc_bucket_edit.setVisible(self.bucket_control_enabled)
+
+    @property
+    def manual_bucket(self):
+        return int(self.sc_bucket_edit.text())
 
 
 class ExpertDisplay(Display):
@@ -523,6 +582,38 @@ class UserConfigDisplay(Display):
     def expert_mode(self):
         return self.expert_checkbox.isChecked()
 
+    @property
+    def offset(self):
+        """
+        Return the SC bucket offset to be used in pattern generation.
+        """
+        # Use manual SC bucket if enabled
+        if self.laser_config_widget.bucket_control_enabled:
+            val = self.laser_config_widget.manual_bucket
+        # Otherwise try to detect offset from AD PVs
+        else:
+            # This is a float PV for some reason
+            val = int(self.sc_metadata_widget.offset_rbv.value)
+
+        return val
+
+    def write_offset(self, value):
+        """
+        Write the given value into the offset PV for this system.
+        """
+        pv = self._config['main']['notepad_pv'] + ':SC_BUCKET'
+        sig = EpicsSignal(pv)
+        sig.put(value)
+
+    def write_timestamp(self):
+        """
+        Write the current time into the timestamp PV for this system.
+        """
+        pv = self._config['main']['notepad_pv'] + ':SC_TIMESTAMP'
+        sig = EpicsSignal(pv)
+        t = time.asctime()
+        sig.put(t)
+
     def apply_device_config(self):
         supported_devices = [
             "pcdsdevices.tpr.TprTrigger",
@@ -585,11 +676,6 @@ class UserConfigDisplay(Display):
         else:
             goose_div = None
 
-        # This is a float PV for some reason
-        offset = int(self.sc_metadata_widget.offset_rbv.value)
-        if offset == 0:
-            offset = None
-
         if self._debug:
             print("Applying laser rates")
             print(f"Base rate: {self.laser_config_widget.base_rate}")
@@ -597,13 +683,13 @@ class UserConfigDisplay(Display):
             print(f"Goose arrival: {self.laser_config_widget.arrival_config}")
             print(f"Base div: {base_div}")
             print(f"Goose div: {goose_div}")
-            print(f"Offset: {offset}")
+            print(f"Offset: {self.offset}")
 
-        instrset = make_sequence(base_div, goose_div, offset, self._debug)
+        instrset = make_sequence(base_div, goose_div, self.offset, self._debug)
 
         bay = self._config['main']['bay']
-        seqdesc = {0: f"{bay} On time", 1: f"{bay} Off time",
-                   2: f"{bay} total rate", 3: ""}
+        seqdesc = {0: f"{bay} On time shots", 1: f"{bay} Goose shots",
+                   2: f"{bay} All laser shots", 3: ""}
 
         self.write_xpm_config(seqdesc, instrset, self._LasSeq, self._engine1)
 
@@ -612,16 +698,11 @@ class UserConfigDisplay(Display):
         Generate and apply the XPM configuration for the "base" laser rates
         that should always be available.
         """
-        # This is a float PV for some reason
-        offset = int(self.sc_metadata_widget.offset_rbv.value)
-        if offset == 0:
-            offset = None
-
         if self._debug:
             print("Applying base rates")
-            print(f"Offset: {offset}")
+            print(f"Offset: {self.offset}")
 
-        instrset = make_base_sequence(offset)
+        instrset = make_base_sequence(self.offset)
 
         bay = self._config['main']['bay']
         seqdesc = {0: f"{bay} 910kHz", 1: f"{bay} 32.5kHz", 2: f"{bay} 100Hz",
@@ -678,12 +759,19 @@ class UserConfigDisplay(Display):
                 instance = device.get()
                 instance.configure(conf)
 
+    def update_status(self, status):
+        self.laser_config_widget.status_label.setText(status)
+
     def apply_config(self):
         """
         Apply the requested configuration to the system.
         """
+        self.update_status("Status: Configuring...")
         self.set_tic_enable(False)
         self.apply_base_rates()
         self.apply_laser_rates()
         self.apply_device_config()
         self.set_tic_enable(True)
+        self.write_offset(self.offset)
+        self.write_timestamp()
+        self.update_status("Status: Config Done")

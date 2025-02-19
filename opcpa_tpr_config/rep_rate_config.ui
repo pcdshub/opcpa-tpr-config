@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>228</width>
-    <height>238</height>
+    <width>279</width>
+    <height>381</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Rep. Rate Control</string>
+      <string>Laser Control</string>
      </property>
     </widget>
    </item>
@@ -41,8 +41,15 @@
      <property name="bottomMargin">
       <number>6</number>
      </property>
-     <item row="1" column="2">
-      <widget class="PyDMLabel" name="on_time_rate_rbv">
+     <item row="1" column="0">
+      <widget class="QLabel" name="on_time_label">
+       <property name="text">
+        <string>On Time Shots</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="PyDMLabel" name="on_time_ec_rbv">
        <property name="toolTip">
         <string/>
        </property>
@@ -61,23 +68,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="PyDMLabel" name="on_time_ec_rbv">
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="ec_label">
-       <property name="text">
-        <string>Event Code</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="2">
       <widget class="PyDMLabel" name="off_time_rate_rbv">
        <property name="toolTip">
@@ -85,13 +75,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="on_time_label">
-       <property name="text">
-        <string>On Time</string>
        </property>
       </widget>
      </item>
@@ -105,9 +88,121 @@
      <item row="2" column="0">
       <widget class="QLabel" name="off_time_label">
        <property name="text">
-        <string>Off Time</string>
+        <string>Goose Shots</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="ec_label">
+       <property name="text">
+        <string>Event Code</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="PyDMLabel" name="on_time_rate_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="all_shots_label">
+       <property name="text">
+        <string>All Laser Shots</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="PyDMLabel" name="all_shots_ec_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="PyDMLabel" name="all_shots_rate_rbv">
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="sc_bucket_layout">
+     <item>
+      <layout class="QHBoxLayout" name="sc_bucket_ctl_layout">
+       <item>
+        <widget class="QLabel" name="sc_start_bucket_control_label">
+         <property name="text">
+          <string>Start Bucket Control</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="sc_bucket_control_box"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="sc_bucket_set_layout">
+       <item>
+        <widget class="QLabel" name="sc_start_bucket_label">
+         <property name="text">
+          <string>Start Bucket</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="sc_bucket_edit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="inputMask">
+          <string>9</string>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="sc_bucket_rbv_label">
+         <property name="text">
+          <string>RBV: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="PyDMLabel" name="sc_bucket_rbv">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>##</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>
@@ -154,11 +249,51 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="apply_button">
+    <widget class="PyDMPushButton" name="apply_button">
+     <property name="toolTip">
+      <string/>
+     </property>
      <property name="text">
       <string>Apply Configuration</string>
      </property>
+     <property name="showConfirmDialog" stdset="0">
+      <bool>true</bool>
+     </property>
     </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="status_label">
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="timestamp_layout">
+     <item>
+      <widget class="QLabel" name="timestamp_label">
+       <property name="text">
+        <string>Last Update:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="PyDMLabel" name="timestamp_rbv">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
    <item>
     <spacer name="verticalSpacer">
@@ -180,6 +315,11 @@
    <class>PyDMLabel</class>
    <extends>QLabel</extends>
    <header>pydm.widgets.label</header>
+  </customwidget>
+  <customwidget>
+   <class>PyDMPushButton</class>
+   <extends>QPushButton</extends>
+   <header>pydm.widgets.pushbutton</header>
   </customwidget>
  </customwidgets>
  <resources/>

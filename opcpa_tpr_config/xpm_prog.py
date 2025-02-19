@@ -25,7 +25,7 @@ def make_base_rates(laser_factors):
             q = np.prod(np.array(c))
             f.add(q)
 
-    return sorted(list(f), reverse=True)
+    return sorted(list(f))
 
 
 def allowed_goose_rates(base_rate, rate_list):
