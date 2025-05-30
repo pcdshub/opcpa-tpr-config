@@ -652,18 +652,8 @@ class UserConfigDisplay(Display):
         logarithm.
         """
         rate = int(total_rate)
-        if rate < 1000:
-            return 50
-        elif rate < 2000:
-            return 100
-        elif rate < 4000:
-            return 200
-        elif rate < 10000:
-            return 500
-        elif rate < 20000:
-            return 1000
-        else:  # The rep rate can't go over 33kHz so we stop here
-            return 2000
+        sample_size = 200 if rate > 2000 else 100
+        return sample_size
 
     def apply_laser_rates(self):
         """
