@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Uncomment and set to the latest version to freeze dependency
-#export PCDS_CONDA_VER=5.8.0
+export PCDS_CONDA_VER=6.0.1
 #export PCDS_CONDA_VER=dev
 
 source /cds/group/pcds/pyps/conda/pcds_conda
-export PYTHONPATH=/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
-export PYTHONPATH=/cds/home/t/tjohnson/trunk/forks/pydm:$PYTHONPATH
+# export PYTHONPATH=/cds/group/pcds/pyps/apps/dev/pythonpath:$PYTHONPATH
+# export PYTHONPATH=/cds/home/t/tjohnson/trunk/forks/pydm:$PYTHONPATH
 #export PYTHONPATH=/cds/home/opr/tmoopr/git/lcls2_051024/psdaq:$PYTHONPATH
 export PYTHONPATH=/cds/home/opr/rixopr/git/lcls2_101824/psdaq:$PYTHONPATH
 
