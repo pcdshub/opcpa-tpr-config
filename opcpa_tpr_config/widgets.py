@@ -98,6 +98,8 @@ class LaserConfigDisplay(Display):
     sc_bucket_control_box: QtWidgets.QComboBox
     sc_bucket_edit: QtWidgets.QLineEdit
     sc_bucket_rbv: pydm_widgets.PyDMLabel
+    sc_bucket_is_synced: pydm_widgets.PyDMByteIndicator
+    sc_bucket_is_synced_label: pydm_widgets.PyDMLabel
 
     timestamp_rbv: pydm_widgets.PyDMLabel
 
@@ -198,6 +200,31 @@ class LaserConfigDisplay(Display):
         notepad_pv = self._config['main']['notepad_pv']
         self.sc_bucket_rbv.set_channel(f"ca://{notepad_pv}:SC_BUCKET")
         self.timestamp_rbv.set_channel(f"ca://{notepad_pv}:SC_TIMESTAMP")
+
+        # start buckets synced indicator
+        sc_base = self._config['main']['meta_pv']
+        self.sc_bucket_is_synced.set_channel(
+            f"calc://compare_buckets?"
+            f"laser_bucket=ca://{notepad_pv}:SC_BUCKET&"
+            f"xray_bucket=ca://{sc_base}:OFFSET_RBV&"
+            f"expr=1 if laser_bucket==xray_bucket else 0"
+        )
+        self.sc_bucket_is_synced_label.rules = '''[
+        {
+            "name": "bool_label",
+            "property": "Text",
+            "initial_value": "",
+            "expression": "{0: \\"Not-Synced\\" , 1: \\"    Synced\\"}[ch[0]]",
+            "channels": [
+            {
+                "channel": "calc://compare_buckets",
+                "trigger": true,
+                "use_enum": false
+            }
+            ],
+            "notes": ""
+        }
+        ]'''
 
         if self._debug:
             print(f"Engine 1: {self._engine1}")
