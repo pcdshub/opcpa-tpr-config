@@ -1,0 +1,38 @@
+{
+    "Base": {
+        "_id": "Base",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:03"
+        ],
+        "creation": "Thu Jun  17 07:54:55 2026",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Base",
+        "kwargs": {
+            "channel": 6,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Base",
+        "type": "HappiItem"
+    },
+    "Goose": {
+        "_id": "Goose",
+        "active": true,
+        "args": [
+            "LAS:LHN:TPR:03"
+        ],
+        "creation": "Thu Jun  6 07:54:55 2024",
+        "device_class": "pcdsdevices.tpr.TprTrigger",
+        "documentation": "Goose",
+        "kwargs": {
+            "channel": 7,
+            "name": "{{name}}",
+            "timing_mode": 2
+        },
+        "last_edit": "Thu Jun  6 07:54:55 2024",
+        "name": "Goose",
+        "type": "HappiItem"
+    }
+}

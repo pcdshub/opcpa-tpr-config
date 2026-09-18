@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>279</width>
-    <height>443</height>
+    <height>505</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QLabel" name="rep_rate_label">
+    <widget class="QLabel" name="title">
      <property name="font">
       <font>
        <weight>75</weight>
@@ -50,6 +50,12 @@
      </item>
      <item row="1" column="1">
       <widget class="PyDMLabel" name="on_time_ec_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -60,6 +66,12 @@
      </item>
      <item row="2" column="1">
       <widget class="PyDMLabel" name="off_time_ec_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -70,6 +82,12 @@
      </item>
      <item row="2" column="2">
       <widget class="PyDMLabel" name="off_time_rate_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -101,6 +119,12 @@
      </item>
      <item row="1" column="2">
       <widget class="PyDMLabel" name="on_time_rate_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -118,6 +142,12 @@
      </item>
      <item row="3" column="1">
       <widget class="PyDMLabel" name="all_shots_ec_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -128,6 +158,12 @@
      </item>
      <item row="3" column="2">
       <widget class="PyDMLabel" name="all_shots_rate_rbv">
+       <property name="maximumSize">
+        <size>
+         <width>100</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string/>
        </property>
@@ -251,6 +287,12 @@
           </item>
           <item>
            <widget class="PyDMLabel" name="sc_bucket_rbv">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string/>
             </property>
@@ -325,7 +367,7 @@
           <item>
            <widget class="QLabel" name="nc_start_bucket_label">
             <property name="text">
-             <string>AC -Offset (0 to 13)</string>
+             <string>35kH Offset (0)</string>
             </property>
            </widget>
           </item>
@@ -357,6 +399,12 @@
           </item>
           <item>
            <widget class="PyDMLabel" name="nc_bucket_rbv">
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>16777215</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string/>
             </property>
@@ -385,7 +433,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="total_rate_box"/>
+      <widget class="QComboBox" name="total_rate_box">
+       <property name="toolTip">
+        <string>total laser rate</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -408,12 +460,82 @@
      <item>
       <widget class="QLabel" name="goose_rate_label">
        <property name="text">
-        <string>Goose Rate</string>
+        <string>Goose Loop Rate</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="goose_rate_box"/>
+      <widget class="QComboBox" name="goose_rate_box">
+       <property name="toolTip">
+        <string>goose rate = goose loop rate * goose length</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="goose_rate_layout_2">
+     <item>
+      <widget class="QLabel" name="goose_len_label">
+       <property name="text">
+        <string>Goose Length</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="goose_len_input">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>how many goose shots to fire sequencially</string>
+       </property>
+       <property name="inputMask">
+        <string>9</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="goose_rate_layout_4">
+     <item>
+      <widget class="QLabel" name="goose_start_label">
+       <property name="text">
+        <string>Goose Start</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="goose_start_input">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>first shot to goosing (1 indexed)</string>
+       </property>
+       <property name="inputMask">
+        <string>9</string>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -453,6 +575,12 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>120</width>
+         <height>16777215</height>
+        </size>
        </property>
        <property name="toolTip">
         <string/>

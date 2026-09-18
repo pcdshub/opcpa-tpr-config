@@ -1,0 +1,10 @@
+# Configuration file for testing the gui
+
+main:
+    sc_meta_pv: "TPG:SYS0:1:DST04"
+    nc_meta_pv: "TODO"
+    notepad_pv: "LAS:NEH:TEST:PVPAD"
+    engine1: "0"
+    engine2: "1"
+    title: "Test OPCPA Rep. Rate Configuration"
+    bay: "Bay SIM"

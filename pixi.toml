@@ -1,0 +1,21 @@
+[workspace]
+authors = ["Tyler Johnson <tjohnson@slac.stanford.edu>", "Ilia Potanin <ipotanin@slac.stanford.edu>"]
+channels = ["conda-forge"]
+name = "opcpa-tpr-config"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[activation.env]
+PYTHONPATH = "/cds/home/opr/rixopr/git/lcls2_101824/psdaq"
+
+[tasks.bay]
+args = ["n"]
+cmd = "python opcpa_tpr_config/user_config.py -c opcpa_tpr_config/neh_bay{{ n }}_config.yaml -d"
+
+[dependencies]
+pydm = ">=1.29.0,<2"
+pyqt = "==5.15.9"
+pyyaml = ">=6.0"
+p4p = ">=4.2.2,<5"
+happi = ">=3.0.1,<4"
+pcdsdevices = ">=10.8.0,<11"

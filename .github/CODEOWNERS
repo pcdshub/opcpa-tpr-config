@@ -1,14 +1,14 @@
 # default group
-* @pcdshub/laser-sme 
+* @pcdshub/laser-sme
 
 # language-specific group(s)
 ## PYTHON files
-*.py @pcdshub/python-reviewers @pcdshub/laser-sme 
-*.pyi @pcdshub/python-reviewers @pcdshub/laser-sme 
-*.pyc @pcdshub/python-reviewers @pcdshub/laser-sme 
-*.pyw @pcdshub/python-reviewers @pcdshub/laser-sme 
-*.pyx @pcdshub/python-reviewers @pcdshub/laser-sme 
-*.pyd @pcdshub/python-reviewers @pcdshub/laser-sme 
+*.py @pcdshub/python-reviewers @pcdshub/laser-sme
+*.pyi @pcdshub/python-reviewers @pcdshub/laser-sme
+*.pyc @pcdshub/python-reviewers @pcdshub/laser-sme
+*.pyw @pcdshub/python-reviewers @pcdshub/laser-sme
+*.pyx @pcdshub/python-reviewers @pcdshub/laser-sme
+*.pyd @pcdshub/python-reviewers @pcdshub/laser-sme
 
 # github folder holds administrative files
 .github/** @pcdshub/software-admin

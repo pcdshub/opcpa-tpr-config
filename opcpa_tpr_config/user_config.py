@@ -9,7 +9,6 @@ logger = logging.getLogger(__name__)
 
 def main(
     config: str = "",
-    debug: bool = False,
     stylesheet: Optional[str] = None
 ) -> None:
     """Launch the ``Rep. rate user config UI``."""
@@ -18,7 +17,7 @@ def main(
         app = QtWidgets.QApplication([])
 
     try:
-        widget = UserConfigDisplay(config=config, debug=debug)
+        widget = UserConfigDisplay(config=config)
         widget.show()
         app.exec_()
     except Exception:
@@ -34,8 +33,20 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "-d", "--debug", action='store_true',
-        help="Print debug information, do not change settings"
+        help="Enable debug-level logging"
     )
     args = parser.parse_args()
 
-    main(config=args.config, debug=args.debug)
+    logging.basicConfig(
+        level=logging.WARNING,
+        format="%(asctime)s %(name)s [%(levelname)s] %(message)s",
+    )
+    log_level = logging.DEBUG if args.debug else logging.INFO
+    loggers = [
+        logging.getLogger("widgets"),
+        logging.getLogger("xpm_prog")
+    ]
+    for logger in loggers:
+        logger.setLevel(log_level)
+
+    main(config=args.config)

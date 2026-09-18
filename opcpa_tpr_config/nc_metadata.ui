@@ -31,34 +31,7 @@
    <item>
     <layout class="QGridLayout" name="sc_grid_layout">
      <item row="1" column="1">
-      <widget class="PyDMLabel" name="nc_rate_rbv">
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="time_slot_mask_label">
-       <property name="text">
-        <string>Time Slot Mask</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="PyDMLabel" name="nc_time_slot_mask_rbv">
-       <property name="toolTip">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="PyDMLabel" name="nc_pattern_name_rbv">
+      <widget class="PyDMLabel" name="hard_rate_rbv">
        <property name="toolTip">
         <string/>
        </property>
@@ -68,21 +41,14 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="time_source_label">
+      <widget class="QLabel" name="soft_rate_label">
        <property name="text">
-        <string>Time Source</string>
+        <string>SXR Rate</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="rate_rbv_label">
-       <property name="text">
-        <string>Rate RBV</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="PyDMLabel" name="nc_time_slot_rbv">
+     <item row="0" column="1">
+      <widget class="PyDMLabel" name="rate_rbv">
        <property name="toolTip">
         <string/>
        </property>
@@ -91,15 +57,15 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="time_slot_label">
+     <item row="1" column="0">
+      <widget class="QLabel" name="hard_rate_label">
        <property name="text">
-        <string>Time Slot</string>
+        <string>HXR Rate</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="PyDMLabel" name="nc_time_source_rbv">
+      <widget class="PyDMLabel" name="soft_rate_rbv">
        <property name="toolTip">
         <string/>
        </property>
@@ -109,9 +75,9 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="name_label">
+      <widget class="QLabel" name="rate_rbv_label">
        <property name="text">
-        <string>Name</string>
+        <string>Rate RBV</string>
        </property>
       </widget>
      </item>

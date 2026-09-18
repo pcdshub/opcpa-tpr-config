@@ -7,19 +7,14 @@ from os import path
 import happi
 import yaml
 from ophyd import EpicsSignal
-from psdaq.cas.pvedit import Pv
-from psdaq.seq.seqprogram import SeqUser
 from pydm import Display
 from pydm import widgets as pydm_widgets
 from qtpy import QtWidgets
-from xpm_prog import (allowed_goose_rates, sc_factors, nc_factors,
-                make_base_rates,
-                make_base_sequence, make_sequence_sc,
-                make_sequence_nc
-                )
+from xpm_prog import (allowed_goose_rates, build_base_sequence,
+                      build_laser_sequence, make_possible_rates, nc_factors,
+                      sc_factors, validate_goose_len, write_xpm_config)
 
 logger = logging.getLogger(__name__)
-
 
 def read_config(config_file):
     """
@@ -40,22 +35,18 @@ class NCMetadataDisplay(Display):
     ):
         super().__init__(parent, **kwargs)
 
-    def setup_display(self, config, debug):
+    def setup_display(self, config):
         """
         Run the things we would run during init but can't because I can't
         figure out how to pass variables to sub-displays at init....
         """
-        self._debug = debug
-
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
-        if self._debug:
-            print(f"Read configuration file: {config}")
-            cfg_keys = self._config.keys()
-            print(f"Configuration sections: {cfg_keys}")
-            print(self._config)
+        logger.info(f"Read configuration file: {config}")
+        logger.debug(f"Configuration sections: {self._config.keys()}")
+        logger.debug(f"{self._config}")
 
         self.update_pvs()
 
@@ -66,10 +57,11 @@ class NCMetadataDisplay(Display):
         #  metadata
         nc_base = self._config['main']['nc_meta_pv']
 
-        if self._debug:
-            print(f"SC metadata base PV: {nc_base}")
+        logger.debug(f"NC metadata base PV: {nc_base}")
 
-        # TODO: find relevant NC metadata PVs to display
+        self.rate_rbv.set_channel(f"ca://{nc_base}:LCLSBEAMRATE")
+        self.hard_rate_rbv.set_channel(f"ca://{nc_base}:NC_HARDRATE")
+        self.soft_rate_rbv.set_channel(f"ca://{nc_base}:NC_SOFTRATE")
 
         # self.pattern_name_rbv.set_channel(f"ca://{nc_base}:NAME")
 
@@ -93,22 +85,18 @@ class SCMetadataDisplay(Display):
     ):
         super().__init__(parent, **kwargs)
 
-    def setup_display(self, config, debug):
+    def setup_display(self, config):
         """
         Run the things we would run during init but can't because I can't
         figure out how to pass variables to sub-displays at init....
         """
-        self._debug = debug
-
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
-        if self._debug:
-            print(f"Read configuration file: {config}")
-            cfg_keys = self._config.keys()
-            print(f"Configuration sections: {cfg_keys}")
-            print(self._config)
+        logger.info(f"Read configuration file: {config}")
+        logger.debug(f"Configuration sections: {self._config.keys()}")
+        logger.debug(f"{self._config}")
 
         self.update_pvs()
 
@@ -119,8 +107,7 @@ class SCMetadataDisplay(Display):
         # SC metadata
         sc_base = self._config['main']['sc_meta_pv']
 
-        if self._debug:
-            print(f"SC metadata base PV: {sc_base}")
+        logger.debug(f"SC metadata base PV: {sc_base}")
 
         self.pattern_name_rbv.set_channel(f"ca://{sc_base}:NAME")
         self.rate_rbv.set_channel(f"ca://{sc_base}:RATE_RBV")
@@ -160,7 +147,7 @@ class LaserConfigDisplay(Display):
     nc_bucket_rbv: pydm_widgets.PyDMLabel
     sc_bucket_is_synced: pydm_widgets.PyDMByteIndicator
     sc_bucket_is_synced_label: pydm_widgets.PyDMLabel
-    
+
     start_bucket_inputs_nc: QtWidgets.QWidget
     nc_bucket_edit: QtWidgets.QLineEdit
 
@@ -170,8 +157,14 @@ class LaserConfigDisplay(Display):
     total_rate_label: QtWidgets.QLabel
     goose_rate_box: QtWidgets.QComboBox
     goose_rate_label: QtWidgets.QLabel
+    goose_effective_rate_label: QtWidgets.QLabel
     goose_arrival_box: QtWidgets.QComboBox
     goose_arrival_label: QtWidgets.QLabel
+    goose_start_label: QtWidgets.QLabel
+    goose_start_input: QtWidgets.QLineEdit
+    goose_len_label: QtWidgets.QLabel
+    goose_len_input: QtWidgets.QLineEdit
+
 
     apply_button: pydm_widgets.PyDMPushButton
     status_label: QtWidgets.QLabel
@@ -183,13 +176,11 @@ class LaserConfigDisplay(Display):
     ):
         super().__init__(parent, **kwargs)
 
-    def setup_display(self, config, debug):
+    def setup_display(self, config):
         """
         Run the things we would run during init but can't because I can't
         figure out how to pass variables to sub-displays at init....
         """
-        self._debug = debug
-
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
@@ -198,11 +189,9 @@ class LaserConfigDisplay(Display):
         self._engine1 = int(self._config['main']['engine1'])
         self._engine2 = int(self._config['main']['engine2'])
 
-        if self._debug:
-            print(f"Read configuration file: {config}")
-            cfg_keys = self._config.keys()
-            print(f"Configuration sections: {cfg_keys}")
-            print(self._config)
+        logger.info(f"Read configuration file: {config}")
+        logger.debug(f"Configuration sections: {self._config.keys()}")
+        logger.debug(f"{self._config}")
 
         self.status_label.setText("Status: Idle")
         # Hiding this because the status doesn't work well without threading
@@ -211,7 +200,7 @@ class LaserConfigDisplay(Display):
 
         self.update_pvs()
 
-        self._base_rates: list = make_base_rates(nc_factors)
+        self._base_rates: list = make_possible_rates(nc_factors)
         self.update_base_rates(False)
 
         self.update_goose_rates()
@@ -232,12 +221,15 @@ class LaserConfigDisplay(Display):
             self.update_bucket_control_vis
         )
 
+        self.goose_len_input.editingFinished.connect(self._validate_goose_len)
+
+
     def update_pvs(self):
         """
         Modify RBV widgets to use the PV(s) specified in the config file.
         """
         # Event code data
-        xpm_pv = self._config['main']['xpm_pv']
+        xpm_pv = self._config['main'].get('xpm_pv', "NA")
         on_time_idx = self._engine1 * 4
         off_time_idx = (self._engine1 * 4) + 1
         all_shots_idx = (self._engine1 * 4) + 2
@@ -289,13 +281,12 @@ class LaserConfigDisplay(Display):
         }
         ]'''
 
-        if self._debug:
-            print(f"Engine 1: {self._engine1}")
-            print(f"Engine 2: {self._engine2}")
-            print(f"On time EC: {self._on_time}")
-            print(f"Off time EC: {self._off_time}")
-            print(f"On time index: {on_time_idx}")
-            print(f"Off time index: {off_time_idx}")
+        logger.debug(f"Engine 1: {self._engine1}")
+        logger.debug(f"Engine 2: {self._engine2}")
+        logger.debug(f"On time EC: {self._on_time}")
+        logger.debug(f"Off time EC: {self._off_time}")
+        logger.debug(f"On time index: {on_time_idx}")
+        logger.debug(f"Off time index: {off_time_idx}")
 
     def ui_filename(self):
         return "rep_rate_config.ui"
@@ -308,10 +299,12 @@ class LaserConfigDisplay(Display):
     def update_base_rates(self, is_superconducting):
         if is_superconducting:
             factors = sc_factors
+            self._clock_rate = 910000
         else:
             factors = nc_factors
-        
-        self._base_rates = make_base_rates(factors)
+            self._clock_rate = 120
+
+        self._base_rates = make_possible_rates(factors)
         # Restrict allowed rates to > 1kHz for sc and >5hz for NC, but keep all rates in
         # self._base_rates for allowed goose rate calculation
         if is_superconducting:
@@ -324,12 +317,11 @@ class LaserConfigDisplay(Display):
             if rate <rate_limit:
                 continue
             self.total_rate_box.addItem(str(rate))
-        
+
         # always select the highest rate when switching menus
         self.total_rate_box.setCurrentIndex(self.total_rate_box.count() - 1)
 
-        if self._debug:
-            print(f"Allowed base rates: {self._base_rates}")
+        logger.debug(f"Allowed base rates: {self._base_rates}")
 
     @property
     def base_rate(self):
@@ -346,6 +338,10 @@ class LaserConfigDisplay(Display):
         """
         self.goose_rate_box.setVisible(self.goose_enabled)
         self.goose_rate_label.setVisible(self.goose_enabled)
+        self.goose_len_label.setVisible(self.goose_enabled)
+        self.goose_len_input.setVisible(self.goose_enabled)
+        self.goose_start_label.setVisible(self.goose_enabled)
+        self.goose_start_input.setVisible(self.goose_enabled)
 
     def update_goose_rates(self):
         if self._base_rates is not None and self.base_rate is not None:
@@ -354,21 +350,23 @@ class LaserConfigDisplay(Display):
                 self._base_rates
             )
             self.goose_rate_box.clear()
+            self.goose_len_input.setText("1")
+            self.goose_start_input.setText("1")
             for rate in goose_rates:
                 self.goose_rate_box.addItem(str(rate))
-            if self._debug:
-                print(f"Requested base rate: {rate}")
-                print(f"Allowed goose rates: {goose_rates}")
+            logger.debug(f"Requested base rate: {rate}")
+            logger.debug(f"Allowed goose rates: {goose_rates}")
 
     @property
     def goose_rate(self):
         return int(self.goose_rate_box.currentText())
 
     def update_goose_arrival(self):
-        cfgs = self._config['goose_arrival_configs']
+        cfgs = self._config.get('goose_arrival_configs', None)
+        if cfgs is None:
+            return
         if cfgs is not None:
-            if self._debug:
-                print(f"Goose arrival configs: {cfgs}")
+            logger.debug(f"Goose arrival configs: {cfgs}")
             for name, cfg in cfgs.items():
                 text = cfg['desc']
                 cfg.pop('desc', None)
@@ -418,6 +416,20 @@ class LaserConfigDisplay(Display):
     def nc_manual_bucket(self):
         return int(self.nc_bucket_edit.text())
 
+    def _validate_goose_len(self):
+        """Clamp goose_len_input to valid range via validate_goose_len."""
+        if self.base_rate is None or not self.goose_enabled:
+            return
+        try:
+            goose_len = int(self.goose_len_input.text())
+        except ValueError:
+            logger.warning(f"invalid goose len {self.goose_len_input.text()}, reverted to 1")
+            goose_len = 1
+        base_div = self._clock_rate // self.base_rate
+        goose_div = self._clock_rate // self.goose_rate
+        valid = validate_goose_len(base_div, goose_div, goose_len)
+        self.goose_len_input.setText(str(valid))
+
 
 class ExpertDisplay(Display):
     """
@@ -442,20 +454,21 @@ class ExpertDisplay(Display):
             path.dirname(path.realpath(__file__)), self.ui_filename()
         )
 
-    def setup_display(self, config, debug):
-
-        self._debug = debug
+    def setup_display(self, config):
 
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
-        if self._config is not None:
+        happi_db_path = self._config['main'].get('laser_database',None)
+        if happi_db_path is not None:
             self._db = happi.Client(
-                path=self._config['main']['laser_database']
+                path=happi_db_path
             )
+        else:
+            self._db = None
 
-        xpm_pv = self._config['main']['xpm_pv']
+        xpm_pv = self._config['main'].get('xpm_pv', "NA")
         self.xpm_table.set_channel(f"pva://{xpm_pv}:SEQCODES")
 
         self.configure_rbv_frames()
@@ -631,38 +644,31 @@ class UserConfigDisplay(Display):
         self,
         parent=None,
         config: str = "",
-        debug: bool = False,
         **kwargs
     ):
         super().__init__(parent, **kwargs)
 
-        self.laser_config_widget.setup_display(config, debug)
+        self.laser_config_widget.setup_display(config)
 
-        self.sc_metadata_widget.setup_display(config, debug)
+        self.sc_metadata_widget.setup_display(config)
 
-        self.nc_metadata_widget.setup_display(config, debug)
+        self.nc_metadata_widget.setup_display(config)
 
-        self.expert_display_widget.setup_display(config, debug)
-
-        self._debug = debug
+        self.expert_display_widget.setup_display(config)
 
         self._config = read_config(config)
         if self._config is None:
             raise ValueError(f"Could not read config file {config}")
 
         if self._config is not None:
-            self._db = happi.Client(
-                path=self._config['main']['laser_database']
-            )
+            db_path = self._config.get('main', {}).get('laser_database')
+            if db_path is None:
+                self._db = None
+            else:
+                self._db = happi.Client(path=db_path)
 
         self._engine1 = int(self._config['main']['engine1'])
         self._engine2 = int(self._config['main']['engine2'])
-        xpm_pv = self._config['main']['xpm_pv']
-
-        # Sequence engine for on/off time codes
-        self._LasSeq = SeqUser(f"{xpm_pv}:SEQENG:{self._engine1}")
-        # Sequence engine for base laser rate and diagnostic codes
-        self._BaseSeq = SeqUser(f"{xpm_pv}:SEQENG:{self._engine2}")
 
         self.screen_title.setText(self._config['main']['title'])
 
@@ -717,29 +723,12 @@ class UserConfigDisplay(Display):
             self.laser_config_widget.start_timeslot_inputs.show()
             self.laser_config_widget.start_bucket_inputs_sc.hide()
             self.laser_config_widget.start_bucket_inputs_nc.show()
-        
 
-    @property
-    def debug(self):
-        return self._debug
-
-    @debug.setter
-    def debug(self, value):
-        self._debug = bool(value)
-
-    @property
-    def db(self):
-        if self.config is not None:
-            self._db = happi.Client(
-                path=self._config['main']['laser_database']
-            )
-            return self._db
-        return None
 
     @property
     def expert_mode(self):
         return self.expert_checkbox.isChecked()
-    
+
     @property
     def is_superconducting(self):
         return self.nc_sc_selection.currentIndex() == 1
@@ -780,6 +769,9 @@ class UserConfigDisplay(Display):
         sig.put(t)
 
     def apply_device_config(self):
+        if self._db is None:
+            #no devices need configuration
+            return
         supported_devices = [
             "pcdsdevices.tpr.TprTrigger",
             "ophyd.signal.EpicsSignal",
@@ -800,14 +792,12 @@ class UserConfigDisplay(Display):
                     if devclass == "ophyd.signal.EpicsSignal":
                         if 'val' in config.keys():
                             instance.put(config['val'])
-                            if self._debug:
-                                print(f"Put {device} {config['val']}")
+                            logger.info(f"Put {device} {config['val']}")
                         else:
                             raise Exception("Missing 'val' for EpicsSignal")
                     else:
                         instance.configure(config)
-                        if self._debug:
-                            print(f"Configure {device} {config}")
+                        logger.info(f"Configure {device} {config}")
 
     def calc_tic_averaging(self, total_rate):
         """
@@ -825,81 +815,54 @@ class UserConfigDisplay(Display):
         Generate and apply the XPM configuration for the laser on/off time
         event codes.
         """
+        try:
+            goose_len = int(self.laser_config_widget.goose_len_input.text())
+        except ValueError:
+            goose_len = 1
+        try:
+            goose_start = int(self.laser_config_widget.goose_start_input.text())
+        except ValueError:
+            goose_start = 1
 
-        fiducials_per_period = 910000 if self.is_superconducting else 120        
+        goose_rate = (
+            self.laser_config_widget.goose_rate
+            if self.laser_config_widget.goose_enabled
+            else None
+        )
 
-        base_div = fiducials_per_period//self.laser_config_widget.base_rate
-        if self.laser_config_widget.goose_enabled:
-            goose_div = fiducials_per_period//self.laser_config_widget.goose_rate
-        else:
-            goose_div = None
+        seqdesc, instrset = build_laser_sequence(
+            is_sc=self.is_superconducting,
+            base_rate=self.laser_config_widget.base_rate,
+            goose_rate=goose_rate,
+            goose_enabled=self.laser_config_widget.goose_enabled,
+            offset=self.offset,
+            start_ts1=self.laser_config_widget.start_ts1,
+            goose_len=goose_len,
+            goose_start=goose_start,
+            bay=self._config['main']['bay'],
+        )
 
-        if self._debug:
-            print("Applying laser rates")
-            print(f"Base rate: {self.laser_config_widget.base_rate}")
-            print(f"Goose rate: {self.laser_config_widget.goose_rate}")
-            print(f"Goose arrival: {self.laser_config_widget.arrival_config}")
-            print(f"Base div: {base_div}")
-            print(f"Goose div: {goose_div}")
-            print(f"Offset: {self.offset}")
-
-        if self.is_superconducting:
-            instrset = make_sequence_sc(base_div, goose_div, self.offset, self._debug)
-        else:
-            instrset = make_sequence_nc(base_div, self.laser_config_widget.start_ts1, goose_div) 
-
-        bay = self._config['main']['bay']
-        seqdesc = {0: f"{bay} On time shots", 1: f"{bay} Goose shots",
-                   2: f"{bay} All laser shots", 3: ""}
-
-        self.write_xpm_config(seqdesc, instrset, self._LasSeq, self._engine1)
+        xpm_pv = self._config['main'].get('xpm_pv', None)
+        if xpm_pv is not None:
+            write_xpm_config(xpm_pv, self._engine1, seqdesc, instrset)
 
     def apply_base_rates(self):
         """
         Generate and apply the XPM configuration for the "base" laser rates
         that should always be available.
         """
-        if self._debug:
-            print("Applying base rates")
-            print(f"Offset: {self.offset}")
+        logger.info("Applying base rates")
+        logger.info(f"Offset: {self.offset}")
 
-        bay = self._config['main']['bay']
-        seqdesc = {0: f"{bay} 71.4kHz", 1: f"{bay} 35.7kHz", 2: f"{bay} 102Hz",
-                3: f"{bay} 5Hz"}
-
-        instrset = make_base_sequence(self.offset, firstSyncAC=(not self.is_superconducting))
-
-        self.write_xpm_config(seqdesc, instrset, self._BaseSeq, self._engine2)
-
-    def write_xpm_config(self, seqdesc, instrset, sequser, nengine):
-        """
-        Function to write a given XPM configuration to the specified engine.
-        """
-        seqcodes_pv = Pv(
-            f"{self._config['main']['xpm_pv']}:SEQCODES", isStruct=True
+        seqdesc, instrset = build_base_sequence(
+            is_sc=self.is_superconducting,
+            offset=self.offset,
+            bay=self._config['main']['bay'],
         )
-        seqcodes = seqcodes_pv.get()
-        desc = seqcodes.value.Description
 
-        sequser.execute('title', instrset, None, sync=True, refresh=False)
-
-        engineMask = 0
-        engineMask |= (1 << nengine)
-
-        for e in range(4*nengine, 4*nengine+4):
-            desc[e] = ''
-        for e, d in seqdesc.items():
-            desc[4*nengine+e] = d
-
-        tmo = 5.0  # EPICS PVA timeout
-
-        v = seqcodes.value
-        v.Description = desc
-        seqcodes.value = v
-        seqcodes_pv.put(seqcodes, wait=tmo)
-
-        pvSeqReset = Pv(f"{self._config['main']['xpm_pv']}:SeqReset")
-        pvSeqReset.put(engineMask, wait=tmo)
+        xpm_pv = self._config['main'].get('xpm_pv', None)
+        if xpm_pv is not None:
+            write_xpm_config(xpm_pv, self._engine2, seqdesc, instrset)
 
     def set_tic_enable(self, enable):
         """
@@ -907,6 +870,8 @@ class UserConfigDisplay(Display):
         prevents the TIC measurement from getting messed up during
         configuration.
         """
+        if self._db is None:
+            return
         if enable:
             conf = {'enable_trg_cmd': 'Enabled', 'enable_ch_cmd': 'Enabled'}
         else:
